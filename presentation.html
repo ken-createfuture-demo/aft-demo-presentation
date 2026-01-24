@@ -25,42 +25,16 @@
             color: var(--cf-dark);
         }
 
-        /* Strict Text Styling */
-        .reveal h1, .reveal h2, .reveal h3, .reveal p, .reveal li, .reveal strong {
+        .reveal h1, .reveal h2, .reveal h3, .reveal p, .reveal li, .reveal strong, .reveal span {
             color: var(--cf-dark) !important;
         }
 
-        .reveal h1 {
-            font-size: 1.8em;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: -0.02em;
-            margin-bottom: 0.4em;
-        }
+        .reveal h1 { font-size: 1.8em; font-weight: 900; text-transform: uppercase; margin-bottom: 0.4em; }
+        .reveal h2 { font-size: 1.2em; font-weight: 900; text-transform: uppercase; position: relative; padding-left: 20px; margin-top: 1.2em; }
+        .reveal h2::before { content: ''; position: absolute; left: 0; top: 2px; bottom: 2px; width: 6px; background-color: var(--cf-lime); }
 
-        .reveal h2 {
-            font-size: 1.2em;
-            font-weight: 900;
-            text-transform: uppercase;
-            position: relative;
-            padding-left: 20px;
-            margin-top: 1.2em;
-            margin-bottom: 0.6em;
-        }
-
-        .reveal h2::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 2px;
-            bottom: 2px;
-            width: 6px;
-            background-color: var(--cf-lime);
-        }
-
-        .reveal section { text-align: left; padding: 0 80px; }
-        .reveal section.center { text-align: center; padding: 0; }
-        .reveal p, .reveal li { font-size: 0.85em; line-height: 1.5; margin-bottom: 0.6em; }
+        .reveal section { text-align: left; padding: 0 80px 100px 80px !important; }
+        .reveal section.center { text-align: center; padding: 0 !important; }
 
         .cf-footer {
             position: absolute;
@@ -69,42 +43,31 @@
             z-index: 1000;
             font-weight: 900;
             font-size: 20px;
-            letter-spacing: 1px;
             color: var(--cf-dark);
             text-transform: uppercase;
         }
         .cf-footer span { color: var(--cf-pink) !important; }
 
-        .reveal .controls { color: var(--cf-pink); }
-        .reveal .progress { height: 6px; background: rgba(10, 0, 26, 0.05); }
-        .reveal .progress span { background: var(--cf-pink); }
-
-        /* MERMAID DISPLAY FIXES */
+        /* FINAL MERMAID FIX: LIMIT HEIGHT AND PREVENT DISTORTION */
         .mermaid {
             background: var(--cf-grey);
             border-radius: 8px;
-            padding: 30px;
+            padding: 20px;
             border-left: 5px solid var(--cf-lime);
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 400px;
-            max-height: 500px;
-            margin: 20px 0;
+            max-height: 400px; /* Forces diagram to stay within slide bounds */
+            margin: 15px auto;
             overflow: hidden !important;
         }
 
         .mermaid svg {
             max-width: 100% !important;
             max-height: 100% !important;
-            height: auto !important;
             width: auto !important;
-        }
-
-        /* Prevent text squashing in nodes */
-        .mermaid .node text {
-            font-family: 'Inter', sans-serif !important;
-            font-size: 16px !important;
+            height: auto !important;
+            display: block;
         }
 
         table { font-size: 0.7em; width: 100%; border-collapse: collapse; }
@@ -114,21 +77,14 @@
 </head>
 
 <body>
-
 <div class="cf-footer">CREATE<span>FUTURE.</span></div>
-
 <div class="reveal">
     <div class="slides">
-
         <section class="center" data-background-color="#ffffff">
             <h1 style="font-size: 3em; margin-bottom: 0;">AWS CONTROL TOWER</h1>
-            <p style="font-weight: 900; letter-spacing: 5px; margin-top: 15px; font-size: 0.9em; text-transform: uppercase;">
-                Account Factory for Terraform
-            </p>
+            <p style="font-weight: 900; letter-spacing: 5px; margin-top: 15px; font-size: 0.9em; text-transform: uppercase;">Account Factory for Terraform</p>
             <div style="height:5px; width:100px; background:var(--cf-lime); margin: 45px auto;"></div>
-            <p style="color: #888 !important; font-size: 0.6em; text-transform: uppercase; letter-spacing: 3px; font-weight: 700;">
-                CloudTeam Presentation 2026
-            </p>
+            <p style="color: #888 !important; font-size: 0.6em; text-transform: uppercase; letter-spacing: 3px; font-weight: 700;">CloudTeam Presentation 2026</p>
         </section>
 
         <section data-markdown="slides/01-aft-overview.md" data-separator="^\s*---\s*$" data-separator-vertical="^\s*\*\*\*\s*$"></section>
@@ -142,7 +98,6 @@
             <h1 style="color:white !important; font-size: 3.5em;">ANY QUESTIONS?</h1>
             <div style="height:3px; width:120px; background:var(--cf-pink); margin: 25px auto;"></div>
         </section>
-
     </div>
 </div>
 
@@ -152,52 +107,33 @@
 <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/plugin/notes/notes.js"></script>
 
 <script>
-    // Critical: htmlLabels set to false prevents label distortion during Reveal.js scaling
     mermaid.initialize({
         startOnLoad: false,
         theme: 'base',
         securityLevel: 'loose',
-        flowchart: {
-            useMaxWidth: true,
-            htmlLabels: false,
-            curve: 'basis'
-        },
+        flowchart: { useMaxWidth: true, htmlLabels: false, curve: 'basis' },
         themeVariables: {
             primaryColor: '#C3FF34',
             primaryTextColor: '#0A001A',
             lineColor: '#0A001A',
-            fontSize: '18px',
+            fontSize: '16px',
             fontFamily: 'Inter'
         }
     });
 
-    let deck = new Reveal({
-        hash: true,
-        slideNumber: 'c/t',
-        center: false,
-        transition: 'none',
-        width: 1200,
-        height: 800,
-        margin: 0.1,
-        plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
-    });
-
-    deck.initialize().then(() => {
-        setTimeout(renderMermaid, 300);
-    });
+    let deck = new Reveal({ hash: true, slideNumber: 'c/t', center: false, transition: 'none', width: 1200, height: 800, plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ] });
+    deck.initialize().then(() => { setTimeout(renderMermaid, 300); });
 
     function renderMermaid() {
         const diagrams = document.querySelectorAll('.mermaid:not([data-processed="true"])');
         diagrams.forEach((diagram) => {
             const id = `mermaid-${Math.floor(Math.random() * 10000)}`;
-            const code = diagram.textContent.trim();
-            mermaid.render(id, code).then(({ svg }) => {
+            mermaid.render(id, diagram.textContent.trim()).then(({ svg }) => {
                 diagram.innerHTML = svg;
                 diagram.setAttribute('data-processed', 'true');
             });
         });
     }
-
     deck.on('slidechanged', () => renderMermaid());
 </script>
 </body>

@@ -33,7 +33,7 @@ graph TD
     MA --- LA[Log Archive]
     MA --- AA[Audit Account]
     
-    style MA fill:#C3FF34,stroke:#0A001A,stroke-width:4px
+    style MA fill:#C3FF34,stroke:#0A001A,stroke-width:3px
     style LA fill:#F8F8FA,stroke:#0A001A
     style AA fill:#F8F8FA,stroke:#0A001A
 
