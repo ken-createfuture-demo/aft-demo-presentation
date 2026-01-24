@@ -1,5 +1,3 @@
-This is the final, production-ready version of **`01-aft-overview.md`**. It incorporates the **CreateFuture** branding, the foundational account table for the engineers, and correctly closed code blocks for the presentation.
-
 ```markdown
 # AFT Overview & Requirements
 
