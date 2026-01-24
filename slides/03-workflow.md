@@ -70,13 +70,3 @@ Commit it. AFT handles the rest.
 **SSO access configured** - Identity Centre access enabled
 
 ---
-
-## When Things Go Wrong
-
-**Validation fails:** Request rejected immediately, error in CloudWatch logs
-
-**Service Catalog fails:** Automatic retry with exponential backoff
-
-**Customisation fails:** Pipeline stops at failed stage, check CodeBuild logs
-
-**You'll get an SNS notification for failures** - Configure the topic during AFT deployment
