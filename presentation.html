@@ -29,15 +29,43 @@
           color: var(--cf-dark) !important;
         }
 
-        .reveal h1 { font-size: 1.8em; font-weight: 900; text-transform: uppercase; margin-bottom: 0.3em; }
-        .reveal h2 { font-size: 1.1em; font-weight: 900; text-transform: uppercase; position: relative; padding-left: 20px; margin-top: 0.4em; }
-        .reveal h2::before { content: ''; position: absolute; left: 0; top: 2px; bottom: 2px; width: 6px; background-color: var(--cf-lime); }
+        .reveal h1 {
+          font-size: 1.8em;
+          font-weight: 900;
+          text-transform: uppercase;
+          margin-bottom: 0.3em;
+        }
 
-        /* SECTION LAYOUT: Force standard left-alignment for text */
+        .reveal h2 {
+          font-size: 1.1em;
+          font-weight: 900;
+          text-transform: uppercase;
+          position: relative;
+          padding-left: 20px;
+          margin-top: 0.4em;
+        }
+
+        .reveal h2::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 2px;
+          bottom: 2px;
+          width: 6px;
+          background-color: var(--cf-lime);
+        }
+
+        /* Standard slide layout */
         .reveal section {
           text-align: left;
           padding: 0 60px 80px 60px !important;
           box-sizing: border-box;
+        }
+
+        /* ✅ IMPORTANT: restore proper center slides (title + closing) */
+        .reveal section.center {
+          text-align: center !important;
+          padding: 0 !important;
         }
 
         .reveal p, .reveal li {
@@ -46,44 +74,48 @@
           margin-bottom: 0.4em;
         }
 
-        /* --- THE ULTIMATE IMAGE CENTERING FIX --- */
-        /* display: block + margin: auto ignores parent text-alignment */
+        /* Images */
         .reveal img {
           display: block !important;
-          margin-left: auto !important;
-          margin-right: auto !important;
-          margin-top: 25px !important;
-          margin-bottom: 25px !important;
-          max-height: 42vh !important;
+          margin: 20px auto !important;
+          max-width: 92% !important;
+          max-height: 52vh !important;
           width: auto !important;
+          height: auto !important;
           border-radius: 12px;
           background: var(--cf-grey);
-          padding: 15px;
+          padding: 14px;
           border-left: 6px solid var(--cf-lime);
           box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+          box-sizing: border-box;
         }
 
-        /* Center Mermaid diagrams using the same logic */
+        /* ✅ Mermaid container: NO fit-content, NO hidden overflow, NO internal scrolling */
         .mermaid {
           background: var(--cf-grey);
           border-radius: 10px;
-          padding: 16px;
+          padding: 14px;
           border-left: 6px solid var(--cf-lime);
-          display: block !important;
-          margin-left: auto !important;
-          margin-right: auto !important;
-          margin-top: 20px;
-          margin-bottom: 20px;
-          max-height: 45vh;
-          width: fit-content;
-          overflow: hidden;
+
+          display: block;
+          width: 100%;
+          max-width: 100%;
+
+          margin: 18px auto;
+          box-sizing: border-box;
+
+          overflow: visible;     /* ✅ key: stop diagram being chopped */
         }
 
+        /* ✅ Mermaid SVG responsive + allow labels outside bounds */
         .mermaid svg {
-            max-width: 100% !important;
-            max-height: 100% !important;
-            display: block;
-            margin: 0 auto;
+          width: 100% !important;
+          height: auto !important;
+          max-width: 100% !important;
+
+          overflow: visible !important; /* ✅ key: prevent label clipping */
+          display: block;
+          margin: 0 auto;
         }
 
         .cf-footer {
@@ -102,13 +134,18 @@
 
 <body>
 <div class="cf-footer">CREATE<span>FUTURE.</span></div>
+
 <div class="reveal">
     <div class="slides">
         <section class="center" data-background-color="#ffffff">
             <h1 style="font-size: 3em; margin-bottom: 0;">AWS CONTROL TOWER</h1>
-            <p style="font-weight: 900; letter-spacing: 5px; margin-top: 15px; font-size: 0.9em; text-transform: uppercase;">Account Factory for Terraform</p>
+            <p style="font-weight: 900; letter-spacing: 5px; margin-top: 15px; font-size: 0.9em; text-transform: uppercase;">
+                Account Factory for Terraform
+            </p>
             <div style="height:5px; width:100px; background:var(--cf-lime); margin: 45px auto;"></div>
-            <p style="color: #888 !important; font-size: 0.6em; text-transform: uppercase; letter-spacing: 3px; font-weight: 700;">CloudTeam Presentation 2026</p>
+            <p style="color: #888 !important; font-size: 0.6em; text-transform: uppercase; letter-spacing: 3px; font-weight: 700;">
+                CloudTeam Presentation 2026
+            </p>
         </section>
 
         <section data-markdown="slides/01-aft-overview.md" data-separator="^\n---\n$" data-separator-vertical="^\n\*\*\*\n$"></section>
@@ -140,16 +177,22 @@
     });
 
     const deck = new Reveal({
-      hash: true, slideNumber: 'c/t', center: false, transition: 'none',
-      width: 1200, height: 800, margin: 0.05,
+      hash: true,
+      slideNumber: 'c/t',
+      center: false,
+      transition: 'none',
+      width: 1200,
+      height: 800,
+      margin: 0.05,
       plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
     });
 
     deck.initialize().then(() => {
-        setTimeout(renderMermaid, 300);
+      setTimeout(renderMermaid, 300);
     });
 
     function renderMermaid() {
+      // Convert ```mermaid code blocks into <div class="mermaid">...</div>
       const codeBlocks = document.querySelectorAll('pre code.language-mermaid, pre code.mermaid');
       codeBlocks.forEach(code => {
         if (code.closest('.mermaid')) return;
@@ -159,15 +202,27 @@
         code.parentElement.replaceWith(wrapper);
       });
 
+      // Render all unprocessed mermaid blocks
       const diagrams = document.querySelectorAll('.mermaid:not([data-processed="true"])');
       diagrams.forEach(diagram => {
         const id = `m-${Math.random().toString(16).slice(2)}`;
         mermaid.render(id, diagram.textContent).then(({ svg }) => {
           diagram.innerHTML = svg;
           diagram.setAttribute('data-processed', 'true');
+
+          // Ensure SVG is responsive + not clipped
+          const svgEl = diagram.querySelector('svg');
+          if (svgEl) {
+            svgEl.removeAttribute('height');
+            svgEl.removeAttribute('width');
+            svgEl.style.width = '100%';
+            svgEl.style.height = 'auto';
+            svgEl.style.overflow = 'visible';
+          }
         });
       });
     }
+
     deck.on('slidechanged', () => { renderMermaid(); });
 </script>
 </body>
