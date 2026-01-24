@@ -3,15 +3,13 @@
 ## The Objective
 **AWS Account Factory for Terraform (AFT)** is our dedicated orchestration engine for AWS Control Tower. We are moving from manual "ticket-ops" to a pure **GitOps** workflow: commit HCL, trigger the pipeline, and have a fully hardened, compliant account ready.
 
-[AWS AFT Documentation](https://docs.aws.amazon.com/controltower/latest/userguide/aft-overview.html)
-
 ---
 
-## Why This Matters (The GitOps Shift)
+## Why This Matters
 * **Standardised Delivery:** No more "snowflake" accounts; every VPC and IAM role is identical by design
 * **Rapid Scaling:** Provision ten project accounts as easily as one
-* **Immutable Audit Trail:** Every change is documented in Git history and mirrored in DynamoDB audit tables
-* **Engineer Autonomy:** Shift-left security by allowing teams to request accounts via Pull Request
+* **Immutable Audit Trail:** Every change documented in Git and DynamoDB
+* **Engineer Autonomy:** Teams request accounts via Pull Request
 
 ---
 
@@ -19,7 +17,6 @@
 
 Before deploying AFT, enable AWS Control Tower (one-time setup):
 
-**What happens:**
 1. Your existing AWS account becomes the **Management Account**
 2. Control Tower **automatically creates** two new accounts:
    - **Log Archive** - centralised logging
@@ -28,26 +25,24 @@ Before deploying AFT, enable AWS Control Tower (one-time setup):
 **What you provide:** Email addresses for Log Archive and Audit  
 **What Control Tower does:** Creates accounts, applies baseline, configures OUs
 
-[AWS Control Tower Setup Guide](https://docs.aws.amazon.com/controltower/latest/userguide/setting-up.html)
-
 ---
 
 ## The Three-Account Architecture
 
 ```mermaid
 graph TD
-    MA[Management Account<br/>AFT Infrastructure] 
-    MA --- LA[Log Archive<br/>CloudTrail logs]
-    MA --- AA[Audit Account<br/>Security findings]
+    MA[Management<br/>AFT Infrastructure] 
+    MA --- LA[Log Archive]
+    MA --- AA[Audit]
     
     style MA fill:#C3FF34,stroke:#0A001A,stroke-width:3px
     style LA fill:#F8F8FA,stroke:#0A001A
     style AA fill:#F8F8FA,stroke:#0A001A
 ```
 
-**Management:** Hosts the AFT stack and orchestration workflows  
-**Log Archive:** Centralised repository for all API and resource logs  
-**Audit:** Central hub for GuardDuty and Security Hub findings
+**Management:** AFT stack and orchestration  
+**Log Archive:** CloudTrail and API logs  
+**Audit:** GuardDuty and Security Hub
 
 ---
 
@@ -55,9 +50,9 @@ graph TD
 
 ```mermaid
 graph LR
-    A[Phase 1:<br/>Enable Control Tower] --> B[Phase 2:<br/>Create Git Repos]
+    A[Phase 1:<br/>Control Tower] --> B[Phase 2:<br/>Git Repos]
     B --> C[Phase 3:<br/>Deploy AFT]
-    C --> D[Phase 4:<br/>Provision Accounts]
+    C --> D[Phase 4:<br/>Provision]
     
     style A fill:#FE7AF6,stroke:#0A001A
     style B fill:#C3FF34,stroke:#0A001A
@@ -65,8 +60,7 @@ graph LR
     style D fill:#C3FF34,stroke:#0A001A
 ```
 
-**One-time setup:** Phases 1-3  
-**Ongoing operations:** Phase 4
+**One-time setup:** Phases 1-3 | **Ongoing:** Phase 4
 
 ---
 
@@ -79,9 +73,7 @@ AFT requires four Git repositories before deployment:
 3. **aft-account-customisations**: Account-specific configurations
 4. **aft-account-provisioning-customisations**: Pre-baseline configurations
 
-**Note:** Repositories can be empty initially but must exist before deploying AFT.
-
-[AFT Repository Requirements](https://docs.aws.amazon.com/controltower/latest/userguide/aft-getting-started.html#aft-repo-requirements)
+Repositories can be empty initially but must exist before deploying AFT.
 
 ---
 
@@ -89,10 +81,10 @@ AFT requires four Git repositories before deployment:
 
 **Before deploying AFT:**
 * [ ] **Control Tower Landing Zone active**
-* [ ] **Three account IDs collected** (Management, Log Archive, Audit)
+* [ ] **Three account IDs collected**
 * [ ] **Four Git repositories created**
-* [ ] **Git integration configured** (PAT or SSH keys)
-* [ ] **AWS IAM Identity Centre (SSO) active**
+* [ ] **Git integration configured**
+* [ ] **AWS IAM Identity Centre active**
 * [ ] **Terraform environment ready**
 
-**Once these are ready, you can deploy AFT.**
+**Once ready, deploy AFT.**
