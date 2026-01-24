@@ -17,16 +17,16 @@
 
 ## Control Tower: The Foundation
 
-Before deploying AFT, you must enable AWS Control Tower. This is a one-time setup:
+Before deploying AFT, enable AWS Control Tower (one-time setup):
 
 **What happens:**
 1. Your existing AWS account becomes the **Management Account**
-2. Control Tower **automatically creates** two new AWS accounts:
-   - **Log Archive** - centralised logging repository
-   - **Audit** - security and compliance hub
+2. Control Tower **automatically creates** two new accounts:
+   - **Log Archive** - centralised logging
+   - **Audit** - security and compliance
 
-**What you provide:** Just the email addresses for Log Archive and Audit accounts  
-**What Control Tower does:** Creates the accounts, applies baseline configuration, configures OU placement
+**What you provide:** Email addresses for Log Archive and Audit  
+**What Control Tower does:** Creates accounts, applies baseline, configures OUs
 
 [AWS Control Tower Setup Guide](https://docs.aws.amazon.com/controltower/latest/userguide/setting-up.html)
 
@@ -76,12 +76,12 @@ graph LR
 
 ## The Four Mandatory Repositories
 
-AFT requires four Git repositories to be created before deployment:
+AFT requires four Git repositories before deployment:
 
-1. **aft-account-request**: The entry point where new account HCL files are committed
-2. **aft-global-customisations**: Resources applied to every account created by AFT
-3. **aft-account-customisations**: Account-specific Terraform configurations
-4. **aft-account-provisioning-customisations**: Configurations applied before the Control Tower baseline
+1. **aft-account-request**: Entry point for new account HCL files
+2. **aft-global-customisations**: Resources applied to all accounts
+3. **aft-account-customisations**: Account-specific configurations
+4. **aft-account-provisioning-customisations**: Pre-baseline configurations
 
 **Note:** Repositories can be empty initially but must exist before deploying AFT.
 
