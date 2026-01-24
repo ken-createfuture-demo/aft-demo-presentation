@@ -5,9 +5,17 @@
 
 ---
 
+## Why This Matters (The GitOps Shift)
+* **Standardised Delivery:** No more "snowflake" accounts; every VPC and IAM role is identical by design
+* **Rapid Scaling:** Provision ten project accounts as easily as one
+* **Immutable Audit Trail:** Every change is documented in Git history and mirrored in DynamoDB audit tables
+* **Engineer Autonomy:** Shift-left security by allowing teams to request accounts via Pull Request
+
+---
+
 ## Control Tower: The Foundation
 
-Before deploying AFT, you must enable AWS Control Tower. This is a **one-time setup**:
+Before deploying AFT, you must enable AWS Control Tower. This is a one-time setup:
 
 **What happens:**
 1. Your existing AWS account becomes the **Management Account**
@@ -17,33 +25,6 @@ Before deploying AFT, you must enable AWS Control Tower. This is a **one-time se
 
 **What you provide:** Just the email addresses for Log Archive and Audit accounts  
 **What Control Tower does:** Creates the accounts, applies baseline configuration, configures OU placement
-
----
-
-## Why This Matters (The GitOps Shift)
-* **Standardised Delivery:** No more "snowflake" accounts; every VPC and IAM role is identical by design
-* **Rapid Scaling:** Provision ten project accounts as easily as one
-* **Immutable Audit Trail:** Every change is documented in Git history and mirrored in DynamoDB audit tables
-* **Engineer Autonomy:** Shift-left security by allowing teams to request accounts via Pull Request
-
----
-
-## The Four-Phase Journey
-
-```mermaid
-graph LR
-    A[Phase 1:<br/>Enable Control Tower] --> B[Phase 2:<br/>Create Git Repos]
-    B --> C[Phase 3:<br/>Deploy AFT]
-    C --> D[Phase 4:<br/>Provision Accounts]
-    
-    style A fill:#FE7AF6,stroke:#0A001A
-    style B fill:#C3FF34,stroke:#0A001A
-    style C fill:#F8F8FA,stroke:#0A001A
-    style D fill:#C3FF34,stroke:#0A001A
-```
-
-**One-time setup:** Phases 1-3  
-**Ongoing operations:** Phase 4
 
 ---
 
@@ -63,6 +44,25 @@ graph TD
 **Management:** Hosts the AFT stack and orchestration workflows  
 **Log Archive:** Centralised repository for all API and resource logs  
 **Audit:** Central hub for GuardDuty and Security Hub findings
+
+---
+
+## The Four-Phase Journey
+
+```mermaid
+graph LR
+    A[Phase 1:<br/>Enable Control Tower] --> B[Phase 2:<br/>Create Git Repos]
+    B --> C[Phase 3:<br/>Deploy AFT]
+    C --> D[Phase 4:<br/>Provision Accounts]
+    
+    style A fill:#FE7AF6,stroke:#0A001A
+    style B fill:#C3FF34,stroke:#0A001A
+    style C fill:#F8F8FA,stroke:#0A001A
+    style D fill:#C3FF34,stroke:#0A001A
+```
+
+**One-time setup:** Phases 1-3  
+**Ongoing operations:** Phase 4
 
 ---
 
