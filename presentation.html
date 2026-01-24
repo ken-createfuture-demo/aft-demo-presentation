@@ -89,6 +89,11 @@
         /* Mermaid & Code */
         .mermaid { background: var(--cf-grey); border-radius: 6px; padding: 20px; border-left: 5px solid var(--cf-lime); }
         .reveal pre { box-shadow: none; border: 1px solid #eee; border-radius: 6px; width: 100%; }
+        .mermaid svg {
+            max-width: 100% !important;
+            height: auto !important;
+            min-height: 400px; /* Forces it to take up more space */
+        }
 
         /* Fix for Table Visibility */
         table { font-size: 0.7em; width: 100%; border-collapse: collapse; }
