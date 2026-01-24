@@ -111,7 +111,7 @@ Open [presentation.html](https://YOUR-USERNAME.github.io/YOUR-REPO/presentation.
 ### Reading the Slides
 
 Navigate through the markdown slides directly:
-- [00 - Prerequisites](slides/00-prerequisites.md)
+- [00 - Prerequisites](slides/01-aft-overview)
 - [01 - Introduction](slides/01-introduction.md)
 - [02 - Architecture](slides/02-architecture.md)
 - [03 - Workflow](slides/03-workflow.md)
