@@ -1,8 +1,7 @@
-```markdown
 # AFT Overview & Requirements
 
 ## The Mission
-**AWS Account Factory for Terraform (AFT)** provides a specialized orchestration layer on top of AWS Control Tower. 
+**AWS Account Factory for Terraform (AFT)** provides a specialized orchestration layer on top of AWS Control Tower.
 It enables a **GitOps** workflow where committing HCL to a repository triggers an automated pipeline that provisions and hardens accounts in under 60 minutes.
 
 ---
@@ -16,10 +15,7 @@ It enables a **GitOps** workflow where committing HCL to a repository triggers a
 ---
 
 ## Foundational Structure
-AFT leverages the **AWS Control Tower** landing zone as its foundation. 
-It orchestrates actions across the three primary accounts created during the landing zone setup:
-
-
+AFT leverages the **AWS Control Tower** landing zone as its foundation.
 
 | Account | Role in AFT | Key Function |
 | :--- | :--- | :--- |
@@ -33,15 +29,14 @@ It orchestrates actions across the three primary accounts created during the lan
 
 ```mermaid
 graph LR
-    A[Management Account<br/>123456789012<br/>Orchestrates AFT] --> B[Log Archive<br/>Centralized Logging]
-    A --> C[Audit Account<br/>Security & Compliance]
+    A[Management Account] --> B[Log Archive]
+    A --> C[Audit Account]
     
     style A fill:#C3FF34,stroke:#0A001A
     style B fill:#F8F8FA,stroke:#0A001A
     style C fill:#F8F8FA,stroke:#0A001A
 
 ```
-
 ---
 
 ## Mandatory Repositories
@@ -57,9 +52,11 @@ To trigger the automated workflow, AFT requires the initialization of **four man
 
 ## Engineer Checklist
 
-* [ ] **Control Tower Enabled**: Landing Zone must be active in the Management account.
-* [ ] **Account IDs Collected**: Management, Audit, and Log Archive IDs are required for deployment.
-* [ ] **Git Integration**: Personal Access Tokens (PAT) or SSH keys configured for your Git provider.
-* [ ] **SSO Configured**: AWS IAM Identity Center active for post-provisioning access.
-* [ ] **Terraform Ready**: Local environment configured to bootstrap the AFT module.
+* [ ] **Control Tower Enabled**: Landing Zone active in Management account.
+* [ ] **Account IDs Collected**: Management, Audit, and Log Archive IDs ready.
+* [ ] **Git Integration**: PAT or SSH keys configured for Git provider.
+* [ ] **SSO Configured**: AWS IAM Identity Center active.
+* [ ] **Terraform Ready**: Environment configured to bootstrap AFT module.
+
+```
 
