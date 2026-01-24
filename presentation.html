@@ -3,224 +3,89 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AWS Control Tower Account Factory for Terraform - Complete Guide</title>
+    <title>AWS Control Tower Account Factory for Terraform</title>
 
-    <!-- Reveal -->
+    <!-- Reveal core -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/theme/white.css">
 
-    <!-- Code highlight theme -->
+    <!-- Highlight theme -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/plugin/highlight/monokai.css">
 
     <!-- Mermaid -->
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 
     <style>
-        .reveal .slides section { text-align: left; padding: 10px 20px; }
-        .reveal .slides section.center { text-align: center; }
+        .reveal section { text-align: left; }
+        .reveal section.center { text-align: center; }
 
-        .reveal h1 { color: #232f3e; font-size: 2em; margin-bottom: 15px; text-transform: none; }
-        .reveal h2 { color: #ff9900; font-size: 1.5em; margin-bottom: 12px; text-transform: none; }
-        .reveal h3 { color: #232f3e; font-size: 1.2em; margin-bottom: 10px; }
-
-        .reveal p { margin: 8px 0; font-size: 0.85em; line-height: 1.4; }
-        .reveal ul, .reveal ol { font-size: 0.8em; margin: 10px 0 10px 25px; line-height: 1.5; }
-        .reveal li { margin: 5px 0; }
-
-        .reveal code {
-          background: #e8f4f8; color: #2c3e50; padding: 2px 6px; border-radius: 3px;
-          font-size: 0.85em; border: 1px solid #d0e8f0;
-        }
-        .reveal pre {
-          background: #f8f9fa; border: 1px solid #dee2e6; padding: 12px; border-radius: 4px;
-          margin: 10px 0; box-shadow: none;
-        }
-        .reveal pre code {
-          background: transparent; padding: 0; font-size: 0.65em; color: #2c3e50;
-          border: none; max-height: 400px; overflow: auto;
-        }
-
-        .reveal table { font-size: 0.65em; margin: 15px auto; border-collapse: collapse; }
-        .reveal table th { background: #232f3e; color: white; padding: 8px; }
-        .reveal table td { padding: 6px; border: 1px solid #ddd; }
-
-        .reveal img { max-height: 380px; max-width: 90%; margin: 10px auto; display: block; }
-
-        .reveal .mermaid { background: white; margin: 10px auto; }
-        .reveal .mermaid svg { max-height: 350px; }
-
+        .reveal h1 { color: #232f3e; }
+        .reveal h2 { color: #ff9900; }
         .reveal strong { color: #ff9900; }
 
-        .reveal .highlight-box {
-          background: #ff9900; color: white; padding: 12px; border-radius: 5px;
-          margin: 10px 0; font-size: 0.9em;
-        }
-        .reveal .phase-box {
-          background: #e8f4f8; border-left: 4px solid #ff9900;
-          padding: 10px; margin: 10px 0; font-size: 0.85em;
+        .reveal .slide-number {
+          background: #232f3e;
+          color: #fff;
         }
 
-        .reveal .slide-number { background-color: #232f3e; color: white; }
-
-        /* Helpful: show something even if JS fails */
-        #boot-status {
-          position: fixed;
-          bottom: 10px;
-          right: 10px;
-          font: 12px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-          background: rgba(35,47,62,0.9);
-          color: white;
-          padding: 6px 8px;
-          border-radius: 6px;
-          z-index: 9999;
+        .reveal .mermaid svg {
+          max-height: 360px;
         }
     </style>
 </head>
 
 <body>
-<div id="boot-status">Loading…</div>
 
 <div class="reveal">
     <div class="slides">
 
-        <!-- TITLE SLIDE -->
+        <!-- TITLE -->
         <section class="center" data-background-color="#232f3e">
-            <h1 style="color: white;">AWS Control Tower</h1>
-            <h2 style="color: #ff9900;">Account Factory for Terraform</h2>
-            <p style="color: white; font-size: 1.2em; margin-top: 30px;">Complete Implementation Guide</p>
-            <p style="color: #aaa; font-size: 0.8em; margin-top: 50px;">From Control Tower Setup to Automated Account Provisioning</p>
+            <h1 style="color:white">AWS Control Tower</h1>
+            <h2>Account Factory for Terraform</h2>
+            <p style="color:#ccc">Complete Implementation Guide</p>
         </section>
 
-        <!-- INTRODUCTION SECTION -->
-        <section>
-            <section class="center">
-                <h1>Introduction</h1>
-                <p>The Challenge and the Solution</p>
-            </section>
+        <!-- MARKDOWN SLIDES -->
+        <section data-markdown="slides/01-introduction.md"
+                 data-separator="^---$"
+                 data-separator-vertical="^\\*\\*\\*$"
+                 data-charset="utf-8"></section>
 
-            <section>
-                <h2>AFT: Account Factory for Terraform</h2>
-                <p style="font-size: 1.3em; margin: 25px 0;">Commit Terraform → Get AWS account in 30-60 minutes</p>
-                <p style="font-size: 1em;">That's the end goal.</p>
-                <p style="margin-top: 30px; font-size: 0.9em; color: #666;">But first, let's understand the problem...</p>
-            </section>
+        <section data-markdown="slides/00-prerequisites.md"
+                 data-separator="^---$"
+                 data-separator-vertical="^\\*\\*\\*$"
+                 data-charset="utf-8"></section>
 
-            <section>
-                <h2>The Problem We Had</h2>
-                <p>Creating AWS accounts manually:</p>
-                <ul>
-                    <li>Takes <strong>days or weeks</strong></li>
-                    <li>Different setup every time</li>
-                    <li>No proper tracking</li>
-                    <li>Doesn't scale at all</li>
-                    <li>Security inconsistencies</li>
-                    <li>No audit trail</li>
-                </ul>
-            </section>
+        <section data-markdown="slides/02-architecture.md"
+                 data-separator="^---$"
+                 data-separator-vertical="^\\*\\*\\*$"
+                 data-charset="utf-8"></section>
 
-            <section>
-                <h2>AFT Fixed It</h2>
-                <ul>
-                    <li><strong>30-60 minutes</strong> instead of days</li>
-                    <li>Same setup every time</li>
-                    <li>Git tracks everything</li>
-                    <li>Works for 1 or 100 accounts</li>
-                    <li>Security baseline included</li>
-                    <li>Complete audit trail</li>
-                </ul>
-            </section>
+        <section data-markdown="slides/03-workflow.md"
+                 data-separator="^---$"
+                 data-separator-vertical="^\\*\\*\\*$"
+                 data-charset="utf-8"></section>
 
-            <section>
-                <h2>Before vs After</h2>
-                <table>
-                    <thead>
-                    <tr><th>What</th><th>Before</th><th>With AFT</th></tr>
-                    </thead>
-                    <tbody>
-                    <tr><td>Time</td><td>Days</td><td>1 hour</td></tr>
-                    <tr><td>Consistency</td><td>Variable</td><td>Always same</td></tr>
-                    <tr><td>Audit</td><td>If you remember</td><td>Automatic</td></tr>
-                    <tr><td>Scale</td><td>One by one</td><td>Many at once</td></tr>
-                    <tr><td>Security</td><td>Manual checks</td><td>Built-in baseline</td></tr>
-                    </tbody>
-                </table>
-            </section>
-        </section>
+        <section data-markdown="slides/04-customisations.md"
+                 data-separator="^---$"
+                 data-separator-vertical="^\\*\\*\\*$"
+                 data-charset="utf-8"></section>
 
-        <!-- PREREQUISITES SECTION -->
-        <section>
-            <section class="center">
-                <h1>Phase 1: Prerequisites</h1>
-                <p>What You Need Before AFT</p>
-            </section>
+        <section data-markdown="slides/05-demo.md"
+                 data-separator="^---$"
+                 data-separator-vertical="^\\*\\*\\*$"
+                 data-charset="utf-8"></section>
 
-            <section>
-                <h2>The Complete Journey</h2>
-                <pre class="mermaid">
-graph TD
-    A[Phase 1: Control Tower<br/>60-90 minutes] --> B[Phase 2: Git Repos<br/>15 minutes]
-    B --> C[Phase 3: Deploy AFT<br/>30-45 minutes]
-    C --> D[Phase 4: Provision Accounts<br/>30-60 min each]
+        <section data-markdown="slides/06-work-done.md"
+                 data-separator="^---$"
+                 data-separator-vertical="^\\*\\*\\*$"
+                 data-charset="utf-8"></section>
 
-    style A fill:#ff9900
-    style B fill:#fff4e1
-    style C fill:#e8f5e9
-    style D fill:#e1f5ff
-          </pre>
-                <p style="font-size: 0.85em; margin-top: 15px;">
-                    <strong>Total one-time setup:</strong> ~2-3 hours<br>
-                    <strong>Then:</strong> Provision accounts in 30-60 minutes each
-                </p>
-            </section>
-
-            <section>
-                <h2>Setting Up Control Tower</h2>
-                <p><strong>In AWS Console:</strong></p>
-                <ol style="font-size: 0.85em;">
-                    <li>Navigate to AWS Control Tower service</li>
-                    <li>Click "Set up landing zone"</li>
-                    <li>Choose home region (e.g., eu-west-2)</li>
-                    <li>Configure account emails:
-                        <ul>
-                            <li>Log Archive: <code>log-archive@example.com</code></li>
-                            <li>Audit: <code>audit@example.com</code></li>
-                        </ul>
-                    </li>
-                    <li>Click "Set up landing zone"</li>
-                    <li><strong>Wait 60-90 minutes</strong></li>
-                </ol>
-            </section>
-        </section>
-
-        <!-- WORKFLOW SECTION (example with email placeholder fixed) -->
-        <section>
-            <section class="center">
-                <h1>Phase 4: Account Provisioning</h1>
-                <p>The Ongoing Process</p>
-            </section>
-
-            <section>
-                <h2>What You Do</h2>
-                <p>Create one Terraform file:</p>
-                <pre><code class="language-hcl">resource "aws_controltower_account_factory_account" "dev" {
-  account_name  = "dev-project-alpha"
-  account_email = "dev-project-alpha@example.com"
-  organisational_unit_id = "ou-dev-123456"
-
-  tags = {
-    Environment = "development"
-    Team        = "platform"
-  }
-}</code></pre>
-                <p>Commit. Push. Done.</p>
-            </section>
-        </section>
-
-        <!-- CLOSING SLIDE -->
+        <!-- CLOSING -->
         <section class="center" data-background-color="#232f3e">
-            <h1 style="color: white;">Questions?</h1>
-            <p style="color: #aaa; font-size: 1em; margin-top: 30px;">Let's discuss</p>
-            <p style="color: #666; font-size: 0.8em; margin-top: 80px;">AWS Control Tower Account Factory for Terraform</p>
+            <h1 style="color:white">Questions?</h1>
+            <p style="color:#aaa">Let’s discuss</p>
         </section>
 
     </div>
@@ -230,65 +95,41 @@ graph TD
 <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.js"></script>
 
 <!-- Plugins -->
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/plugin/markdown/markdown.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/plugin/highlight/highlight.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/plugin/notes/notes.js"></script>
 
 <script>
-    // Convert <pre class="mermaid">...</pre> into <div class="mermaid">...</div>
-    // This makes Mermaid reliably render inside Reveal slides.
-    function convertMermaidBlocks() {
-      const blocks = document.querySelectorAll('pre.mermaid');
-      blocks.forEach((pre) => {
-        const code = pre.textContent; // keep raw mermaid text
+    function renderMermaid(scope = document) {
+      const blocks = scope.querySelectorAll('pre code.language-mermaid');
+      blocks.forEach(code => {
         const div = document.createElement('div');
         div.className = 'mermaid';
-        div.textContent = code;
-        pre.replaceWith(div);
-      });
-    }
-
-    async function initMermaid() {
-      mermaid.initialize({
-        startOnLoad: false,
-        theme: 'default',
-        securityLevel: 'loose',
-        flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' }
+        div.textContent = code.textContent;
+        code.parentElement.replaceWith(div);
       });
 
-      // Render all mermaid nodes
-      await mermaid.run({ querySelector: '.mermaid' });
-    }
-
-    function initReveal() {
-      Reveal.initialize({
-        hash: true,
-        plugins: [ RevealHighlight, RevealNotes ],
-        transition: 'slide',
-        controls: true,
-        progress: true,
-        center: false,
-        slideNumber: true
-      });
-    }
-
-    (async function boot() {
-      try {
-        convertMermaidBlocks();
-        initReveal();
-
-        // Mermaid rendering after Reveal sets up the DOM
-        // slight delay helps when slides are nested
-        setTimeout(() => {
-          initMermaid().catch(console.error);
-        }, 0);
-
-        document.getElementById('boot-status').textContent = 'Loaded ✓';
-        setTimeout(() => document.getElementById('boot-status').remove(), 1500);
-      } catch (e) {
-        console.error(e);
-        document.getElementById('boot-status').textContent = 'Error (check Console)';
+      if (blocks.length > 0) {
+        mermaid.initialize({ startOnLoad: false, securityLevel: 'loose' });
+        mermaid.run({ querySelector: '.mermaid' });
       }
-    })();
+    }
+
+    Reveal.initialize({
+      hash: true,
+      slideNumber: true,
+      controls: true,
+      progress: true,
+      center: false,
+      plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+    }).then(() => {
+      renderMermaid();
+    });
+
+    Reveal.on('slidechanged', event => {
+      renderMermaid(event.currentSlide);
+    });
 </script>
+
 </body>
 </html>
