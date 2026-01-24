@@ -8,167 +8,59 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/theme/white.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/plugin/highlight/github.css">
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 
     <style>
-        :root {
-          --cf-dark: #0A001A;
-          --cf-pink: #FE7AF6;
-          --cf-lime: #C3FF34;
-          --cf-grey: #F8F8FA;
-        }
+        :root { --cf-dark: #0A001A; --cf-pink: #FE7AF6; --cf-lime: #C3FF34; --cf-grey: #F8F8FA; }
+        .reveal { font-family: 'Inter', sans-serif; background-color: #ffffff; color: var(--cf-dark); }
+        .reveal h1, .reveal h2, .reveal p, .reveal li, .reveal strong { color: var(--cf-dark) !important; }
 
-        .reveal {
-          font-family: 'Inter', sans-serif;
-          background-color: #ffffff;
-          color: var(--cf-dark);
-        }
+        .reveal h1 { font-size: 2.2em; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; margin-bottom: 0.3em; }
+        .reveal h2 { font-size: 1.4em; font-weight: 900; text-transform: uppercase; position: relative; padding-left: 25px; margin-top: 1em; }
+        .reveal h2::before { content: ''; position: absolute; left: 0; top: 4px; bottom: 4px; width: 8px; background-color: var(--cf-lime); }
 
-        /* CREATEFUTURE BRAND TYPOGRAPHY */
-        .reveal h1, .reveal h2, .reveal h3, .reveal p, .reveal li, .reveal strong, .reveal span {
-          color: var(--cf-dark) !important;
-        }
-
-        .reveal h1 {
-          font-size: 1.8em;
-          font-weight: 900;
-          text-transform: uppercase;
-          margin-bottom: 0.4em;
-        }
-
-        .reveal h2 {
-          font-size: 1.2em;
-          font-weight: 900;
-          text-transform: uppercase;
-          position: relative;
-          padding-left: 20px;
-          margin-top: 0.6em; /* reduce top margin so content fits */
-        }
-
-        .reveal h2::before {
-          content: '';
-          position: absolute;
-          left: 0;
-          top: 2px;
-          bottom: 2px;
-          width: 6px;
-          background-color: var(--cf-lime);
-        }
-
-        /* IMPORTANT: reduce padding so diagrams + text fit on screen */
-        .reveal section {
-          text-align: left;
-          padding: 0 64px 60px 64px !important; /* was 0 80 100 80 */
-          box-sizing: border-box;
-        }
+        .reveal section { text-align: left; padding: 0 80px 100px 80px !important; }
         .reveal section.center { text-align: center; padding: 0 !important; }
+        .reveal p, .reveal li { font-size: 0.95em; line-height: 1.5; margin-bottom: 0.6em; }
 
-        .reveal p, .reveal li {
-          font-size: 0.85em;
-          line-height: 1.4;
-          margin-bottom: 0.5em;
-        }
-
-        /* FOOTER BRANDING */
-        .cf-footer {
-          position: fixed;
-          bottom: 22px;
-          left: 40px;
-          z-index: 1000;
-          font-weight: 900;
-          font-size: 18px;
-          color: var(--cf-dark);
-          text-transform: uppercase;
-          pointer-events: none;
-        }
+        .cf-footer { position: absolute; bottom: 30px; left: 50px; z-index: 1000; font-weight: 900; font-size: 20px; color: var(--cf-dark); text-transform: uppercase; }
         .cf-footer span { color: var(--cf-pink) !important; }
 
-        /* MERMAID: make diagrams responsive + prevent cropping */
+        /* THE "FEEL THE SPACE" FIX */
         .mermaid {
-          background: var(--cf-grey);
-          border-radius: 10px;
-          padding: 16px 18px;
-          border-left: 6px solid var(--cf-lime);
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          margin: 14px 0;
-          overflow: hidden; /* keeps it clean */
+            background: var(--cf-grey); border-radius: 12px; padding: 30px; border-left: 8px solid var(--cf-lime);
+            margin: 25px 0; display: flex; justify-content: center; align-items: center;
+            min-height: 280px; max-height: 450px; width: 100%; overflow: visible !important;
         }
+        .mermaid svg { width: 100% !important; height: auto !important; max-height: 420px !important; }
 
-        /* KEY FIX: cap height using viewport units */
-        .mermaid svg {
-          max-width: 100% !important;
-          max-height: 52vh !important;   /* prevents huge zoom / cropping */
-          height: auto !important;
-          width: auto !important;
-          display: block;
-        }
-
-        /* Optional: if a slide is still too dense, allow scroll instead of cropping */
-        .reveal .slides section {
-          overflow: hidden;
-        }
-        .reveal .slides section[data-scroll="true"]{
-          overflow: auto;
-        }
-
-        table { font-size: 0.7em; width: 100%; border-collapse: collapse; }
-        th { background: var(--cf-grey); padding: 10px; border: 1px solid #eee; }
-        td { padding: 10px; border: 1px solid #eee; }
+        table { font-size: 0.75em; width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th { background: var(--cf-grey); padding: 12px; border: 2px solid #eee; font-weight: 900; text-transform: uppercase; }
+        td { padding: 12px; border: 2px solid #eee; }
     </style>
 </head>
 
 <body>
 <div class="cf-footer">CREATE<span>FUTURE.</span></div>
-
 <div class="reveal">
     <div class="slides">
-
         <section class="center" data-background-color="#ffffff">
-            <h1 style="font-size: 3em; margin-bottom: 0;">AWS CONTROL TOWER</h1>
-            <p style="font-weight: 900; letter-spacing: 5px; margin-top: 15px; font-size: 0.9em; text-transform: uppercase;">Account Factory for Terraform</p>
-            <div style="height:5px; width:100px; background:var(--cf-lime); margin: 45px auto;"></div>
-            <p style="color: #888 !important; font-size: 0.6em; text-transform: uppercase; letter-spacing: 3px; font-weight: 700;">CloudTeam Presentation 2026</p>
+            <h1 style="font-size: 3.8em; margin-bottom: 0;">AWS CONTROL TOWER</h1>
+            <p style="font-weight: 900; letter-spacing: 8px; margin-top: 15px; font-size: 1.1em; text-transform: uppercase;">Account Factory for Terraform</p>
+            <div style="height:8px; width:120px; background:var(--cf-lime); margin: 50px auto;"></div>
+            <p style="color: #888 !important; font-size: 0.6em; text-transform: uppercase; letter-spacing: 4px; font-weight: 700;">CloudTeam Presentation 2026</p>
         </section>
 
-        <!-- IMPORTANT: use newline-anchored separators (most reliable) -->
-        <section data-markdown="slides/01-aft-overview.md"
-                 data-separator="^\n---\n$"
-                 data-separator-vertical="^\n\*\*\*\n$"
-                 data-charset="utf-8"></section>
-
-        <section data-markdown="slides/02-architecture.md"
-                 data-separator="^\n---\n$"
-                 data-separator-vertical="^\n\*\*\*\n$"
-                 data-charset="utf-8"></section>
-
-        <section data-markdown="slides/03-workflow.md"
-                 data-separator="^\n---\n$"
-                 data-separator-vertical="^\n\*\*\*\n$"
-                 data-charset="utf-8"></section>
-
-        <section data-markdown="slides/04-customisations.md"
-                 data-separator="^\n---\n$"
-                 data-separator-vertical="^\n\*\*\*\n$"
-                 data-charset="utf-8"></section>
-
-        <section data-markdown="slides/05-demo.md"
-                 data-separator="^\n---\n$"
-                 data-separator-vertical="^\n\*\*\*\n$"
-                 data-charset="utf-8"></section>
-
-        <section data-markdown="slides/06-work-done.md"
-                 data-separator="^\n---\n$"
-                 data-separator-vertical="^\n\*\*\*\n$"
-                 data-charset="utf-8"></section>
+        <section data-markdown="slides/01-aft-overview.md" data-separator="^\s*---\s*$" data-separator-vertical="^\s*\*\*\*\s*$"></section>
+        <section data-markdown="slides/02-architecture.md" data-separator="^\s*---\s*$" data-separator-vertical="^\s*\*\*\*\s*$"></section>
+        <section data-markdown="slides/03-workflow.md" data-separator="^\s*---\s*$" data-separator-vertical="^\s*\*\*\*\s*$"></section>
+        <section data-markdown="slides/04-customisations.md" data-separator="^\s*---\s*$" data-separator-vertical="^\s*\*\*\*\s*$"></section>
+        <section data-markdown="slides/06-work-done.md" data-separator="^\s*---\s*$" data-separator-vertical="^\s*\*\*\*\s*$"></section>
 
         <section class="center" data-background-color="#0A001A">
-            <h1 style="color:white !important; font-size: 3.5em;">ANY QUESTIONS?</h1>
-            <div style="height:3px; width:120px; background:var(--cf-pink); margin: 25px auto;"></div>
+            <h1 style="color:white !important; font-size: 4em;">ANY QUESTIONS?</h1>
+            <div style="height:4px; width:150px; background:var(--cf-pink); margin: 30px auto;"></div>
         </section>
-
     </div>
 </div>
 
@@ -178,72 +70,25 @@
 <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/plugin/notes/notes.js"></script>
 
 <script>
-    // Mermaid setup (keep your brand theme, just slightly smaller text)
     mermaid.initialize({
-      startOnLoad: false,
-      theme: 'base',
-      securityLevel: 'loose',
-      flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' },
-      themeVariables: {
-        primaryColor: '#C3FF34',
-        primaryTextColor: '#0A001A',
-        lineColor: '#0A001A',
-        fontSize: '14px',
-        fontFamily: 'Inter'
-      }
+        startOnLoad: false, theme: 'base', securityLevel: 'loose',
+        flowchart: { useMaxWidth: false, htmlLabels: false, curve: 'basis' },
+        themeVariables: { primaryColor: '#C3FF34', primaryTextColor: '#0A001A', lineColor: '#0A001A', fontSize: '32px', fontFamily: 'Inter', fontWeight: '900' }
     });
 
-    const deck = new Reveal({
-      hash: true,
-      slideNumber: 'c/t',
-      center: false,
-      transition: 'none',
-      width: 1200,
-      height: 800,
-      margin: 0.06,        // helps content fit better
-      plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
-    });
-
-    deck.initialize().then(() => {
-      // Render after markdown has injected content
-      setTimeout(renderMermaid, 200);
-    });
+    let deck = new Reveal({ hash: true, slideNumber: 'c/t', center: false, transition: 'none', width: 1200, height: 800, margin: 0.1, plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ] });
+    deck.initialize().then(() => { setTimeout(renderMermaid, 500); });
 
     function renderMermaid() {
-      // Mermaid code blocks from markdown usually arrive as:
-      // <pre><code class="language-mermaid">...</code></pre>
-      const codeBlocks = document.querySelectorAll('pre code.language-mermaid, pre code.mermaid');
-
-      codeBlocks.forEach(code => {
-        // If already converted, skip
-        if (code.closest('.mermaid')) return;
-
-        const wrapper = document.createElement('div');
-        wrapper.className = 'mermaid';
-        wrapper.textContent = code.textContent.trim();
-
-        // Replace <pre> with <div class="mermaid">
-        const pre = code.parentElement;
-        pre.replaceWith(wrapper);
-      });
-
-      // Render all not-yet-processed diagrams
-      const diagrams = document.querySelectorAll('.mermaid:not([data-processed="true"])');
-      diagrams.forEach(diagram => {
-        const id = `m-${Math.random().toString(16).slice(2)}`;
-        mermaid.render(id, diagram.textContent).then(({ svg }) => {
-          diagram.innerHTML = svg;
-          diagram.setAttribute('data-processed', 'true');
-        }).catch(() => {
-          // If parsing fails, keep original text so you can see the error
-          diagram.setAttribute('data-processed', 'true');
+        const diagrams = document.querySelectorAll('.mermaid:not([data-processed="true"])');
+        diagrams.forEach((diagram) => {
+            const id = `mermaid-${Math.floor(Math.random() * 10000)}`;
+            mermaid.render(id, diagram.textContent.trim()).then(({ svg }) => {
+                diagram.innerHTML = svg; diagram.setAttribute('data-processed', 'true');
+            });
         });
-      });
     }
-
-    deck.on('slidechanged', () => {
-      renderMermaid();
-    });
+    deck.on('slidechanged', () => renderMermaid());
 </script>
 </body>
 </html>
