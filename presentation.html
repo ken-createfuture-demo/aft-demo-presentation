@@ -33,23 +33,12 @@
         .reveal h2 { font-size: 1.2em; font-weight: 900; text-transform: uppercase; position: relative; padding-left: 20px; margin-top: 1.2em; }
         .reveal h2::before { content: ''; position: absolute; left: 0; top: 2px; bottom: 2px; width: 6px; background-color: var(--cf-lime); }
 
-        .reveal section { text-align: left; padding: 0 80px 100px 80px !important; }
+        /* REFINED SECTION PADDING */
+        .reveal section { text-align: left; padding: 0 80px 120px 80px !important; }
         .reveal section.center { text-align: center; padding: 0 !important; }
 
-        /* REDUCED PARAGRAPH AND LIST FONT SIZE */
-        .reveal p, .reveal li {
-            font-size: 0.75em; /* Reduced from 0.85em for better layout */
-            line-height: 1.4;
-            margin-bottom: 0.5em;
-        }
-
-        .reveal pre {
-            width: 100%;
-            margin: 0;
-            box-shadow: none;
-            background: var(--cf-grey);
-            border-radius: 8px;
-        }
+        /* REDUCED GLOBAL FONT SIZE FOR BETTER LAYOUT */
+        .reveal p, .reveal li { font-size: 0.75em; line-height: 1.4; margin-bottom: 0.5em; }
 
         .cf-footer {
             position: absolute;
@@ -63,6 +52,7 @@
         }
         .cf-footer span { color: var(--cf-pink) !important; }
 
+        /* THE "STRICT CONTAINER" FIX */
         .mermaid {
             background: var(--cf-grey);
             border-radius: 8px;
@@ -72,12 +62,14 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            max-height: 420px;
+            /* Force the diagram to stay within a specific height */
+            max-height: 400px;
             width: 100%;
             overflow: hidden !important;
         }
 
         .mermaid svg {
+            /* Force SVG to scale down to fit the 400px container */
             max-width: 100% !important;
             max-height: 100% !important;
             height: auto !important;
@@ -131,7 +123,7 @@
             primaryColor: '#C3FF34',
             primaryTextColor: '#0A001A',
             lineColor: '#0A001A',
-            fontSize: '22px',
+            fontSize: '20px',
             fontFamily: 'Inter'
         }
     });
