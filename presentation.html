@@ -7,89 +7,93 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/theme/white.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/plugin/highlight/github.css">
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 
     <style>
         :root {
-            --cf-pink: #ff007a;
-            --cf-purple: #7000ff;
-            --cf-dark: #0f0f12;
-            --cf-white: #ffffff;
-            --cf-grad: linear-gradient(90deg, #ff007a 0%, #7000ff 100%);
+            --cf-dark: #0A001A;   /* Deep Navy/Black */
+            --cf-pink: #FE7AF6;   /* Electric Pink */
+            --cf-lime: #C3FF34;   /* Neon Lime */
+            --cf-grey: #F8F8FA;
         }
 
-        .reveal { font-family: 'Inter', sans-serif; background-color: var(--cf-white); color: var(--cf-dark); }
+        .reveal {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: var(--cf-dark);
+        }
 
-        /* Fixed Font Sizes: No more screen-filling text */
+        /* Typography: Balanced and clean */
         .reveal h1 {
-            font-size: 2.2em;
-            font-weight: 800;
+            font-size: 1.8em;
+            font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: -0.03em;
-            line-height: 1.1;
+            letter-spacing: -0.02em;
+            color: var(--cf-dark);
             margin-bottom: 0.5em;
         }
         .reveal h2 {
-            font-size: 1.4em;
-            font-weight: 800;
+            font-size: 1.3em;
+            font-weight: 900;
             color: var(--cf-dark);
             text-transform: uppercase;
+            position: relative;
+            padding-left: 15px;
             margin-bottom: 1em;
         }
 
-        /* Subtle accent line for headers */
-        .reveal h2::after {
+        /* The Lime Accent Bar from your screenshot */
+        .reveal h2::before {
             content: '';
-            display: block;
-            width: 40px;
-            height: 4px;
-            background: var(--cf-grad);
-            margin-top: 10px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 6px;
+            background-color: var(--cf-lime);
         }
 
-        .reveal section { text-align: left; padding: 0 40px; }
-        .reveal section.center { text-align: center; }
+        .reveal section { text-align: left; padding: 0 60px; }
+        .reveal section.center { text-align: center; padding: 0; }
 
-        /* Accents match the site's Pink/Purple */
-        .reveal strong { color: var(--cf-pink); font-weight: 600; }
-        .reveal ul { margin-top: 20px; }
-        .reveal li { margin-bottom: 15px; font-size: 0.9em; }
+        .reveal strong { color: var(--cf-pink); font-weight: 700; }
+        .reveal p, .reveal li { font-size: 0.85em; line-height: 1.6; }
 
-        /* Navigation & Progress Bar using site colors */
-        .reveal .controls { color: var(--cf-purple); }
-        .reveal .progress { height: 5px; background: rgba(0,0,0,0.05); }
-        .reveal .progress span { background: var(--cf-grad); }
+        /* Navigation & Progress */
+        .reveal .controls { color: var(--cf-pink); }
+        .reveal .progress { height: 4px; background: rgba(10, 0, 26, 0.05); }
+        .reveal .progress span { background: var(--cf-pink); }
         .reveal .slide-number { background: transparent; color: #999; font-size: 0.4em; }
 
         /* Mermaid & Code Blocks */
-        .mermaid { background: #fafafa; border: 1px solid #eee; border-radius: 12px; padding: 20px; }
-        .reveal pre { box-shadow: none; border: 1px solid #eee; border-radius: 8px; width: 100%; }
+        .mermaid { background: var(--cf-grey); border-radius: 4px; padding: 20px; border-left: 4px solid var(--cf-lime); }
+        .reveal pre { box-shadow: none; border: 1px solid #eee; border-radius: 4px; width: 100%; }
 
-        /* Custom Footer Logo */
-        .cf-logo {
+        /* Permanent Footer Logo */
+        .cf-footer {
             position: absolute; bottom: 30px; left: 40px; z-index: 1000;
-            font-weight: 800; font-size: 14px; letter-spacing: 1px;
+            font-weight: 900; font-size: 12px; letter-spacing: 1px; color: var(--cf-dark);
         }
-        .cf-logo span { color: var(--cf-pink); }
+        .cf-footer span { color: var(--cf-pink); }
     </style>
 </head>
 
 <body>
 
-<div class="cf-logo">CREATE<span>FUTURE.</span></div>
+<div class="cf-footer">CREATE<span>FUTURE.</span></div>
 
 <div class="reveal">
     <div class="slides">
 
-        <section class="center" data-background-color="#0f0f12">
-            <h1 style="color:white; font-size: 3em;">AWS CONTROL TOWER</h1>
-            <p style="background: var(--cf-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; letter-spacing: 2px;">
+        <section class="center" data-background-color="#ffffff">
+            <h1 style="font-size: 2.8em; margin-bottom: 0;">AWS CONTROL TOWER</h1>
+            <p style="color: var(--cf-pink); font-weight: 900; letter-spacing: 4px; margin-top: 10px; font-size: 0.9em;">
                 ACCOUNT FACTORY FOR TERRAFORM
             </p>
-            <div style="height:1px; width:100px; background:rgba(255,255,255,0.2); margin: 40px auto;"></div>
-            <p style="color:#666; font-size: 0.5em; text-transform: uppercase; letter-spacing: 3px;">Team Presentation // 2024</p>
+            <div style="height:4px; width:80px; background:var(--cf-lime); margin: 40px auto;"></div>
+            <p style="color: #999; font-size: 0.5em; text-transform: uppercase; letter-spacing: 2px;">Team Presentation // 2024</p>
         </section>
 
         <section data-markdown="slides/00-prerequisites.md"
@@ -121,8 +125,9 @@
                  data-separator="^\s*---\s*$"
                  data-separator-vertical="^\s*\*\*\*\s*$"></section>
 
-        <section class="center" data-background="linear-gradient(45deg, #7000ff, #ff007a)">
-            <h1 style="color:white; font-size: 4em;">ANY <br>QUESTIONS?</h1>
+        <section class="center" data-background-color="#0A001A">
+            <h1 style="color:white; font-size: 3.5em;">ANY QUESTIONS?</h1>
+            <div style="height:2px; width:100px; background:var(--cf-pink); margin: 20px auto;"></div>
         </section>
 
     </div>
@@ -136,10 +141,11 @@
 <script>
     mermaid.initialize({
         startOnLoad: false,
-        theme: 'neutral',
+        theme: 'base',
         themeVariables: {
-            primaryColor: '#7000ff',
-            lineColor: '#0f0f12',
+            primaryColor: '#C3FF34',
+            primaryTextColor: '#0A001A',
+            lineColor: '#0A001A',
             fontSize: '14px'
         }
     });
@@ -149,8 +155,8 @@
         slideNumber: 'c/t',
         center: false,
         transition: 'fade',
-        width: 1200, // Explicit width helps stabilize font sizes
-        height: 800,
+        width: 1100,
+        height: 700,
         margin: 0.1,
         plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
     });
