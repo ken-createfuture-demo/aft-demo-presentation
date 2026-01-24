@@ -34,8 +34,6 @@ Before deploying AFT, enable AWS Control Tower (one-time setup):
 
 ## The Three-Account Architecture
 
-![AWS Control Tower Account Architecture](assets/control-tower-architecture.png)
-
 ```mermaid
 graph TD
     MA[Management Account<br/>AFT Infrastructure] 
@@ -50,8 +48,6 @@ graph TD
 **Management:** Hosts the AFT stack and orchestration workflows  
 **Log Archive:** Centralised repository for all API and resource logs  
 **Audit:** Central hub for GuardDuty and Security Hub findings
-
-[AWS Control Tower Account Structure](https://docs.aws.amazon.com/controltower/latest/userguide/how-control-tower-works.html#what-shared)
 
 ---
 
