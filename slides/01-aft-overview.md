@@ -39,6 +39,8 @@ Before deploying AFT, enable AWS Control Tower (one-time setup):
 
 ## The Four-Phase Journey
 
+![img.png](img.png)
+
 ```mermaid
 graph LR
     A[Phase 1:<br/>Control Tower] --> B[Phase 2:<br/>Git Repos]
