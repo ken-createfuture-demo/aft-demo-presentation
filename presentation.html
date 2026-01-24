@@ -38,40 +38,49 @@
             <p style="color:#ccc">Complete Implementation Guide</p>
         </section>
 
-        <!-- MARKDOWN SLIDES (NOTE: files are in ./slides/) -->
-        <section data-markdown="slides/01-introduction.md"
-                 data-separator="^\\r?\\n---\\r?\\n$"
-                 data-separator-vertical="^\\r?\\n\\*\\*\\*\\r?\\n$"
-                 data-charset="utf-8"></section>
+        <!-- ✅ FIX 1: ORDER (Prereqs first, then Intro) -->
+        <!-- ✅ FIX 2: separators now tolerant: ^---\s*$ -->
 
         <section data-markdown="slides/00-prerequisites.md"
-                 data-separator="^\\r?\\n---\\r?\\n$"
-                 data-separator-vertical="^\\r?\\n\\*\\*\\*\\r?\\n$"
+                 data-separator="^---\\s*$"
+                 data-separator-vertical="^\\*\\*\\*\\s*$"
+                 data-separator-notes="^Note:"
+                 data-charset="utf-8"></section>
+
+        <section data-markdown="slides/01-introduction.md"
+                 data-separator="^---\\s*$"
+                 data-separator-vertical="^\\*\\*\\*\\s*$"
+                 data-separator-notes="^Note:"
                  data-charset="utf-8"></section>
 
         <section data-markdown="slides/02-architecture.md"
-                 data-separator="^\\r?\\n---\\r?\\n$"
-                 data-separator-vertical="^\\r?\\n\\*\\*\\*\\r?\\n$"
+                 data-separator="^---\\s*$"
+                 data-separator-vertical="^\\*\\*\\*\\s*$"
+                 data-separator-notes="^Note:"
                  data-charset="utf-8"></section>
 
         <section data-markdown="slides/03-workflow.md"
-                 data-separator="^\\r?\\n---\\r?\\n$"
-                 data-separator-vertical="^\\r?\\n\\*\\*\\*\\r?\\n$"
+                 data-separator="^---\\s*$"
+                 data-separator-vertical="^\\*\\*\\*\\s*$"
+                 data-separator-notes="^Note:"
                  data-charset="utf-8"></section>
 
         <section data-markdown="slides/04-customisations.md"
-                 data-separator="^\\r?\\n---\\r?\\n$"
-                 data-separator-vertical="^\\r?\\n\\*\\*\\*\\r?\\n$"
+                 data-separator="^---\\s*$"
+                 data-separator-vertical="^\\*\\*\\*\\s*$"
+                 data-separator-notes="^Note:"
                  data-charset="utf-8"></section>
 
         <section data-markdown="slides/05-demo.md"
-                 data-separator="^\\r?\\n---\\r?\\n$"
-                 data-separator-vertical="^\\r?\\n\\*\\*\\*\\r?\\n$"
+                 data-separator="^---\\s*$"
+                 data-separator-vertical="^\\*\\*\\*\\s*$"
+                 data-separator-notes="^Note:"
                  data-charset="utf-8"></section>
 
         <section data-markdown="slides/06-work-done.md"
-                 data-separator="^\\r?\\n---\\r?\\n$"
-                 data-separator-vertical="^\\r?\\n\\*\\*\\*\\r?\\n$"
+                 data-separator="^---\\s*$"
+                 data-separator-vertical="^\\*\\*\\*\\s*$"
+                 data-separator-notes="^Note:"
                  data-charset="utf-8"></section>
 
         <!-- CLOSING -->
@@ -116,8 +125,7 @@
       progress: true,
       center: false,
 
-      // ✅ This is the key fix:
-      // Right arrow will now go through ALL slides including vertical stacks created by '---'
+      // makes arrow navigation feel “PowerPoint-like”
       navigationMode: 'linear',
 
       plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
