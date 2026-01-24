@@ -1,27 +1,26 @@
 # AFT Architecture & Deployment
 
-## Deploying the AFT Stack (One-Time)
+## Deploying the AFT Stack (One-Time Setup)
 
 **In the Management Account, AFT provisions:**
 
-* **Request Framework:** EventBridge, Lambda validators, DynamoDB
-* **Provisioning Framework:** Step Functions, Service Catalog integration, IAM roles
-* **Customisation Framework:** CodePipeline templates, CodeBuild, S3 state buckets
+* **Request Framework:** EventBridge rules, Lambda validators, DynamoDB audit tables
+* **Provisioning Framework:** Step Functions orchestration, Service Catalog integration, cross-account IAM roles
+* **Customisation Framework:** CodePipeline templates, CodeBuild execution environments, S3 state backends
 
-**Deployment:** 30-45 minutes, requires Administrator privileges  
-**Prerequisites:** Control Tower enabled, four Git repos created, account IDs ready
+**Prerequisites:** Control Tower active, four Git repositories initialised, account IDs collected
 
 ---
 
-## Where AFT Lives
+## Where AFT Operates
 
 ```mermaid
 graph TB
     MA[Management Account<br/>AFT Infrastructure] 
-    MA -->|Logs| LA[Log Archive]
+    MA -->|CloudTrail logs| LA[Log Archive]
     MA -->|Security findings| AA[Audit Account]
-    MA -.Cross-account IAM roles.-> NA1[New Account 1]
-    MA -.Cross-account IAM roles.-> NA2[New Account 2]
+    MA -.Cross-account IAM.-> NA1[New Account 1]
+    MA -.Cross-account IAM.-> NA2[New Account 2]
     
     style MA fill:#C3FF34,stroke:#0A001A,stroke-width:3px
     style LA fill:#F8F8FA,stroke:#0A001A
@@ -30,98 +29,126 @@ graph TB
     style NA2 fill:#FE7AF6,stroke:#0A001A
 ```
 
-AFT runs in Management account, uses cross-account IAM roles (no access keys).
+AFT runs centrally in the Management account and uses cross-account IAM roles to provision and configure target accounts. No access keys, no long-lived credentials.
 
 ---
 
-## The Request Lifecycle (Ongoing)
-
-```mermaid
-graph TD
-    A[1. Request] --> B[2. Provisioning]
-    B --> C[3. Customisation]
-    
-    A --- D(Commit HCL to Git)
-    B --- E(AWS creates account)
-    C --- F(Apply configs)
-
-    style A fill:#C3FF34,stroke:#0A001A,stroke-width:3px
-    style B fill:#F8F8FA,stroke:#0A001A
-    style C fill:#FE7AF6,stroke:#0A001A
-```
-
----
-
-## How It Works: The Components
+## The Automated Workflow
 
 ```mermaid
 graph LR
     A[Git Commit] --> B[EventBridge]
-    B --> C[Lambda]
+    B --> C[Lambda Validator]
     C --> D[DynamoDB]
     C --> E[Step Functions]
     E --> F[Service Catalog]
     F --> G[CodePipeline]
+    G --> H[Account Ready]
     
     style A fill:#F8F8FA,stroke:#0A001A
     style E fill:#FE7AF6,stroke:#0A001A,stroke-width:3px
-    style G fill:#C3FF34,stroke:#0A001A
+    style G fill:#C3FF34,stroke:#0A001A,stroke-width:2px
+    style H fill:#C3FF34,stroke:#0A001A,stroke-width:3px
 ```
 
-**1. Request Validation:**
-* EventBridge detects Git commit
-* Lambda validates HCL (syntax, duplicates, OU IDs)
-* DynamoDB stores request metadata
+---
 
-**2. Account Provisioning:**
-* Step Functions orchestrates workflow (with retry logic)
-* Service Catalog creates account + Control Tower baseline (10-15 mins)
-* Cross-account IAM role established
+## Stage 1: Request Validation
 
-**3. Customisation:**
-* CodePipeline spawned per account
-* Terraform applies: Provisioning → Global → Account customisations (30-40 mins)
+**Trigger:** Engineer commits HCL to `aft-account-request` repository
+
+* **EventBridge** detects the commit
+* **Lambda** validates the request (HCL syntax, account name uniqueness, email availability, OU validity)
+* **DynamoDB** persists the validated request metadata for audit trail
+
+**On Failure:** Request rejected immediately, detailed error logs in CloudWatch, Git commit status updated
 
 ---
 
-## Timeline: Commit to Ready
+## Stage 2: Account Provisioning
 
-| Time | Activity |
-|:---|:---|
-| **T+0** | Git commit to `aft-account-request` |
-| **T+2 min** | Lambda validates request |
-| **T+5 min** | Step Functions start orchestration |
-| **T+15 min** | Account created + Control Tower baseline applied |
-| **T+45 min** | All customisations complete |
-| **Done** | Account ready for use |
+**Orchestrator:** Step Functions workflow
 
-**Note:** Multiple accounts provision in parallel. 10 accounts = 60 minutes total, not 600 minutes.
+* **Service Catalog** creates the AWS account
+* **Control Tower** applies baseline configuration:
+    - Guardrails (preventive and detective)
+    - CloudTrail logging to Log Archive
+    - Security Hub integration to Audit account
+    - SSO access configuration
+* **Cross-account IAM role** (`AWSAFTExecution`) established for Terraform operations
+
+**Retry Logic:** Automatic retry with exponential backoff on transient failures  
+**On Persistent Failure:** State persisted in DynamoDB, SNS notification sent to operations team
 
 ---
 
-## Security Architecture
+## Stage 3: Customisation Execution
 
-**State Management:**
+**Executor:** Dedicated CodePipeline spawned per account
+
+Terraform configurations applied in sequence:
+
+1. **Provisioning Customisations** (pre-baseline additions)
+2. **Global Customisations** (security baseline: GuardDuty, Config, CloudWatch)
+3. **Account Customisations** (project-specific: VPCs, IAM roles, applications)
+
+**Approval Gates:** Optional manual approval before apply (configurable per environment)  
+**State Management:** Isolated S3 backend + DynamoDB lock per account
+
+**On Failure:** Pipeline halts at failed stage, execution logs in CodeBuild, manual re-run after Git fix
+
+---
+
+## The Flow: Request to Ready
+
+**Step 1:** Engineer commits HCL request to Git
+
+**Step 2:** EventBridge detects commit, Lambda validates request
+
+**Step 3:** Step Functions orchestrate the workflow
+
+**Step 4:** Service Catalog creates account, Control Tower applies baseline
+
+**Step 5:** Provisioning customisations execute (pre-baseline additions)
+
+**Step 6:** Global customisations deploy (security baseline across all accounts)
+
+**Step 7:** Account customisations finalise (project-specific configurations)
+
+**Done:** Account accessible via SSO, ready for workload deployment
+
+**Note:** AFT processes multiple requests concurrently. Provisioning 10 accounts happens in parallel, not sequentially.
+
+---
+
+## Security & Governance
+
+**State Isolation:**
 * Each account: dedicated S3 bucket + DynamoDB lock table
-* KMS encryption for all state files
+* KMS encryption enforced for all state files
 * No shared state between accounts
 
-**Access Control:**
-* Cross-account IAM roles (no access keys)
-* Least-privilege policies
-* `AWSAFTExecution` role created by Control Tower
+**Access Model:**
+* Cross-account IAM roles with least-privilege policies
+* No access keys or long-lived credentials
+* Temporary STS credentials for all operations
 
-**Governance:**
+**Compliance:**
 * Control Tower guardrails inherited automatically
-* CloudTrail logs → Log Archive account
-* Security findings → Audit account
+* CloudTrail audit logs centralised in Log Archive account
+* Security findings aggregated in Audit account via Security Hub
 
 ---
 
-## Failure Handling
+## The Result
 
-**Validation Fails:** Lambda rejects immediately, logs to CloudWatch  
-**Service Catalog Timeout:** Step Functions retry (3 attempts with backoff)  
-**Terraform Failure:** CodePipeline halts, logs available in CodeBuild
+With AFT deployed, account provisioning becomes self-service:
 
-Every failure state persisted in DynamoDB for troubleshooting.
+1. Engineer writes HCL request file
+2. Pull request reviewed and merged
+3. AFT automatically provisions account
+4. Engineer receives SSO access
+5. Workload deployment begins
+
+**Before:** Manual ticket operations taking days  
+**After:** Automated GitOps workflow
