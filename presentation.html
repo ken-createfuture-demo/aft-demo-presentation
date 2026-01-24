@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CreateFuture | AWS AFT Demo</title>
+    <title>CreateFuture | CloudTeam 2026</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/theme/white.css">
@@ -13,7 +13,7 @@
 
     <style>
         :root {
-            --cf-dark: #0A001A;   /* Your Brand Black */
+            --cf-dark: #0A001A;   /* Brand Deep Black */
             --cf-pink: #FE7AF6;   /* Electric Pink */
             --cf-lime: #C3FF34;   /* Neon Lime */
             --cf-grey: #F8F8FA;
@@ -25,60 +25,67 @@
             color: var(--cf-dark);
         }
 
-        /* All headers and text now strictly use the brand black */
-        .reveal h1, .reveal h2, .reveal h3, .reveal p, .reveal li, .reveal strong {
-            color: var(--cf-dark) !important;
+        /* Strict Black Text Enforcement */
+        .reveal h1, .reveal h2, .reveal h3, .reveal p, .reveal li, .reveal strong, .reveal span {
+            color: var(--cf-dark);
         }
 
         .reveal h1 {
-            font-size: 1.6em;
+            font-size: 1.8em;
             font-weight: 900;
             text-transform: uppercase;
             letter-spacing: -0.02em;
-            margin-bottom: 0.3em;
+            margin-bottom: 0.4em;
         }
 
-        /* Combined Slide Logic: Reduced margins to fit more content */
         .reveal h2 {
-            font-size: 1.1em;
+            font-size: 1.2em;
             font-weight: 900;
             text-transform: uppercase;
             position: relative;
-            padding-left: 15px;
-            margin-top: 1.5em; /* Spacing between combined sections */
-            margin-bottom: 0.5em;
+            padding-left: 20px;
+            margin-top: 1.2em;
+            margin-bottom: 0.6em;
         }
 
-        /* The Lime Accent Bar */
+        /* The Neon Lime Vertical Accent */
         .reveal h2::before {
             content: '';
             position: absolute;
             left: 0;
             top: 2px;
             bottom: 2px;
-            width: 5px;
+            width: 6px;
             background-color: var(--cf-lime);
         }
 
-        .reveal section { text-align: left; padding: 0 60px; }
+        .reveal section { text-align: left; padding: 0 80px; }
         .reveal section.center { text-align: center; padding: 0; }
 
-        .reveal p, .reveal li { font-size: 0.8em; line-height: 1.4; margin-bottom: 0.5em; }
+        .reveal p, .reveal li { font-size: 0.85em; line-height: 1.5; margin-bottom: 0.6em; }
 
-        /* Navigation elements remain Pink for brand flavor */
+        /* Larger CreateFuture Footer Logo */
+        .cf-footer {
+            position: absolute;
+            bottom: 30px;
+            left: 50px;
+            z-index: 1000;
+            font-weight: 900;
+            font-size: 20px; /* Increased size */
+            letter-spacing: 1px;
+            color: var(--cf-dark);
+            text-transform: uppercase;
+        }
+        .cf-footer span { color: var(--cf-pink) !important; }
+
+        /* Navigation UI */
         .reveal .controls { color: var(--cf-pink); }
-        .reveal .progress { height: 4px; background: rgba(10, 0, 26, 0.05); }
+        .reveal .progress { height: 6px; background: rgba(10, 0, 26, 0.05); }
         .reveal .progress span { background: var(--cf-pink); }
 
-        /* Footer styling */
-        .cf-footer {
-            position: absolute; bottom: 30px; left: 40px; z-index: 1000;
-            font-weight: 900; font-size: 12px; letter-spacing: 1px; color: var(--cf-dark);
-        }
-        .cf-footer span { color: var(--cf-pink); }
-
-        /* Mermaid styling */
-        .mermaid { background: var(--cf-grey); border-radius: 4px; padding: 15px; border-left: 4px solid var(--cf-lime); margin-top: 10px; }
+        /* Mermaid & Code */
+        .mermaid { background: var(--cf-grey); border-radius: 6px; padding: 20px; border-left: 5px solid var(--cf-lime); }
+        .reveal pre { box-shadow: none; border: 1px solid #eee; border-radius: 6px; width: 100%; }
     </style>
 </head>
 
@@ -90,12 +97,14 @@
     <div class="slides">
 
         <section class="center" data-background-color="#ffffff">
-            <h1 style="font-size: 2.5em;">AWS CONTROL TOWER</h1>
-            <p style="font-weight: 900; letter-spacing: 4px; margin-top: 10px; font-size: 0.8em;">
-                ACCOUNT FACTORY FOR TERRAFORM
+            <h1 style="font-size: 3em; margin-bottom: 0;">AWS CONTROL TOWER</h1>
+            <p style="font-weight: 900; letter-spacing: 5px; margin-top: 15px; font-size: 0.9em; text-transform: uppercase;">
+                Account Factory for Terraform
             </p>
-            <div style="height:4px; width:60px; background:var(--cf-lime); margin: 30px auto;"></div>
-            <p style="color: #999 !important; font-size: 0.5em; text-transform: uppercase; letter-spacing: 2px;">Team Presentation // 2024</p>
+            <div style="height:5px; width:100px; background:var(--cf-lime); margin: 45px auto;"></div>
+            <p style="color: #888 !important; font-size: 0.6em; text-transform: uppercase; letter-spacing: 3px; font-weight: 700;">
+                CloudTeam Presentation 2026
+            </p>
         </section>
 
         <section data-markdown="slides/00-prerequisites.md"
@@ -128,8 +137,8 @@
                  data-separator-vertical="^\s*\*\*\*\s*$"></section>
 
         <section class="center" data-background-color="#0A001A">
-            <h1 style="color:white !important; font-size: 3em;">ANY QUESTIONS?</h1>
-            <div style="height:2px; width:80px; background:var(--cf-pink); margin: 20px auto;"></div>
+            <h1 style="color:white !important; font-size: 3.5em;">ANY QUESTIONS?</h1>
+            <div style="height:3px; width:120px; background:var(--cf-pink); margin: 25px auto;"></div>
         </section>
 
     </div>
@@ -148,7 +157,7 @@
             primaryColor: '#C3FF34',
             primaryTextColor: '#0A001A',
             lineColor: '#0A001A',
-            fontSize: '14px'
+            fontSize: '16px'
         }
     });
 
@@ -156,9 +165,9 @@
         hash: true,
         slideNumber: 'c/t',
         center: false,
-        transition: 'none', // Removed fade for faster, cleaner switching
-        width: 1000, // Reduced width slightly to keep text lines readable
-        height: 700,
+        transition: 'none',
+        width: 1100,
+        height: 800,
         margin: 0.1,
         plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
     });
