@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Control Tower Account Factory for Terraform - Complete Guide</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/theme/white.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/plugin/highlight/monokai.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    
+    <style>
+        .reveal .slides section {
+            text-align: left;
+            padding: 10px 20px;
+        }
+        .reveal .slides section.center {
+            text-align: center;
+        }
+        .reveal h1 {
+            color: #232f3e;
+            font-size: 2em;
+            margin-bottom: 15px;
+            text-transform: none;
+        }
+        .reveal h2 {
+            color: #ff9900;
+            font-size: 1.5em;
+            margin-bottom: 12px;
+            text-transform: none;
+        }
+        .reveal h3 {
+            color: #232f3e;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        .reveal p {
+            margin: 8px 0;
+            font-size: 0.85em;
+            line-height: 1.4;
+        }
+        .reveal ul, .reveal ol {
+            font-size: 0.8em;
+            margin: 10px 0 10px 25px;
+            line-height: 1.5;
+        }
+        .reveal li {
+            margin: 5px 0;
+        }
+        .reveal code {
+            background: #e8f4f8;
+            color: #2c3e50;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.85em;
+            border: 1px solid #d0e8f0;
+        }
+        .reveal pre {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 12px;
+            border-radius: 4px;
+            margin: 10px 0;
+            box-shadow: none;
+        }
+        .reveal pre code {
+            background: transparent;
+            padding: 0;
+            font-size: 0.65em;
+            color: #2c3e50;
+            border: none;
+            max-height: 400px;
+            overflow: auto;
+        }
+        .reveal table {
+            font-size: 0.65em;
+            margin: 15px auto;
+            border-collapse: collapse;
+        }
+        .reveal table th {
+            background: #232f3e;
+            color: white;
+            padding: 8px;
+        }
+        .reveal table td {
+            padding: 6px;
+            border: 1px solid #ddd;
+        }
+        .reveal img {
+            max-height: 380px;
+            max-width: 90%;
+            margin: 10px auto;
+            display: block;
+        }
+        .reveal .mermaid {
+            background: white;
+            margin: 10px auto;
+        }
+        .reveal .mermaid svg {
+            max-height: 350px;
+        }
+        .reveal strong {
+            color: #ff9900;
+        }
+        .reveal .highlight-box {
+            background: #ff9900;
+            color: white;
+            padding: 12px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-size: 0.9em;
+        }
+        .reveal .phase-box {
+            background: #e8f4f8;
+            border-left: 4px solid #ff9900;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 0.85em;
+        }
+        /* Professional footer */
+        .reveal .slide-number {
+            background-color: #232f3e;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            
+            <!-- TITLE SLIDE -->
+            <section class="center" data-background-color="#232f3e">
+                <h1 style="color: white;">AWS Control Tower</h1>
+                <h2 style="color: #ff9900;">Account Factory for Terraform</h2>
+                <p style="color: white; font-size: 1.2em; margin-top: 30px;">
+                    Complete Implementation Guide
+                </p>
+                <p style="color: #aaa; font-size: 0.8em; margin-top: 50px;">
+                    From Control Tower Setup to Automated Account Provisioning
+                </p>
+            </section>
+
+            <!-- INTRODUCTION SECTION -->
+            <section>
+                <section class="center">
+                    <h1>Introduction</h1>
+                    <p>The Challenge and the Solution</p>
+                </section>
+
+                <section>
+                    <h2>AFT: Account Factory for Terraform</h2>
+                    <p style="font-size: 1.3em; margin: 25px 0;">
+                        Commit Terraform → Get AWS account in 30-60 minutes
+                    </p>
+                    <p style="font-size: 1em;">That's the end goal.</p>
+                    <p style="margin-top: 30px; font-size: 0.9em; color: #666;">
+                        But first, let's understand the problem...
+                    </p>
+                </section>
+
+                <section>
+                    <h2>The Problem We Had</h2>
+                    <p>Creating AWS accounts manually:</p>
+                    <ul>
+                        <li>Takes <strong>days or weeks</strong></li>
+                        <li>Different setup every time</li>
+                        <li>No proper tracking</li>
+                        <li>Doesn't scale at all</li>
+                        <li>Security inconsistencies</li>
+                        <li>No audit trail</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>AFT Fixed It</h2>
+                    <ul>
+                        <li><strong>30-60 minutes</strong> instead of days</li>
+                        <li>Same setup every time</li>
+                        <li>Git tracks everything</li>
+                        <li>Works for 1 or 100 accounts</li>
+                        <li>Security baseline included</li>
+                        <li>Complete audit trail</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Before vs After</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>What</th>
+                                <th>Before</th>
+                                <th>With AFT</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Time</td><td>Days</td><td>1 hour</td></tr>
+                            <tr><td>Consistency</td><td>Variable</td><td>Always same</td></tr>
+                            <tr><td>Audit</td><td>If you remember</td><td>Automatic</td></tr>
+                            <tr><td>Scale</td><td>One by one</td><td>Many at once</td></tr>
+                            <tr><td>Security</td><td>Manual checks</td><td>Built-in baseline</td></tr>
+                        </tbody>
+                    </table>
+                </section>
+            </section>
+
+            <!-- PREREQUISITES SECTION -->
+            <section>
+                <section class="center">
+                    <h1>Phase 1: Prerequisites</h1>
+                    <p>What You Need Before AFT</p>
+                </section>
+
+                <section>
+                    <h2>The Complete Journey</h2>
+                    <pre class="mermaid">
+graph TD
+    A[Phase 1: Control Tower<br/>60-90 minutes] --> B[Phase 2: Git Repos<br/>15 minutes]
+    B --> C[Phase 3: Deploy AFT<br/>30-45 minutes]
+    C --> D[Phase 4: Provision Accounts<br/>30-60 min each]
+    
+    style A fill:#ff9900
+    style B fill:#fff4e1
+    style C fill:#e8f5e9
+    style D fill:#e1f5ff
+                    </pre>
+                    <p style="font-size: 0.85em; margin-top: 15px;">
+                        <strong>Total one-time setup:</strong> ~2-3 hours<br>
+                        <strong>Then:</strong> Provision accounts in 30-60 minutes each
+                    </p>
+                </section>
+
+                <section>
+                    <h2>Phase 1: Control Tower Setup</h2>
+                    <p><strong>FIRST: You need AWS Control Tower</strong></p>
+                    <p style="margin-top: 20px;">This is the foundation for everything.</p>
+                    <div class="phase-box" style="margin-top: 20px;">
+                        <strong>What is Control Tower?</strong><br>
+                        Multi-account AWS environment management service that creates organizational structure, 
+                        establishes guardrails, and sets up centralized logging.
+                    </div>
+                </section>
+
+                <section>
+                    <h2>Control Tower Creates These Accounts</h2>
+                    <pre class="mermaid">
+graph TD
+    A[Management Account<br/>Your existing AWS account] --> B[Control Tower Setup]
+    B --> C[Log Archive Account<br/>Created automatically]
+    B --> D[Audit Account<br/>Created automatically]
+    
+    style A fill:#e1f5ff
+    style C fill:#fff4e1
+    style D fill:#ffe1e1
+                    </pre>
+                    <p style="font-size: 0.85em;"><strong>Control Tower automatically creates two new accounts for you</strong></p>
+                </section>
+
+                <section>
+                    <h2>The Three Foundational Accounts</h2>
+                    <table style="font-size: 0.7em;">
+                        <thead>
+                            <tr>
+                                <th>Account</th>
+                                <th>Purpose</th>
+                                <th>Created By</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Management</strong><br>123456789012</td>
+                                <td>Your original account<br>Where you deploy AFT<br>Controls everything</td>
+                                <td>You (existing)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Log Archive</strong><br>123456789013</td>
+                                <td>Stores CloudTrail logs<br>Centralized logging<br>Compliance auditing</td>
+                                <td>Control Tower</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Audit</strong><br>123456789014</td>
+                                <td>Security tooling<br>Compliance checks<br>Read-only access</td>
+                                <td>Control Tower</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section>
+                    <h2>Setting Up Control Tower</h2>
+                    <p><strong>In AWS Console:</strong></p>
+                    <ol style="font-size: 0.85em;">
+                        <li>Navigate to AWS Control Tower service</li>
+                        <li>Click "Set up landing zone"</li>
+                        <li>Choose home region (e.g., eu-west-2)</li>
+                        <li>Configure account emails:
+                            <ul>
+                                <li>Log Archive: <code><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a9c8deda84c5c6ce84c8dbcac1c0dfcce9ccd1c8c4d9c5cc87cac6c4">[email&#160;protected]</a></code></li>
+                                <li>Audit: <code><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="563721257b3723323f2216332e373b263a337835393b">[email&#160;protected]</a></code></li>
+                            </ul>
+                        </li>
+                        <li>Click "Set up landing zone"</li>
+                        <li><strong>Wait 60-90 minutes</strong></li>
+                    </ol>
+                </section>
+
+                <section>
+                    <h2>Phase 1 Complete: What You Have</h2>
+                    <ul>
+                        <li>✅ Control Tower enabled</li>
+                        <li>✅ Management Account (your original)</li>
+                        <li>✅ Log Archive Account (created)</li>
+                        <li>✅ Audit Account (created)</li>
+                        <li>✅ Organizational structure (OUs)</li>
+                        <li>✅ Basic guardrails active</li>
+                    </ul>
+                    <p style="margin-top: 20px;"><strong>Cost:</strong> ~£10-15/month for Control Tower</p>
+                    <p><strong>Now ready for Phase 2</strong></p>
+                </section>
+
+                <section>
+                    <h2>Phase 2: Git Repositories</h2>
+                    <p><strong>Before deploying AFT, create these four repos:</strong></p>
+                    <ol style="font-size: 0.8em;">
+                        <li><code>aft-account-request</code></li>
+                        <li><code>aft-global-customisations</code></li>
+                        <li><code>aft-account-customisations</code></li>
+                        <li><code>aft-account-provisioning-customisations</code></li>
+                    </ol>
+                    <p style="margin-top: 15px; font-size: 0.85em;">
+                        <strong>Can be empty initially, but must exist</strong>
+                    </p>
+                </section>
+
+                <section>
+                    <h2>Phase 2: Collect Account IDs</h2>
+                    <p><strong>You need these for AFT configuration:</strong></p>
+                    <pre><code class="language-bash"># Management Account ID
+aws sts get-caller-identity --query Account --output text
+# Example output: 123456789012
+
+# Log Archive & Audit Account IDs
+# Check AWS Organizations or Control Tower dashboard
+# Log Archive: 123456789013
+# Audit: 123456789014</code></pre>
+                    <p style="font-size: 0.85em; margin-top: 15px;">
+                        <strong>Write these down - you'll need them next</strong>
+                    </p>
+                </section>
+
+                <section>
+                    <h2>Prerequisites Checklist</h2>
+                    <p><strong>Before deploying AFT, ensure you have:</strong></p>
+                    <ul style="font-size: 0.75em;">
+                        <li>✓ AWS Control Tower enabled</li>
+                        <li>✓ Management Account ID noted</li>
+                        <li>✓ Log Archive Account ID noted</li>
+                        <li>✓ Audit Account ID noted</li>
+                        <li>✓ Home region decided</li>
+                        <li>✓ Four Git repositories created</li>
+                        <li>✓ Git provider credentials ready</li>
+                        <li>✓ Terraform installed locally</li>
+                        <li>✓ AWS CLI configured</li>
+                    </ul>
+                    <p style="margin-top: 15px;"><strong>Once all checked: Ready to deploy AFT!</strong></p>
+                </section>
+            </section>
+
+            <!-- AFT DEPLOYMENT SECTION -->
+            <section>
+                <section class="center">
+                    <h1>Phase 3: Deploy AFT</h1>
+                    <p>One-Time Infrastructure Setup</p>
+                </section>
+
+                <section>
+                    <h2>What Gets Deployed</h2>
+                    <div style="font-size: 0.8em;">
+                        <p><strong>1. Backend Services</strong></p>
+                        <ul>
+                            <li>S3 buckets (state storage)</li>
+                            <li>DynamoDB tables (state locking, request tracking)</li>
+                            <li>KMS keys (encryption)</li>
+                        </ul>
+                        <p style="margin-top: 10px;"><strong>2. Request Framework</strong></p>
+                        <ul>
+                            <li>Lambda functions (validation, processing)</li>
+                            <li>EventBridge rules (Git triggers)</li>
+                            <li>SQS queues (request queue)</li>
+                        </ul>
+                        <p style="margin-top: 10px;"><strong>3. Provisioning Framework</strong></p>
+                        <ul>
+                            <li>Step Functions (orchestration)</li>
+                            <li>IAM roles (cross-account access)</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>AFT Configuration</h2>
+                    <pre><code class="language-hcl">module "aft" {
+  source = "github.com/aws-ia/terraform-aws-control_tower_account_factory"
+  
+  # Control Tower details
+  ct_management_account_id = "123456789012"  # Your management account
+  log_archive_account_id   = "123456789013"  # Created by Control Tower
+  audit_account_id         = "123456789014"  # Created by Control Tower
+  ct_home_region          = "eu-west-2"
+  
+  # Git repositories
+  vcs_provider = "github"
+  account_request_repo_name = "yourname/aft-account-request"
+  global_customizations_repo_name = "yourname/aft-global-customisations"
+  account_customizations_repo_name = "yourname/aft-account-customisations"
+  account_provisioning_customizations_repo_name = 
+    "yourname/aft-provisioning-customisations"
+}</code></pre>
+                </section>
+
+                <section>
+                    <h2>Deployment Timeline</h2>
+                    <pre style="font-size: 0.6em; background: #f8f9fa; color: #333;">
+0:00  - terraform apply started
+0:05  - Creating S3 buckets and DynamoDB tables
+0:10  - Creating Lambda functions
+0:15  - Setting up EventBridge rules
+0:20  - Creating Step Functions
+0:25  - Configuring IAM roles
+0:30  - Testing connections to Git repos
+0:35  - AFT infrastructure ready ✓
+                    </pre>
+                    <p style="font-size: 0.85em;"><strong>Duration: 30-45 minutes</strong></p>
+                </section>
+
+                <section>
+                    <h2>After AFT Deployment</h2>
+                    <p><strong>What you have:</strong></p>
+                    <ul>
+                        <li>✅ AFT infrastructure running in management account</li>
+                        <li>✅ Connected to your Git repositories</li>
+                        <li>✅ EventBridge watching for changes</li>
+                        <li>✅ Ready to provision accounts</li>
+                    </ul>
+                    <p style="margin-top: 20px;"><strong>Cost: ~£3-5/month</strong></p>
+                    <p style="margin-top: 10px;"><strong>What you do next:</strong></p>
+                    <p style="font-size: 0.85em;">Create account request files → Commit to Git → Accounts get provisioned</p>
+                </section>
+
+                <section>
+                    <h2>Verifying AFT Deployment</h2>
+                    <p><strong>Check these in AWS Console:</strong></p>
+                    <ol style="font-size: 0.8em;">
+                        <li><strong>S3:</strong> Look for <code>aft-*</code> buckets</li>
+                        <li><strong>DynamoDB:</strong> Look for <code>aft-*</code> tables</li>
+                        <li><strong>Lambda:</strong> Look for <code>aft-*</code> functions</li>
+                        <li><strong>Step Functions:</strong> Look for <code>aft-account-provisioning-framework</code></li>
+                        <li><strong>EventBridge:</strong> Look for rules watching your repos</li>
+                    </ol>
+                    <p style="margin-top: 15px; font-size: 0.85em;"><strong>If all present: AFT is ready! ✓</strong></p>
+                </section>
+            </section>
+
+            <!-- ARCHITECTURE SECTION -->
+            <section>
+                <section class="center">
+                    <h1>How AFT Works</h1>
+                    <p>Understanding the Architecture</p>
+                </section>
+
+                <section>
+                    <h2>Three Main Parts</h2>
+                    <pre class="mermaid">
+graph TB
+    A[1. Account Request<br/>Write Terraform] --> B[2. Provisioning<br/>AWS creates account]
+    B --> C[3. Customisation<br/>Your configs applied]
+    
+    style A fill:#e1f5ff
+    style B fill:#fff4e1
+    style C fill:#e8f5e9
+                    </pre>
+                    <p><strong>Flow:</strong> Request → Provision → Customise</p>
+                </section>
+
+                <section>
+                    <h2>The Components</h2>
+                    <pre class="mermaid">
+graph LR
+    A[Git] --> B[EventBridge]
+    B --> C[Lambda]
+    C --> D[DynamoDB]
+    C --> E[Step Functions]
+    E --> F[Service Catalog]
+    F --> G[CodePipeline]
+    
+    style A fill:#e1f5ff
+    style E fill:#fff4e1
+    style G fill:#e8f5e9
+                    </pre>
+                </section>
+
+                <section>
+                    <h2>What Actually Happens</h2>
+                    <pre style="font-size: 0.65em; background: #f8f9fa; color: #333;">
+Git commit → EventBridge → Lambda validates → DynamoDB stores
+  → Step Functions orchestrates → Account created → Pipelines run
+  → Account ready (30-60 minutes)
+                    </pre>
+                </section>
+            </section>
+
+            <!-- WORKFLOW SECTION -->
+            <section>
+                <section class="center">
+                    <h1>Phase 4: Account Provisioning</h1>
+                    <p>The Ongoing Process</p>
+                </section>
+
+                <section>
+                    <h2>What You Do</h2>
+                    <p>Create one Terraform file:</p>
+                    <pre><code class="language-hcl">resource "aws_controltower_account_factory_account" "dev" {
+  account_name  = "dev-project-alpha"
+  account_email = "<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ee8a8b98c38f829e868fae8b968f839e828bc08d8183">[email&#160;protected]</a>"
+  organisational_unit_id = "ou-dev-123456"
+  
+  tags = {
+    Environment = "development"
+    Team        = "platform"
+  }
+}</code></pre>
+                    <p>Commit. Push. Done.</p>
+                </section>
+
+                <section>
+                    <h2>What AFT Does</h2>
+                    <p><strong>0-2 min:</strong> Validation (email, OU, duplicates)</p>
+                    <p><strong>2-12 min:</strong> Account creation (Service Catalog, guardrails)</p>
+                    <p><strong>12-15 min:</strong> Setup (IAM roles, tags, metadata)</p>
+                    <p><strong>15-60 min:</strong> Customisation (pipelines, Terraform configs)</p>
+                </section>
+
+                <section>
+                    <h2>The Step Function</h2>
+                    <pre class="mermaid">
+graph TD
+    A[Start] --> B[Create IAM Role]
+    B --> C[Tag Account]
+    C --> D[Save Metadata]
+    D --> E[Apply Features]
+    E --> F[Create Pipeline]
+    F --> G[Done ✓]
+    
+    style A fill:#e1f5ff
+    style G fill:#e8f5e9
+                    </pre>
+                    <p style="font-size: 0.8em;">Automatic retries on failure</p>
+                </section>
+            </section>
+
+            <!-- CUSTOMISATIONS SECTION -->
+            <section>
+                <section class="center">
+                    <h1>Customisations</h1>
+                    <p>Tailoring Your Accounts</p>
+                </section>
+
+                <section>
+                    <h2>Three Types</h2>
+                    <pre class="mermaid">
+graph TD
+    A[Account] --> B[1. Provisioning<br/>Pre-baseline]
+    B --> C[Baseline]
+    C --> D[2. Global<br/>All accounts]
+    D --> E[3. Account<br/>Specific]
+    E --> F[Ready ✓]
+    
+    style B fill:#e1f5ff
+    style D fill:#fff4e1
+    style E fill:#e8f5e9
+                    </pre>
+                </section>
+
+                <section>
+                    <h2>Pipeline Flow</h2>
+                    <pre class="mermaid">
+graph LR
+    A[Source] --> B[Plan]
+    B --> C[Approval]
+    C --> D[Apply]
+    
+    style A fill:#e1f5ff
+    style C fill:#fff4e1
+    style D fill:#e8f5e9
+                    </pre>
+                    <p>Each account gets its own pipeline with manual approval gate.</p>
+                </section>
+
+                <section>
+                    <h2>Global Customisations</h2>
+                    <p>Applied to ALL accounts:</p>
+                    <pre><code class="language-hcl">resource "aws_guardduty_detector" "main" {
+  enable = true
+}
+
+resource "aws_securityhub_account" "main" {
+  enable_default_standards = true
+}
+
+resource "aws_cloudwatch_log_group" "central" {
+  name              = "/aws/central-logs"
+  retention_in_days = 90
+}</code></pre>
+                    <p style="font-size: 0.8em;">Change this → Updates all accounts</p>
+                </section>
+
+                <section>
+                    <h2>Account Customisations</h2>
+                    <p>Only for specific accounts:</p>
+                    <pre><code class="language-hcl">locals {
+  is_dev = var.environment == "development"
+}
+
+resource "aws_s3_bucket" "dev_artifacts" {
+  count  = local.is_dev ? 1 : 0
+  bucket = "dev-artifacts-${local.account_id}"
+}
+
+resource "aws_iam_role" "dev_deploy" {
+  count = local.is_dev ? 1 : 0
+  name  = "DevDeployRole"
+}</code></pre>
+                    <p style="font-size: 0.8em;">Change this → Only that account updates</p>
+                </section>
+            </section>
+
+            <!-- WHAT WE BUILT SECTION -->
+            <section>
+                <section class="center">
+                    <h1>What We Built</h1>
+                    <p>Real Implementation</p>
+                </section>
+
+                <section>
+                    <h2>Implementation Summary</h2>
+                    <ul>
+                        <li>✅ Control Tower enabled</li>
+                        <li>✅ AFT infrastructure deployed</li>
+                        <li>✅ Four Git repositories configured</li>
+                        <li>✅ Global customisations for security</li>
+                        <li>✅ Approval gates everywhere</li>
+                        <li>✅ Full audit trail in DynamoDB</li>
+                        <li>✅ Multiple accounts provisioned</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Cost Reality</h2>
+                    <table style="font-size: 0.7em;">
+                        <thead>
+                            <tr>
+                                <th>Component</th>
+                                <th>Monthly Cost</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Control Tower</td>
+                                <td>~£10-15</td>
+                            </tr>
+                            <tr>
+                                <td>AFT Infrastructure</td>
+                                <td>~£3-5</td>
+                            </tr>
+                            <tr>
+                                <td>Per Account Provisioned</td>
+                                <td>~£1-2 each</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Total (10 accounts)</strong></td>
+                                <td><strong>~£30-35/month</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p style="font-size: 0.8em; margin-top: 15px;">
+                        <strong>ROI:</strong> Days of manual work → 1 hour automated
+                    </p>
+                </section>
+
+                <section>
+                    <h2>What Changed</h2>
+                    <table style="font-size: 0.6em;">
+                        <thead>
+                            <tr><th></th><th>Before</th><th>After</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>Time</strong></td><td>Days of manual work</td><td>30-60 min automated</td></tr>
+                            <tr><td><strong>Setup</strong></td><td>Different each time</td><td>Exact same every time</td></tr>
+                            <tr><td><strong>Approval</strong></td><td>None</td><td>Gates enforced</td></tr>
+                            <tr><td><strong>Audit</strong></td><td>None</td><td>Complete in DynamoDB</td></tr>
+                            <tr><td><strong>Security</strong></td><td>Manual checks</td><td>Automatic baseline</td></tr>
+                        </tbody>
+                    </table>
+                </section>
+            </section>
+
+            <!-- SUMMARY SECTION -->
+            <section>
+                <section class="center">
+                    <h1>Summary</h1>
+                    <p>The Complete Picture</p>
+                </section>
+
+                <section>
+                    <h2>The Four Phases</h2>
+                    <table style="font-size: 0.65em;">
+                        <thead>
+                            <tr>
+                                <th>Phase</th>
+                                <th>Time</th>
+                                <th>Frequency</th>
+                                <th>Cost</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>1. Control Tower</strong></td>
+                                <td>60-90 min</td>
+                                <td>One-time</td>
+                                <td>£10-15/month</td>
+                            </tr>
+                            <tr>
+                                <td><strong>2. Git Repos & IDs</strong></td>
+                                <td>15 min</td>
+                                <td>One-time</td>
+                                <td>£0</td>
+                            </tr>
+                            <tr>
+                                <td><strong>3. Deploy AFT</strong></td>
+                                <td>30-45 min</td>
+                                <td>One-time</td>
+                                <td>£3-5/month</td>
+                            </tr>
+                            <tr>
+                                <td><strong>4. Provision Accounts</strong></td>
+                                <td>30-60 min</td>
+                                <td>Ongoing</td>
+                                <td>£1-2 per account</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section>
+                    <h2>Key Takeaways</h2>
+                    <ul>
+                        <li>✅ <strong>Control Tower first:</strong> Creates foundational accounts</li>
+                        <li>✅ <strong>Deploy AFT once:</strong> Use forever</li>
+                        <li>✅ <strong>GitOps workflow:</strong> Everything version controlled</li>
+                        <li>✅ <strong>30-60 minute provisioning:</strong> vs days manually</li>
+                        <li>✅ <strong>Security baseline included:</strong> GuardDuty, Security Hub, etc.</li>
+                        <li>✅ <strong>Complete audit trail:</strong> Every change tracked</li>
+                        <li>✅ <strong>Scales properly:</strong> 1 or 100 accounts</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>The Value</h2>
+                    <div style="font-size: 0.9em;">
+                        <p><strong>Before AFT:</strong></p>
+                        <ul>
+                            <li>Days to provision an account</li>
+                            <li>Inconsistent configurations</li>
+                            <li>No audit trail</li>
+                            <li>Manual security setup</li>
+                        </ul>
+                        <p style="margin-top: 15px;"><strong>After AFT:</strong></p>
+                        <ul>
+                            <li>1 hour to provision an account</li>
+                            <li>Exact same setup every time</li>
+                            <li>Complete audit trail</li>
+                            <li>Security baseline automatic</li>
+                        </ul>
+                    </div>
+                </section>
+            </section>
+
+            <!-- CLOSING SLIDE -->
+            <section class="center" data-background-color="#232f3e">
+                <h1 style="color: white;">Questions?</h1>
+                <p style="color: #aaa; font-size: 1em; margin-top: 30px;">
+                    Let's discuss
+                </p>
+                <p style="color: #666; font-size: 0.8em; margin-top: 80px;">
+                    AWS Control Tower Account Factory for Terraform
+                </p>
+            </section>
+        </div>
+    </div>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/plugin/highlight/highlight.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/plugin/notes/notes.js"></script>
+    
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            flowchart: { 
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+
+        Reveal.initialize({
+            hash: true,
+            plugins: [ RevealHighlight, RevealNotes ],
+            transition: 'slide',
+            controls: true,
+            progress: true,
+            center: false,
+            t

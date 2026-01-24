@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/learn-terraform-aft-global-customizations" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/tf-aws-control-tower-account-factory" vcs="Git" />
+  </component>
+</project>
