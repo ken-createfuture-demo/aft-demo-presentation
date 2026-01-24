@@ -40,6 +40,6 @@ AFT runs in the Management account and uses cross-account IAM roles to provision
 
 ## Security
 
-**State Isolation:** Dedicated S3 bucket + DynamoDB lock per account  
+**State Isolation:** Isolated S3 paths per account + DynamoDB state locking
 **Access Model:** Cross-account IAM roles, temporary STS credentials  
 **Compliance:** Control Tower guardrails, CloudTrail logs, Security Hub findings

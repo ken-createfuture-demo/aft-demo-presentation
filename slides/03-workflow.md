@@ -1,131 +1,82 @@
-# The Provisioning Flow
+# The Provisioning Workflow
 
-## What You Do
+## What You Actually Write
 
-Create one Terraform file:
+One Terraform file per account:
 
 ```hcl
 # aft-account-request/dev-account.tf
 
-resource "aws_controltower_account_factory_account" "dev" {
-  account_name  = "dev-project-alpha"
-  account_email = "dev-alpha@example.com"
-  organisational_unit_id = "ou-dev-123456"
+module "dev_account" {
+  source = "./modules/aft-account-request"
   
-  tags = {
+  control_tower_parameters = {
+    AccountName               = "dev-project-alpha"
+    AccountEmail              = "dev-alpha@example.com"
+    ManagedOrganizationalUnit = "Development"
+    SSOUserEmail              = "admin@example.com"
+    SSOUserFirstName          = "Dev"
+    SSOUserLastName           = "Admin"
+  }
+  
+  account_tags = {
     Environment = "development"
     Team        = "platform"
   }
 }
 ```
 
-Commit. Push. Done.
+Commit it. AFT handles the rest.
 
 ---
 
-## What AFT Does
+## What Happens Automatically
 
-**Minutes 0-2: Validation**
-- Checks if email is valid
-- Confirms OU exists
-- Makes sure name isn't duplicate
+![The complete workflow](assets/automated-workflow-main.png)
 
-**Minutes 2-12: Account Creation**
-- Service Catalog provisions
-- Assigns to OU
-- Applies Control Tower guardrails
+**The complete flow:**
 
-**Minutes 12-15: Setup**
-- Creates IAM role for management
-- Adds your tags
-- Saves metadata to DynamoDB
-
-**Minutes 15-60: Customisation**
-- Creates pipeline for this account
-- Runs your Terraform configs
-- Sends notification when done
+**Git commit** - Engineer pushes HCL account request  
+**EventBridge detects** - Picks up the commit event  
+**Lambda validates** - Checks email, OU, account name  
+**Service Catalog provisions** - Creates the AWS account  
+**Control Tower baseline** - Applies guardrails and security policies  
+**CodePipeline customises** - Runs Terraform configurations  
+**Account ready** - SSO access configured, ready for use
 
 ---
 
-## The Step Function
+## Validation Stage
 
-```mermaid
-graph TD
-    A[Start] --> B[Create IAM Role]
-    B --> C[Tag Account]
-    C --> D[Save Metadata]
-    D --> E[Apply Feature Options]
-    E --> F[Create Pipeline]
-    F --> G[Done ✓]
-    
-    B -.Retry on failure.-> B
-    C -.Retry on failure.-> C
-    D -.Retry on failure.-> D
-    
-    style A fill:#e1f5ff
-    style G fill:#e8f5e9
-```
-
-This orchestrates everything. If anything fails, it retries automatically.
+**Email format and uniqueness** - No duplicate emails allowed  
+**OU exists and is accessible** - Confirms the organisational unit is valid  
+**Account name not already taken** - Ensures unique account names
 
 ---
 
-## Error Handling
+## Provisioning Stage
 
-**If something breaks:**
-- Step Functions retries automatically
-- Failed messages go to Dead Letter Queue
-- You get SNS notification
-- Check CloudWatch logs
-
-**Common issues:**
-- Invalid request → Fixed at validation
-- Service Catalog timeout → Retried
-- Customisation fail → Shows in pipeline
-- Manual fix needed → Pipeline logs show what
+**Service Catalog creates the AWS account** - New account provisioned in AWS Organizations  
+**Control Tower applies baseline guardrails** - Preventive and detective controls enabled  
+**Account placed in specified OU** - Moved to correct organisational unit
 
 ---
 
-## Notifications
+## Customisation Stage
 
-You get alerts for:
-- ✓ Request received
-- ✓ Account created
-- ✓ Customisations started
-- ✓ Account ready
-- ✗ If anything fails
-
-Slack, email, or webhook—your choice.
+**CodePipeline spawned for this account** - Dedicated pipeline created  
+**Global customisations run first** - Security baseline applied to all accounts  
+**Account-specific configs applied** - Project-specific resources deployed  
+**SSO access configured** - Identity Centre access enabled
 
 ---
 
-## Timeline Example
+## When Things Go Wrong
 
-```mermaid
-gantt
-    title Account Provisioning Timeline
-    dateFormat mm:ss
-    section Validation
-    Git push & validation   :00:00, 2m
-    section Provisioning
-    Account creation        :02:00, 8m
-    section Setup
-    IAM, Tags, Metadata     :10:00, 5m
-    section Customisation
-    Pipeline & configs      :15:00, 45m
-```
+**Validation fails:** Request rejected immediately, error in CloudWatch logs
 
-Real example from our setup:
+**Service Catalog fails:** Automatic retry with exponential backoff
 
-```
-00:00 - Git push
-00:01 - Validation done
-00:02 - Provisioning starts
-00:10 - Account created
-00:12 - IAM role ready
-00:13 - Tags applied
-00:15 - Pipeline created
-00:25 - Global customisations done
-00:45 - Account customisations done
-01:00 - Account ready ✓
-```
+**Customisation fails:** Pipeline stops at failed stage, check CodeBuild logs
+
+**You'll get an SNS notification for failures** - Configure the topic during AFT deployment
