@@ -36,12 +36,13 @@
         .reveal section { text-align: left; padding: 0 80px 100px 80px !important; }
         .reveal section.center { text-align: center; padding: 0 !important; }
 
-        .reveal pre code {
-            display: block;
-            padding: 5px;
-            overflow: auto;
-            max-height: 500px;
-            word-wrap: normal;
+        /* PRE STYLING FOR HCL CODE */
+        .reveal pre {
+            width: 100%;
+            margin: 0;
+            box-shadow: none;
+            background: var(--cf-grey);
+            border-radius: 8px;
         }
 
         .cf-footer {
@@ -56,31 +57,33 @@
         }
         .cf-footer span { color: var(--cf-pink) !important; }
 
-        /* FINAL MERMAID FIX: LIMIT HEIGHT AND PREVENT DISTORTION */
+        /* REFINED MERMAID CONTAINER */
         .mermaid {
             background: var(--cf-grey);
             border-radius: 8px;
-            padding: 20px;
+            padding: 15px;
             border-left: 5px solid var(--cf-lime);
+            margin: 10px 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            max-height: 500px; /* Forces diagram to stay within slide bounds */
-            margin: 15px auto;
+            /* Critical: Prevent the container from growing too tall/wide */
+            max-height: 420px;
+            width: 100%;
             overflow: hidden !important;
         }
 
         .mermaid svg {
+            /* Force the SVG to scale down to fit the container */
             max-width: 100% !important;
             max-height: 100% !important;
-            width: auto !important;
             height: auto !important;
-            display: block;
+            width: auto !important;
         }
 
-        table { font-size: 0.7em; width: 100%; border-collapse: collapse; }
-        th { background: var(--cf-grey); padding: 10px; border: 1px solid #eee; }
-        td { padding: 10px; border: 1px solid #eee; }
+        table { font-size: 0.65em; width: 100%; border-collapse: collapse; }
+        th { background: var(--cf-grey); padding: 8px; border: 1px solid #eee; }
+        td { padding: 8px; border: 1px solid #eee; }
     </style>
 </head>
 
@@ -115,28 +118,47 @@
 <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/plugin/notes/notes.js"></script>
 
 <script>
+    // Config tuned for clarity on projected slides
     mermaid.initialize({
         startOnLoad: false,
         theme: 'base',
         securityLevel: 'loose',
-        flowchart: { useMaxWidth: true, htmlLabels: false, curve: 'basis' },
+        flowchart: {
+            useMaxWidth: true,
+            htmlLabels: false, /* Fixes label distortion */
+            curve: 'basis'
+        },
         themeVariables: {
             primaryColor: '#C3FF34',
             primaryTextColor: '#0A001A',
             lineColor: '#0A001A',
-            fontSize: '16px',
+            fontSize: '22px', /* Larger font to ensure readability when scaled down */
             fontFamily: 'Inter'
         }
     });
 
-    let deck = new Reveal({ hash: true, slideNumber: 'c/t', center: false, transition: 'none', width: 1200, height: 800, plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ] });
-    deck.initialize().then(() => { setTimeout(renderMermaid, 300); });
+    let deck = new Reveal({
+        hash: true,
+        slideNumber: 'c/t',
+        center: false,
+        transition: 'none',
+        width: 1200,
+        height: 800,
+        margin: 0.05, /* Reduced margin to maximize usable space */
+        plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+    });
+
+    deck.initialize().then(() => {
+        setTimeout(renderMermaid, 500);
+    });
 
     function renderMermaid() {
         const diagrams = document.querySelectorAll('.mermaid:not([data-processed="true"])');
         diagrams.forEach((diagram) => {
             const id = `mermaid-${Math.floor(Math.random() * 10000)}`;
-            mermaid.render(id, diagram.textContent.trim()).then(({ svg }) => {
+            // Re-fetch raw text before rendering
+            const code = diagram.textContent.trim();
+            mermaid.render(id, code).then(({ svg }) => {
                 diagram.innerHTML = svg;
                 diagram.setAttribute('data-processed', 'true');
             });
