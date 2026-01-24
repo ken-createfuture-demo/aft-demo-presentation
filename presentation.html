@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/theme/white.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/plugin/highlight/github.css">
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 
     <style>
@@ -19,64 +18,48 @@
             --cf-grey: #F8F8FA;
         }
 
-        .reveal {
-            font-family: 'Inter', sans-serif;
-            background-color: #ffffff;
-            color: var(--cf-dark);
-        }
+        .reveal { font-family: 'Inter', sans-serif; background-color: #ffffff; color: var(--cf-dark); }
+        .reveal h1, .reveal h2, .reveal p, .reveal li, .reveal strong { color: var(--cf-dark) !important; }
 
-        .reveal h1, .reveal h2, .reveal h3, .reveal p, .reveal li, .reveal strong, .reveal span {
-            color: var(--cf-dark) !important;
-        }
+        /* PUNCHIER HEADERS */
+        .reveal h1 { font-size: 2em; font-weight: 900; text-transform: uppercase; letter-spacing: -0.03em; margin-bottom: 0.3em; }
+        .reveal h2 { font-size: 1.3em; font-weight: 900; text-transform: uppercase; letter-spacing: 0.05em; position: relative; padding-left: 25px; margin-top: 1em; }
+        .reveal h2::before { content: ''; position: absolute; left: 0; top: 4px; bottom: 4px; width: 8px; background-color: var(--cf-lime); }
 
-        .reveal h1 { font-size: 1.6em; font-weight: 900; text-transform: uppercase; margin-bottom: 0.3em; }
-        .reveal h2 { font-size: 1.1em; font-weight: 900; text-transform: uppercase; position: relative; padding-left: 20px; margin-top: 0.8em; }
-        .reveal h2::before { content: ''; position: absolute; left: 0; top: 2px; bottom: 2px; width: 6px; background-color: var(--cf-lime); }
+        /* LARGER, MORE READABLE TEXT */
+        .reveal section { text-align: left; padding: 0 80px 100px 80px !important; }
+        .reveal p, .reveal li { font-size: 0.9em; line-height: 1.5; font-weight: 400; margin-bottom: 0.6em; }
+        .reveal strong { font-weight: 900; }
 
-        .reveal section { text-align: left; padding: 0 60px 80px 60px !important; }
-        .reveal section.center { text-align: center; padding: 0 !important; }
-        .reveal p, .reveal li { font-size: 0.7em; line-height: 1.3; margin-bottom: 0.4em; }
-
-        .cf-footer {
-            position: absolute;
-            bottom: 30px;
-            left: 50px;
-            z-index: 1000;
-            font-weight: 900;
-            font-size: 18px;
-            color: var(--cf-dark);
-            text-transform: uppercase;
-        }
+        .cf-footer { position: absolute; bottom: 30px; left: 50px; z-index: 1000; font-weight: 900; font-size: 20px; color: var(--cf-dark); text-transform: uppercase; }
         .cf-footer span { color: var(--cf-pink) !important; }
 
-        /* THE "FEEL THE SPACE" MERMAID FIX */
+        /* DIAGRAMS THAT "FEEL THE SPACE" BUT STAY SAFE */
         .mermaid {
             background: var(--cf-grey);
-            border-radius: 8px;
-            padding: 20px;
-            border-left: 5px solid var(--cf-lime);
-            margin: 15px 0;
+            border-radius: 12px;
+            padding: 30px;
+            border-left: 8px solid var(--cf-lime);
+            margin: 25px 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            /* Adaptive container height */
-            min-height: 250px;
-            max-height: 350px;
+            min-height: 300px;
+            max-height: 450px; /* Increased to allow more impact */
             width: 100%;
             overflow: visible !important;
         }
 
         .mermaid svg {
-            /* Force SVG to expand horizontally and fill the widescreen slide */
             width: 100% !important;
             height: auto !important;
-            max-height: 320px !important;
+            max-height: 420px !important;
             display: block;
         }
 
-        table { font-size: 0.55em; width: 100%; border-collapse: collapse; }
-        th { background: var(--cf-grey); padding: 6px; border: 1px solid #eee; }
-        td { padding: 6px; border: 1px solid #eee; }
+        table { font-size: 0.7em; width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th { background: var(--cf-grey); padding: 12px; border: 2px solid #eee; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; }
+        td { padding: 12px; border: 2px solid #eee; }
     </style>
 </head>
 
@@ -85,10 +68,10 @@
 <div class="reveal">
     <div class="slides">
         <section class="center" data-background-color="#ffffff">
-            <h1 style="font-size: 3em; margin-bottom: 0;">AWS CONTROL TOWER</h1>
-            <p style="font-weight: 900; letter-spacing: 5px; margin-top: 15px; font-size: 0.8em; text-transform: uppercase;">Account Factory for Terraform</p>
-            <div style="height:5px; width:100px; background:var(--cf-lime); margin: 45px auto;"></div>
-            <p style="color: #888 !important; font-size: 0.5em; text-transform: uppercase; letter-spacing: 3px; font-weight: 700;">CloudTeam Presentation 2026</p>
+            <h1 style="font-size: 3.5em; margin-bottom: 0;">AWS CONTROL TOWER</h1>
+            <p style="font-weight: 900; letter-spacing: 8px; margin-top: 15px; font-size: 1.1em; text-transform: uppercase;">Account Factory for Terraform</p>
+            <div style="height:8px; width:120px; background:var(--cf-lime); margin: 50px auto;"></div>
+            <p style="color: #888 !important; font-size: 0.6em; text-transform: uppercase; letter-spacing: 4px; font-weight: 700;">CloudTeam Presentation 2026</p>
         </section>
 
         <section data-markdown="slides/01-aft-overview.md" data-separator="^\s*---\s*$" data-separator-vertical="^\s*\*\*\*\s*$"></section>
@@ -99,8 +82,8 @@
         <section data-markdown="slides/06-work-done.md" data-separator="^\s*---\s*$" data-separator-vertical="^\s*\*\*\*\s*$"></section>
 
         <section class="center" data-background-color="#0A001A">
-            <h1 style="color:white !important; font-size: 3.5em;">ANY QUESTIONS?</h1>
-            <div style="height:3px; width:120px; background:var(--cf-pink); margin: 25px auto;"></div>
+            <h1 style="color:white !important; font-size: 4em;">ANY QUESTIONS?</h1>
+            <div style="height:4px; width:150px; background:var(--cf-pink); margin: 30px auto;"></div>
         </section>
     </div>
 </div>
@@ -115,34 +98,24 @@
         startOnLoad: false,
         theme: 'base',
         securityLevel: 'loose',
-        flowchart: {
-            useMaxWidth: false,
-            htmlLabels: false,
-            curve: 'basis'
-        },
+        flowchart: { useMaxWidth: false, htmlLabels: false, curve: 'basis' },
         themeVariables: {
             primaryColor: '#C3FF34',
             primaryTextColor: '#0A001A',
             lineColor: '#0A001A',
-            fontSize: '28px', /* Significantly larger for widescreen legibility */
-            fontFamily: 'Inter'
+            fontSize: '32px', /* BIG, BOLD LABELS for the diagrams */
+            fontFamily: 'Inter',
+            fontWeight: '900'
         }
     });
 
     let deck = new Reveal({
-        hash: true,
-        slideNumber: 'c/t',
-        center: false,
-        transition: 'none',
-        width: 1200,
-        height: 800,
-        margin: 0.05,
+        hash: true, slideNumber: 'c/t', center: false, transition: 'none',
+        width: 1200, height: 800, margin: 0.1,
         plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
     });
 
-    deck.initialize().then(() => {
-        setTimeout(renderMermaid, 500);
-    });
+    deck.initialize().then(() => { setTimeout(renderMermaid, 500); });
 
     function renderMermaid() {
         const diagrams = document.querySelectorAll('.mermaid:not([data-processed="true"])');
