@@ -45,6 +45,10 @@ Before deploying AFT, enable AWS Control Tower (one-time setup):
 
 ![Four-phase journey](assets/four-phase-journey.png)
 
+**Phase 1:** Enable Control Tower (creates Log Archive + Audit accounts)  
+**Phase 2:** Create four Git repositories  
+**Phase 3:** Deploy AFT infrastructure in Management account  
+**Phase 4:** Provision accounts via Git commits (ongoing)
 ---
 
 ## The Four Mandatory Repositories

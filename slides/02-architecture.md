@@ -1,4 +1,4 @@
-# AFT Architecture & Deployment
+# AFT Deployment Architecture
 
 ## Deploying the AFT Stack
 
@@ -12,7 +12,7 @@
 
 ## Where AFT Operates
 
-![AFT operates in Management account](assets/aft-operates.png)
+![AFT operates in Management account](assets/account-types.png)
 
 AFT runs in the Management account and uses cross-account IAM roles to provision target accounts.
 
@@ -26,20 +26,13 @@ AFT runs in the Management account and uses cross-account IAM roles to provision
 
 ## How It Works
 
-**1. Request**
-- Engineer commits HCL to Git
-- EventBridge detects commit
-- Lambda validates request
+**1. Request:** Engineer commits HCL → EventBridge → Lambda validates
 
-**2. Provision**
-- Step Functions orchestrate
-- Service Catalog creates account
-- Control Tower applies baseline
+**2. Provision:** Step Functions → Service Catalog creates account → Control Tower baseline
 
-**3. Customise**
-- CodePipeline spawned per account
-- Terraform applies configurations
-- Account ready for use
+**3. Customise:** CodePipeline → Terraform applies configs → Account ready
+
+**Note:** Multiple accounts provision concurrently
 
 **Parallel Processing:** Multiple accounts provision concurrently
 
