@@ -36,7 +36,13 @@
         .reveal section { text-align: left; padding: 0 80px 100px 80px !important; }
         .reveal section.center { text-align: center; padding: 0 !important; }
 
-        /* PRE STYLING FOR HCL CODE */
+        /* REDUCED PARAGRAPH AND LIST FONT SIZE */
+        .reveal p, .reveal li {
+            font-size: 0.75em; /* Reduced from 0.85em for better layout */
+            line-height: 1.4;
+            margin-bottom: 0.5em;
+        }
+
         .reveal pre {
             width: 100%;
             margin: 0;
@@ -57,7 +63,6 @@
         }
         .cf-footer span { color: var(--cf-pink) !important; }
 
-        /* REFINED MERMAID CONTAINER */
         .mermaid {
             background: var(--cf-grey);
             border-radius: 8px;
@@ -67,21 +72,20 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /* Critical: Prevent the container from growing too tall/wide */
             max-height: 420px;
             width: 100%;
             overflow: hidden !important;
         }
 
         .mermaid svg {
-            /* Force the SVG to scale down to fit the container */
             max-width: 100% !important;
             max-height: 100% !important;
             height: auto !important;
             width: auto !important;
+            display: block;
         }
 
-        table { font-size: 0.65em; width: 100%; border-collapse: collapse; }
+        table { font-size: 0.6em; width: 100%; border-collapse: collapse; }
         th { background: var(--cf-grey); padding: 8px; border: 1px solid #eee; }
         td { padding: 8px; border: 1px solid #eee; }
     </style>
@@ -118,21 +122,16 @@
 <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/plugin/notes/notes.js"></script>
 
 <script>
-    // Config tuned for clarity on projected slides
     mermaid.initialize({
         startOnLoad: false,
         theme: 'base',
         securityLevel: 'loose',
-        flowchart: {
-            useMaxWidth: true,
-            htmlLabels: false, /* Fixes label distortion */
-            curve: 'basis'
-        },
+        flowchart: { useMaxWidth: true, htmlLabels: false, curve: 'basis' },
         themeVariables: {
             primaryColor: '#C3FF34',
             primaryTextColor: '#0A001A',
             lineColor: '#0A001A',
-            fontSize: '22px', /* Larger font to ensure readability when scaled down */
+            fontSize: '22px',
             fontFamily: 'Inter'
         }
     });
@@ -144,7 +143,7 @@
         transition: 'none',
         width: 1200,
         height: 800,
-        margin: 0.05, /* Reduced margin to maximize usable space */
+        margin: 0.05,
         plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
     });
 
@@ -156,7 +155,6 @@
         const diagrams = document.querySelectorAll('.mermaid:not([data-processed="true"])');
         diagrams.forEach((diagram) => {
             const id = `mermaid-${Math.floor(Math.random() * 10000)}`;
-            // Re-fetch raw text before rendering
             const code = diagram.textContent.trim();
             mermaid.render(id, code).then(({ svg }) => {
                 diagram.innerHTML = svg;
