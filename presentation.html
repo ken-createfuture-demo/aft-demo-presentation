@@ -18,19 +18,11 @@
     <style>
         .reveal section { text-align: left; }
         .reveal section.center { text-align: center; }
-
         .reveal h1 { color: #232f3e; }
         .reveal h2 { color: #ff9900; }
         .reveal strong { color: #ff9900; }
-
-        .reveal .slide-number {
-          background: #232f3e;
-          color: #fff;
-        }
-
-        .reveal .mermaid svg {
-          max-height: 360px;
-        }
+        .reveal .slide-number { background: #232f3e; color: #fff; }
+        .reveal .mermaid svg { max-height: 360px; }
     </style>
 </head>
 
@@ -46,40 +38,40 @@
             <p style="color:#ccc">Complete Implementation Guide</p>
         </section>
 
-        <!-- MARKDOWN SLIDES -->
+        <!-- MARKDOWN SLIDES (NOTE: files are in ./slides/) -->
         <section data-markdown="slides/01-introduction.md"
-                 data-separator="^---$"
-                 data-separator-vertical="^\\*\\*\\*$"
+                 data-separator="^\\r?\\n---\\r?\\n$"
+                 data-separator-vertical="^\\r?\\n\\*\\*\\*\\r?\\n$"
                  data-charset="utf-8"></section>
 
         <section data-markdown="slides/00-prerequisites.md"
-                 data-separator="^---$"
-                 data-separator-vertical="^\\*\\*\\*$"
+                 data-separator="^\\r?\\n---\\r?\\n$"
+                 data-separator-vertical="^\\r?\\n\\*\\*\\*\\r?\\n$"
                  data-charset="utf-8"></section>
 
         <section data-markdown="slides/02-architecture.md"
-                 data-separator="^---$"
-                 data-separator-vertical="^\\*\\*\\*$"
+                 data-separator="^\\r?\\n---\\r?\\n$"
+                 data-separator-vertical="^\\r?\\n\\*\\*\\*\\r?\\n$"
                  data-charset="utf-8"></section>
 
         <section data-markdown="slides/03-workflow.md"
-                 data-separator="^---$"
-                 data-separator-vertical="^\\*\\*\\*$"
+                 data-separator="^\\r?\\n---\\r?\\n$"
+                 data-separator-vertical="^\\r?\\n\\*\\*\\*\\r?\\n$"
                  data-charset="utf-8"></section>
 
         <section data-markdown="slides/04-customisations.md"
-                 data-separator="^---$"
-                 data-separator-vertical="^\\*\\*\\*$"
+                 data-separator="^\\r?\\n---\\r?\\n$"
+                 data-separator-vertical="^\\r?\\n\\*\\*\\*\\r?\\n$"
                  data-charset="utf-8"></section>
 
         <section data-markdown="slides/05-demo.md"
-                 data-separator="^---$"
-                 data-separator-vertical="^\\*\\*\\*$"
+                 data-separator="^\\r?\\n---\\r?\\n$"
+                 data-separator-vertical="^\\r?\\n\\*\\*\\*\\r?\\n$"
                  data-charset="utf-8"></section>
 
         <section data-markdown="slides/06-work-done.md"
-                 data-separator="^---$"
-                 data-separator-vertical="^\\*\\*\\*$"
+                 data-separator="^\\r?\\n---\\r?\\n$"
+                 data-separator-vertical="^\\r?\\n\\*\\*\\*\\r?\\n$"
                  data-charset="utf-8"></section>
 
         <!-- CLOSING -->
@@ -100,8 +92,9 @@
 <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/plugin/notes/notes.js"></script>
 
 <script>
+    // Convert ```mermaid blocks (from markdown) into <div class="mermaid">...</div>
     function renderMermaid(scope = document) {
-      const blocks = scope.querySelectorAll('pre code.language-mermaid');
+      const blocks = scope.querySelectorAll('pre code.language-mermaid, pre code.mermaid');
       blocks.forEach(code => {
         const div = document.createElement('div');
         div.className = 'mermaid';
@@ -109,9 +102,10 @@
         code.parentElement.replaceWith(div);
       });
 
-      if (blocks.length > 0) {
+      const mermaidNodes = scope.querySelectorAll('.mermaid');
+      if (mermaidNodes.length > 0) {
         mermaid.initialize({ startOnLoad: false, securityLevel: 'loose' });
-        mermaid.run({ querySelector: '.mermaid' });
+        mermaid.run({ nodes: Array.from(mermaidNodes) });
       }
     }
 
@@ -121,6 +115,11 @@
       controls: true,
       progress: true,
       center: false,
+
+      // ✅ This is the key fix:
+      // Right arrow will now go through ALL slides including vertical stacks created by '---'
+      navigationMode: 'linear',
+
       plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
     }).then(() => {
       renderMermaid();
