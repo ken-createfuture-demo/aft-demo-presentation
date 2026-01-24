@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/theme/white.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/plugin/highlight/monokai.css">
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 
     <style>
@@ -29,7 +28,6 @@
             color: var(--cf-dark) !important;
         }
 
-        /* Clean, professional headers */
         .reveal h1 {
             font-size: 1.6em;
             font-weight: 700;
@@ -57,7 +55,6 @@
             background-color: var(--cf-lime);
         }
 
-        /* Professional body text */
         .reveal section {
             text-align: left;
             padding: 20px 60px 60px 60px !important;
@@ -83,24 +80,6 @@
             font-weight: 700;
         }
 
-        /* Code blocks */
-        .reveal pre {
-            width: 100%;
-            margin: 10px 0;
-            box-shadow: none;
-        }
-
-        .reveal pre code {
-            padding: 15px;
-            background: #f8f8f8;
-            border: 1px solid #e0e0e0;
-            border-radius: 4px;
-            font-size: 0.7em;
-            max-height: 400px;
-            overflow: auto;
-        }
-
-        /* Footer branding */
         .cf-footer {
             position: absolute;
             bottom: 20px;
@@ -115,27 +94,14 @@
             color: var(--cf-pink) !important;
         }
 
-        /* Mermaid diagrams - clean and functional */
         .mermaid {
             background: var(--cf-grey);
             border-radius: 6px;
             padding: 25px;
             border-left: 4px solid var(--cf-lime);
-            margin: 15px 0 20px 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            max-height: 380px;
+            margin: 15px 0;
         }
 
-        .mermaid svg {
-            max-width: 100% !important;
-            max-height: 360px !important;
-            height: auto !important;
-            width: auto !important;
-        }
-
-        /* Tables */
         table {
             font-size: 0.75em;
             width: 100%;
@@ -153,11 +119,6 @@
             padding: 10px;
             border: 1px solid #ddd;
         }
-
-        /* Checkboxes in lists */
-        .reveal li input[type="checkbox"] {
-            margin-right: 8px;
-        }
     </style>
 </head>
 
@@ -172,12 +133,12 @@
             <p style="color: #999 !important; font-size: 0.65em; text-transform: uppercase; letter-spacing: 2px; font-weight: 600;">CloudTeam Presentation 2026</p>
         </section>
 
-        <section data-markdown="slides/01-aft-overview.md" data-separator="^\s*---\s*$" data-separator-vertical="^\s*\*\*\*\s*$"></section>
-        <section data-markdown="slides/02-architecture.md" data-separator="^\s*---\s*$" data-separator-vertical="^\s*\*\*\*\s*$"></section>
-        <section data-markdown="slides/03-workflow.md" data-separator="^\s*---\s*$" data-separator-vertical="^\s*\*\*\*\s*$"></section>
-        <section data-markdown="slides/04-customisations.md" data-separator="^\s*---\s*$" data-separator-vertical="^\s*\*\*\*\s*$"></section>
-        <section data-markdown="slides/05-demo.md" data-separator="^\s*---\s*$" data-separator-vertical="^\s*\*\*\*\s*$"></section>
-        <section data-markdown="slides/06-work-done.md" data-separator="^\s*---\s*$" data-separator-vertical="^\s*\*\*\*\s*$"></section>
+        <section data-markdown="slides/01-aft-overview.md" data-separator="^\s*---\s*$"></section>
+        <section data-markdown="slides/02-architecture.md" data-separator="^\s*---\s*$"></section>
+        <section data-markdown="slides/03-workflow.md" data-separator="^\s*---\s*$"></section>
+        <section data-markdown="slides/04-customisations.md" data-separator="^\s*---\s*$"></section>
+        <section data-markdown="slides/05-demo.md" data-separator="^\s*---\s*$"></section>
+        <section data-markdown="slides/06-work-done.md" data-separator="^\s*---\s*$"></section>
 
         <section class="center" data-background-color="#0A001A">
             <h1 style="color: white !important; font-size: 3em; font-weight: 700;">ANY QUESTIONS?</h1>
@@ -193,11 +154,9 @@
 
 <script>
     mermaid.initialize({
-        startOnLoad: false,
+        startOnLoad: true,
         theme: 'base',
-        securityLevel: 'loose',
         flowchart: {
-            useMaxWidth: true,
             htmlLabels: true,
             curve: 'basis'
         },
@@ -205,8 +164,10 @@
             primaryColor: '#C3FF34',
             primaryTextColor: '#0A001A',
             primaryBorderColor: '#0A001A',
+            secondaryColor: '#FE7AF6',
+            tertiaryColor: '#F5F5F5',
             lineColor: '#0A001A',
-            fontSize: '18px',
+            fontSize: '14px',
             fontFamily: 'Inter'
         }
     });
@@ -216,34 +177,13 @@
         slideNumber: 'c/t',
         center: false,
         transition: 'slide',
-        transitionSpeed: 'fast',
         width: 1200,
         height: 800,
         margin: 0.08,
         plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
     });
 
-    deck.initialize().then(() => {
-        setTimeout(renderMermaid, 300);
-    });
-
-    function renderMermaid() {
-        const diagrams = document.querySelectorAll('.mermaid:not([data-processed="true"])');
-        diagrams.forEach((diagram) => {
-            const id = `mermaid-${Math.floor(Math.random() * 10000)}`;
-            const code = diagram.textContent.trim();
-            mermaid.render(id, code).then(({ svg }) => {
-                diagram.innerHTML = svg;
-                diagram.setAttribute('data-processed', 'true');
-            });
-        }).catch(err => {
-            console.error('Mermaid rendering error:', err);
-        });
-    }
-
-    deck.on('slidechanged', () => {
-        setTimeout(renderMermaid, 100);
-    });
+    deck.initialize();
 </script>
 </body>
 </html>
