@@ -29,6 +29,8 @@ Before deploying AFT, enable AWS Control Tower (one-time setup):
 
 ## The Three-Account Architecture
 
+![Three-account architecture](assets/three-account-architecture.png)
+
 ```mermaid
 graph TD
     MA[Management<br/>AFT Infrastructure] 
