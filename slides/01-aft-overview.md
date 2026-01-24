@@ -39,19 +39,7 @@ Before deploying AFT, enable AWS Control Tower (one-time setup):
 
 ## The Four-Phase Journey
 
-![img.png](img.png)
-
-```mermaid
-graph LR
-    A[Phase 1:<br/>Control Tower] --> B[Phase 2:<br/>Git Repos]
-    B --> C[Phase 3:<br/>Deploy AFT]
-    C --> D[Phase 4:<br/>Provision]
-    
-    style A fill:#FE7AF6,stroke:#0A001A
-    style B fill:#C3FF34,stroke:#0A001A
-    style C fill:#F8F8FA,stroke:#0A001A
-    style D fill:#C3FF34,stroke:#0A001A
-```
+![The Four-Phase Journey](assets/four-phase-journey.png)
 
 **One-time setup:** Phases 1-3 | **Ongoing:** Phase 4
 
