@@ -7,7 +7,8 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/theme/white.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/plugin/highlight/monokai.css">
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 
     <style>
@@ -15,51 +16,148 @@
             --cf-dark: #0A001A;
             --cf-pink: #FE7AF6;
             --cf-lime: #C3FF34;
-            --cf-grey: #F8F8FA;
+            --cf-grey: #F5F5F5;
         }
 
-        .reveal { font-family: 'Inter', sans-serif; background-color: #ffffff; color: var(--cf-dark); }
-        .reveal h1, .reveal h2, .reveal p, .reveal li, .reveal strong { color: var(--cf-dark) !important; }
+        .reveal {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: var(--cf-dark);
+        }
 
-        /* PREMIUM HEADERS */
-        .reveal h1 { font-size: 2em; font-weight: 900; text-transform: uppercase; letter-spacing: -0.03em; margin-bottom: 0.3em; }
-        .reveal h2 { font-size: 1.3em; font-weight: 900; text-transform: uppercase; letter-spacing: 0.05em; position: relative; padding-left: 25px; margin-top: 1em; }
-        .reveal h2::before { content: ''; position: absolute; left: 0; top: 4px; bottom: 4px; width: 8px; background-color: var(--cf-lime); }
+        .reveal h1, .reveal h2, .reveal h3, .reveal p, .reveal li, .reveal strong {
+            color: var(--cf-dark) !important;
+        }
 
-        /* IMPACTFUL BODY TEXT */
-        .reveal section { text-align: left; padding: 0 80px 100px 80px !important; }
-        .reveal p, .reveal li { font-size: 0.9em; line-height: 1.5; font-weight: 400; margin-bottom: 0.6em; }
-        .reveal strong { font-weight: 900; }
+        /* Clean, professional headers */
+        .reveal h1 {
+            font-size: 1.6em;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 0.8em;
+            letter-spacing: 0.02em;
+        }
 
-        .cf-footer { position: absolute; bottom: 30px; left: 50px; z-index: 1000; font-weight: 900; font-size: 20px; color: var(--cf-dark); text-transform: uppercase; }
-        .cf-footer span { color: var(--cf-pink) !important; }
+        .reveal h2 {
+            font-size: 1.1em;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin: 1.2em 0 0.6em 0;
+            padding-left: 15px;
+            position: relative;
+        }
 
-        /* THE "FILL THE SPACE" FIX */
+        .reveal h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 3px;
+            bottom: 3px;
+            width: 4px;
+            background-color: var(--cf-lime);
+        }
+
+        /* Professional body text */
+        .reveal section {
+            text-align: left;
+            padding: 20px 60px 60px 60px !important;
+        }
+
+        .reveal section.center {
+            text-align: center;
+            padding: 0 !important;
+        }
+
+        .reveal p, .reveal li {
+            font-size: 0.85em;
+            line-height: 1.6;
+            margin-bottom: 0.5em;
+            font-weight: 400;
+        }
+
+        .reveal ul {
+            margin-left: 20px;
+        }
+
+        .reveal strong {
+            font-weight: 700;
+        }
+
+        /* Code blocks */
+        .reveal pre {
+            width: 100%;
+            margin: 10px 0;
+            box-shadow: none;
+        }
+
+        .reveal pre code {
+            padding: 15px;
+            background: #f8f8f8;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            font-size: 0.7em;
+            max-height: 400px;
+            overflow: auto;
+        }
+
+        /* Footer branding */
+        .cf-footer {
+            position: absolute;
+            bottom: 20px;
+            left: 40px;
+            z-index: 1000;
+            font-weight: 700;
+            font-size: 16px;
+            color: var(--cf-dark);
+            text-transform: uppercase;
+        }
+        .cf-footer span {
+            color: var(--cf-pink) !important;
+        }
+
+        /* Mermaid diagrams - clean and functional */
         .mermaid {
             background: var(--cf-grey);
-            border-radius: 12px;
-            padding: 30px;
-            border-left: 8px solid var(--cf-lime);
-            margin: 25px 0;
+            border-radius: 6px;
+            padding: 25px;
+            border-left: 4px solid var(--cf-lime);
+            margin: 15px 0 20px 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 300px;
-            max-height: 450px;
-            width: 100%;
-            overflow: visible !important;
+            max-height: 380px;
         }
 
         .mermaid svg {
-            width: 100% !important;
+            max-width: 100% !important;
+            max-height: 360px !important;
             height: auto !important;
-            max-height: 420px !important;
-            display: block;
+            width: auto !important;
         }
 
-        table { font-size: 0.7em; width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th { background: var(--cf-grey); padding: 12px; border: 2px solid #eee; font-weight: 900; text-transform: uppercase; }
-        td { padding: 12px; border: 2px solid #eee; }
+        /* Tables */
+        table {
+            font-size: 0.75em;
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th {
+            background: var(--cf-grey);
+            padding: 10px;
+            border: 1px solid #ddd;
+            font-weight: 700;
+            text-align: left;
+        }
+        td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        /* Checkboxes in lists */
+        .reveal li input[type="checkbox"] {
+            margin-right: 8px;
+        }
     </style>
 </head>
 
@@ -68,10 +166,10 @@
 <div class="reveal">
     <div class="slides">
         <section class="center" data-background-color="#ffffff">
-            <h1 style="font-size: 3.5em; margin-bottom: 0;">AWS CONTROL TOWER</h1>
-            <p style="font-weight: 900; letter-spacing: 8px; margin-top: 15px; font-size: 1.1em; text-transform: uppercase;">Account Factory for Terraform</p>
-            <div style="height:8px; width:120px; background:var(--cf-lime); margin: 50px auto;"></div>
-            <p style="color: #888 !important; font-size: 0.6em; text-transform: uppercase; letter-spacing: 4px; font-weight: 700;">CloudTeam Presentation 2026</p>
+            <h1 style="font-size: 2.8em; margin-bottom: 0.3em; font-weight: 700;">AWS CONTROL TOWER</h1>
+            <p style="font-weight: 700; letter-spacing: 4px; margin-top: 20px; font-size: 0.9em; text-transform: uppercase;">Account Factory for Terraform</p>
+            <div style="height: 4px; width: 100px; background: var(--cf-lime); margin: 40px auto;"></div>
+            <p style="color: #999 !important; font-size: 0.65em; text-transform: uppercase; letter-spacing: 2px; font-weight: 600;">CloudTeam Presentation 2026</p>
         </section>
 
         <section data-markdown="slides/01-aft-overview.md" data-separator="^\s*---\s*$" data-separator-vertical="^\s*\*\*\*\s*$"></section>
@@ -82,8 +180,8 @@
         <section data-markdown="slides/06-work-done.md" data-separator="^\s*---\s*$" data-separator-vertical="^\s*\*\*\*\s*$"></section>
 
         <section class="center" data-background-color="#0A001A">
-            <h1 style="color:white !important; font-size: 4em;">ANY QUESTIONS?</h1>
-            <div style="height:4px; width:150px; background:var(--cf-pink); margin: 30px auto;"></div>
+            <h1 style="color: white !important; font-size: 3em; font-weight: 700;">ANY QUESTIONS?</h1>
+            <div style="height: 3px; width: 120px; background: var(--cf-pink); margin: 30px auto;"></div>
         </section>
     </div>
 </div>
@@ -98,24 +196,36 @@
         startOnLoad: false,
         theme: 'base',
         securityLevel: 'loose',
-        flowchart: { useMaxWidth: false, htmlLabels: false, curve: 'basis' },
+        flowchart: {
+            useMaxWidth: true,
+            htmlLabels: true,
+            curve: 'basis'
+        },
         themeVariables: {
             primaryColor: '#C3FF34',
             primaryTextColor: '#0A001A',
+            primaryBorderColor: '#0A001A',
             lineColor: '#0A001A',
-            fontSize: '32px', /* HUGE Labels to compensate for scaling */
-            fontFamily: 'Inter',
-            fontWeight: '900'
+            fontSize: '18px',
+            fontFamily: 'Inter'
         }
     });
 
     let deck = new Reveal({
-        hash: true, slideNumber: 'c/t', center: false, transition: 'none',
-        width: 1200, height: 800, margin: 0.1,
-        plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+        hash: true,
+        slideNumber: 'c/t',
+        center: false,
+        transition: 'slide',
+        transitionSpeed: 'fast',
+        width: 1200,
+        height: 800,
+        margin: 0.08,
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
     });
 
-    deck.initialize().then(() => { setTimeout(renderMermaid, 500); });
+    deck.initialize().then(() => {
+        setTimeout(renderMermaid, 300);
+    });
 
     function renderMermaid() {
         const diagrams = document.querySelectorAll('.mermaid:not([data-processed="true"])');
@@ -126,9 +236,14 @@
                 diagram.innerHTML = svg;
                 diagram.setAttribute('data-processed', 'true');
             });
+        }).catch(err => {
+            console.error('Mermaid rendering error:', err);
         });
     }
-    deck.on('slidechanged', () => renderMermaid());
+
+    deck.on('slidechanged', () => {
+        setTimeout(renderMermaid, 100);
+    });
 </script>
 </body>
 </html>
