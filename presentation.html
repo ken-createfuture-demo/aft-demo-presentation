@@ -7,7 +7,8 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/theme/white.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/plugin/highlight/github.css">
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 
     <style>
@@ -15,7 +16,7 @@
             --cf-dark: #0A001A;
             --cf-pink: #FE7AF6;
             --cf-lime: #C3FF34;
-            --cf-grey: #F5F5F5;
+            --cf-grey: #F8F8FA;
         }
 
         .reveal {
@@ -24,101 +25,53 @@
             color: var(--cf-dark);
         }
 
-        .reveal h1, .reveal h2, .reveal h3, .reveal p, .reveal li, .reveal strong {
+        /* CREATEFUTURE BRAND TYPOGRAPHY */
+        .reveal h1, .reveal h2, .reveal h3, .reveal p, .reveal li, .reveal strong, .reveal span {
             color: var(--cf-dark) !important;
         }
 
-        .reveal h1 {
-            font-size: 1.6em;
-            font-weight: 700;
-            text-transform: uppercase;
-            margin-bottom: 0.8em;
-            letter-spacing: 0.02em;
-        }
+        .reveal h1 { font-size: 1.8em; font-weight: 900; text-transform: uppercase; margin-bottom: 0.4em; }
+        .reveal h2 { font-size: 1.2em; font-weight: 900; text-transform: uppercase; position: relative; padding-left: 20px; margin-top: 1.2em; }
+        .reveal h2::before { content: ''; position: absolute; left: 0; top: 2px; bottom: 2px; width: 6px; background-color: var(--cf-lime); }
 
-        .reveal h2 {
-            font-size: 1.1em;
-            font-weight: 700;
-            text-transform: uppercase;
-            margin: 1.2em 0 0.6em 0;
-            padding-left: 15px;
-            position: relative;
-        }
+        .reveal section { text-align: left; padding: 0 80px 100px 80px !important; }
+        .reveal section.center { text-align: center; padding: 0 !important; }
 
-        .reveal h2::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 3px;
-            bottom: 3px;
-            width: 4px;
-            background-color: var(--cf-lime);
-        }
+        .reveal p, .reveal li { font-size: 0.85em; line-height: 1.4; margin-bottom: 0.5em; }
 
-        .reveal section {
-            text-align: left;
-            padding: 20px 60px 60px 60px !important;
-        }
-
-        .reveal section.center {
-            text-align: center;
-            padding: 0 !important;
-        }
-
-        .reveal p, .reveal li {
-            font-size: 0.85em;
-            line-height: 1.6;
-            margin-bottom: 0.5em;
-            font-weight: 400;
-        }
-
-        .reveal ul {
-            margin-left: 20px;
-        }
-
-        .reveal strong {
-            font-weight: 700;
-        }
-
+        /* FOOTER BRANDING */
         .cf-footer {
             position: absolute;
-            bottom: 20px;
-            left: 40px;
+            bottom: 30px;
+            left: 50px;
             z-index: 1000;
-            font-weight: 700;
-            font-size: 16px;
+            font-weight: 900;
+            font-size: 20px;
             color: var(--cf-dark);
             text-transform: uppercase;
         }
-        .cf-footer span {
-            color: var(--cf-pink) !important;
-        }
+        .cf-footer span { color: var(--cf-pink) !important; }
 
+        /* MERMAID DIAGRAM STYLING & FIXES */
         .mermaid {
             background: var(--cf-grey);
-            border-radius: 6px;
-            padding: 25px;
-            border-left: 4px solid var(--cf-lime);
+            border-radius: 8px;
+            padding: 20px;
+            border-left: 5px solid var(--cf-lime);
+            display: flex;
+            justify-content: center;
+            align-items: center;
             margin: 15px 0;
         }
 
-        table {
-            font-size: 0.75em;
-            width: 100%;
-            border-collapse: collapse;
-            margin: 15px 0;
+        .mermaid svg {
+            max-width: 100% !important;
+            height: auto !important;
         }
-        th {
-            background: var(--cf-grey);
-            padding: 10px;
-            border: 1px solid #ddd;
-            font-weight: 700;
-            text-align: left;
-        }
-        td {
-            padding: 10px;
-            border: 1px solid #ddd;
-        }
+
+        table { font-size: 0.7em; width: 100%; border-collapse: collapse; }
+        th { background: var(--cf-grey); padding: 10px; border: 1px solid #eee; }
+        td { padding: 10px; border: 1px solid #eee; }
     </style>
 </head>
 
@@ -127,22 +80,22 @@
 <div class="reveal">
     <div class="slides">
         <section class="center" data-background-color="#ffffff">
-            <h1 style="font-size: 2.8em; margin-bottom: 0.3em; font-weight: 700;">AWS CONTROL TOWER</h1>
-            <p style="font-weight: 700; letter-spacing: 4px; margin-top: 20px; font-size: 0.9em; text-transform: uppercase;">Account Factory for Terraform</p>
-            <div style="height: 4px; width: 100px; background: var(--cf-lime); margin: 40px auto;"></div>
-            <p style="color: #999 !important; font-size: 0.65em; text-transform: uppercase; letter-spacing: 2px; font-weight: 600;">CloudTeam Presentation 2026</p>
+            <h1 style="font-size: 3em; margin-bottom: 0;">AWS CONTROL TOWER</h1>
+            <p style="font-weight: 900; letter-spacing: 5px; margin-top: 15px; font-size: 0.9em; text-transform: uppercase;">Account Factory for Terraform</p>
+            <div style="height:5px; width:100px; background:var(--cf-lime); margin: 45px auto;"></div>
+            <p style="color: #888 !important; font-size: 0.6em; text-transform: uppercase; letter-spacing: 3px; font-weight: 700;">CloudTeam Presentation 2026</p>
         </section>
 
-        <section data-markdown="slides/01-aft-overview.md" data-separator="^\s*---\s*$"></section>
-        <section data-markdown="slides/02-architecture.md" data-separator="^\s*---\s*$"></section>
-        <section data-markdown="slides/03-workflow.md" data-separator="^\s*---\s*$"></section>
-        <section data-markdown="slides/04-customisations.md" data-separator="^\s*---\s*$"></section>
-        <section data-markdown="slides/05-demo.md" data-separator="^\s*---\s*$"></section>
-        <section data-markdown="slides/06-work-done.md" data-separator="^\s*---\s*$"></section>
+        <section data-markdown="slides/01-aft-overview.md" data-separator="^\s*---\s*$" data-separator-vertical="^\s*\*\*\*\s*$"></section>
+        <section data-markdown="slides/02-architecture.md" data-separator="^\s*---\s*$" data-separator-vertical="^\s*\*\*\*\s*$"></section>
+        <section data-markdown="slides/03-workflow.md" data-separator="^\s*---\s*$" data-separator-vertical="^\s*\*\*\*\s*$"></section>
+        <section data-markdown="slides/04-customisations.md" data-separator="^\s*---\s*$" data-separator-vertical="^\s*\*\*\*\s*$"></section>
+        <section data-markdown="slides/05-demo.md" data-separator="^\s*---\s*$" data-separator-vertical="^\s*\*\*\*\s*$"></section>
+        <section data-markdown="slides/06-work-done.md" data-separator="^\s*---\s*$" data-separator-vertical="^\s*\*\*\*\s*$"></section>
 
         <section class="center" data-background-color="#0A001A">
-            <h1 style="color: white !important; font-size: 3em; font-weight: 700;">ANY QUESTIONS?</h1>
-            <div style="height: 3px; width: 120px; background: var(--cf-pink); margin: 30px auto;"></div>
+            <h1 style="color:white !important; font-size: 3.5em;">ANY QUESTIONS?</h1>
+            <div style="height:3px; width:120px; background:var(--cf-pink); margin: 25px auto;"></div>
         </section>
     </div>
 </div>
@@ -153,37 +106,53 @@
 <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/plugin/notes/notes.js"></script>
 
 <script>
+    // 1. Initialise Mermaid with the CreateFuture Brand Theme
     mermaid.initialize({
-        startOnLoad: true,
+        startOnLoad: false,
         theme: 'base',
-        flowchart: {
-            htmlLabels: true,
-            curve: 'basis'
-        },
+        securityLevel: 'loose',
+        flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' },
         themeVariables: {
             primaryColor: '#C3FF34',
             primaryTextColor: '#0A001A',
-            primaryBorderColor: '#0A001A',
-            secondaryColor: '#FE7AF6',
-            tertiaryColor: '#F5F5F5',
             lineColor: '#0A001A',
-            fontSize: '14px',
+            fontSize: '16px',
             fontFamily: 'Inter'
         }
     });
 
+    // 2. Initialise Reveal
     let deck = new Reveal({
         hash: true,
         slideNumber: 'c/t',
         center: false,
-        transition: 'slide',
+        transition: 'none',
         width: 1200,
         height: 800,
-        margin: 0.08,
-        plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+        plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
     });
 
-    deck.initialize();
+    deck.initialize().then(() => {
+        // Trigger Mermaid render after a short delay to ensure Markdown is injected
+        setTimeout(renderMermaid, 300);
+    });
+
+    // 3. Custom Function to render Mermaid diagrams on each slide
+    function renderMermaid() {
+        const diagrams = document.querySelectorAll('.mermaid:not([data-processed="true"])');
+        diagrams.forEach((diagram) => {
+            const id = `mermaid-${Math.floor(Math.random() * 10000)}`;
+            mermaid.render(id, diagram.textContent.trim()).then(({ svg }) => {
+                diagram.innerHTML = svg;
+                diagram.setAttribute('data-processed', 'true');
+            });
+        });
+    }
+
+    // Rerender when changing slides to handle any dynamic loading
+    deck.on('slidechanged', () => {
+        renderMermaid();
+    });
 </script>
 </body>
 </html>
