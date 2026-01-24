@@ -3,37 +3,95 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AWS Control Tower Account Factory for Terraform</title>
+    <title>CreateFuture | AWS AFT Demo</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/theme/white.css">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/plugin/highlight/monokai.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/plugin/highlight/github.css">
 
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 
     <style>
+        :root {
+            --cf-blue: #0047FF; /* CreateFuture Electric Blue */
+            --cf-black: #000000;
+            --cf-grey: #F5F5F7;
+        }
+
+        /* Override Reveal styles with CreateFuture Branding */
+        .reveal {
+            font-family: 'Inter', sans-serif;
+            background-color: #fff;
+            color: var(--cf-black);
+        }
+
+        .reveal h1, .reveal h2, .reveal h3 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            color: var(--cf-black);
+        }
+
+        .reveal h1 { font-size: 3.5em; line-height: 1; }
+        .reveal h2 { color: var(--cf-blue); font-size: 1.8em; margin-bottom: 30px; }
+
         .reveal section { text-align: left; }
         .reveal section.center { text-align: center; }
-        .reveal h1 { color: #232f3e; margin-bottom: 20px; }
-        .reveal h2 { color: #ff9900; }
-        .reveal strong { color: #ff9900; }
-        .reveal .slide-number { background: #232f3e; color: #fff; }
-        /* Ensure Mermaid diagrams don't overflow */
-        .mermaid { display: flex; justify-content: center; }
-        .mermaid svg { max-height: 450px !important; width: auto !important; }
+
+        .reveal strong { color: var(--cf-blue); font-weight: 700; }
+
+        /* Custom UI Elements */
+        .reveal .controls { color: var(--cf-blue); }
+        .reveal .progress { color: var(--cf-blue); height: 6px; }
+        .reveal .slide-number {
+            background: transparent;
+            color: var(--cf-black);
+            font-weight: 700;
+        }
+
+        /* Mermaid Diagram Styling */
+        .mermaid { display: flex; justify-content: center; margin-top: 20px; }
+        .mermaid svg { max-height: 400px !important; width: auto !important; }
+
+        /* Code block styling */
+        .reveal pre {
+            box-shadow: none;
+            background: var(--cf-grey);
+            border-radius: 8px;
+            padding: 10px;
+            width: 100%;
+        }
+
+        /* Branding Footer (Optional) */
+        .cf-logo {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-weight: 900;
+            font-size: 0.8em;
+            letter-spacing: 1px;
+            color: var(--cf-black);
+            z-index: 100;
+        }
     </style>
 </head>
 
 <body>
 
+<div class="cf-logo">CREATE<strong>FUTURE.</strong></div>
+
 <div class="reveal">
     <div class="slides">
 
-        <section class="center" data-background-color="#232f3e">
-            <h1 style="color:white">AWS Control Tower</h1>
-            <h2 style="color:#ff9900">Account Factory for Terraform</h2>
-            <p style="color:#ccc">Complete Implementation Guide</p>
+        <section class="center" data-background-color="#000000">
+            <h1 style="color:white; margin:0;">AWS CONTROL<br><span style="color:var(--cf-blue)">TOWER</span></h1>
+            <p style="color:#aaa; font-weight:700; margin-top:20px; letter-spacing: 2px;">ACCOUNT FACTORY FOR TERRAFORM</p>
+            <div style="height:2px; width:60px; background:var(--cf-blue); margin: 30px auto;"></div>
+            <p style="color:white; font-size: 0.6em; opacity: 0.6;">TEAM DEMO PREPARED BY CREATEFUTURE</p>
         </section>
 
         <section data-markdown="slides/00-prerequisites.md"
@@ -49,25 +107,9 @@
                  data-separator="^\n---\n$"
                  data-separator-vertical="^\n\*\*\*\n$"></section>
 
-        <section data-markdown="slides/03-workflow.md"
-                 data-separator="^\n---\n$"
-                 data-separator-vertical="^\n\*\*\*\n$"></section>
-
-        <section data-markdown="slides/04-customisations.md"
-                 data-separator="^\n---\n$"
-                 data-separator-vertical="^\n\*\*\*\n$"></section>
-
-        <section data-markdown="slides/05-demo.md"
-                 data-separator="^\n---\n$"
-                 data-separator-vertical="^\n\*\*\*\n$"></section>
-
-        <section data-markdown="slides/06-work-done.md"
-                 data-separator="^\n---\n$"
-                 data-separator-vertical="^\n\*\*\*\n$"></section>
-
-        <section class="center" data-background-color="#232f3e">
-            <h1 style="color:white">Questions?</h1>
-            <p style="color:#aaa">Let’s discuss</p>
+        <section class="center" data-background-color="#0047FF">
+            <h1 style="color:white">QUESTIONS?</h1>
+            <p style="color:white; opacity: 0.8;">Let's build the future.</p>
         </section>
 
     </div>
@@ -79,11 +121,18 @@
 <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/plugin/notes/notes.js"></script>
 
 <script>
-    // Initialize Mermaid with settings that play nice with Reveal
+    // Mermaid configuration matching CreateFuture Blue
     mermaid.initialize({
         startOnLoad: false,
         theme: 'base',
-        themeVariables: { primaryColor: '#ff9900', edgeLabelBackground: '#ffffff' },
+        themeVariables: {
+            primaryColor: '#0047FF',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#0047FF',
+            lineColor: '#000000',
+            secondaryColor: '#F5F5F7',
+            tertiaryColor: '#fff'
+        },
         securityLevel: 'loose'
     });
 
@@ -93,7 +142,7 @@
         controls: true,
         progress: true,
         center: false,
-        transition: 'slide',
+        transition: 'fade', // Fade is more modern/minimalist than slide
         plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
     });
 
@@ -101,10 +150,9 @@
         renderMermaid();
     });
 
-    // Renders mermaid diagrams within the current slide context
     function renderMermaid() {
         const diagrams = document.querySelectorAll('.mermaid:not([data-processed="true"])');
-        diagrams.forEach((diagram, i) => {
+        diagrams.forEach((diagram) => {
             const id = `mermaid-${Math.floor(Math.random() * 1000)}`;
             mermaid.render(id, diagram.textContent).then(({ svg }) => {
                 diagram.innerHTML = svg;
@@ -113,7 +161,6 @@
         });
     }
 
-    // Re-run mermaid on slide changes to catch any newly revealed diagrams
     deck.on('slidechanged', () => {
         renderMermaid();
     });
