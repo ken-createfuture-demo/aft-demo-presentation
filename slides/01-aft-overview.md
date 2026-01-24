@@ -31,17 +31,6 @@ Before deploying AFT, enable AWS Control Tower (one-time setup):
 
 ![Three-account architecture](assets/three-account-architecture.png)
 
-```mermaid
-graph TD
-    MA[Management<br/>AFT Infrastructure] 
-    MA --- LA[Log Archive]
-    MA --- AA[Audit]
-    
-    style MA fill:#C3FF34,stroke:#0A001A,stroke-width:3px
-    style LA fill:#F8F8FA,stroke:#0A001A
-    style AA fill:#F8F8FA,stroke:#0A001A
-```
-
 **Management:** AFT stack and orchestration  
 **Log Archive:** CloudTrail and API logs  
 **Audit:** GuardDuty and Security Hub
