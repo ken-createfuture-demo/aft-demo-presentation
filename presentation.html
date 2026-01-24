@@ -7,8 +7,7 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/theme/white.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/plugin/highlight/github.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 
     <style>
@@ -16,7 +15,7 @@
           --cf-dark: #0A001A;
           --cf-pink: #FE7AF6;
           --cf-lime: #C3FF34;
-          --cf-grey: #F8F8FA;
+          --cf-grey: #F5F5F5;
         }
 
         .reveal {
@@ -29,106 +28,115 @@
           color: var(--cf-dark) !important;
         }
 
+        /* Clean, professional headers */
         .reveal h1 {
-          font-size: 1.8em;
-          font-weight: 900;
+          font-size: 1.7em;
+          font-weight: 700;
           text-transform: uppercase;
-          margin-bottom: 0.3em;
+          margin-bottom: 0.5em;
+          letter-spacing: 0.02em;
         }
 
         .reveal h2 {
           font-size: 1.1em;
-          font-weight: 900;
+          font-weight: 700;
           text-transform: uppercase;
           position: relative;
-          padding-left: 20px;
-          margin-top: 0.4em;
+          padding-left: 18px;
+          margin: 1em 0 0.6em 0;
         }
 
         .reveal h2::before {
           content: '';
           position: absolute;
           left: 0;
-          top: 2px;
-          bottom: 2px;
-          width: 6px;
+          top: 3px;
+          bottom: 3px;
+          width: 4px;
           background-color: var(--cf-lime);
         }
 
         /* Standard slide layout */
         .reveal section {
           text-align: left;
-          padding: 0 60px 80px 60px !important;
+          padding: 30px 70px 70px 70px !important;
           box-sizing: border-box;
         }
 
-        /* ✅ IMPORTANT: restore proper center slides (title + closing) */
+        /* Center slides (title + closing) */
         .reveal section.center {
           text-align: center !important;
           padding: 0 !important;
         }
 
+        /* Body text - clean and readable */
         .reveal p, .reveal li {
           font-size: 0.85em;
-          line-height: 1.4;
-          margin-bottom: 0.4em;
+          line-height: 1.6;
+          margin-bottom: 0.5em;
+          font-weight: 400;
         }
 
-        /* Images */
+        .reveal ul {
+          margin-left: 20px;
+        }
+
+        .reveal strong {
+          font-weight: 700;
+        }
+
+        /* Images - professional styling */
         .reveal img {
           display: block !important;
           margin: 20px auto !important;
-          max-width: 92% !important;
-          max-height: 52vh !important;
+          max-width: 90% !important;
+          max-height: 50vh !important;
           width: auto !important;
           height: auto !important;
-          border-radius: 12px;
+          border-radius: 8px;
           background: var(--cf-grey);
-          padding: 14px;
-          border-left: 6px solid var(--cf-lime);
-          box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+          padding: 20px;
+          border-left: 4px solid var(--cf-lime);
+          box-shadow: 0 2px 8px rgba(0,0,0,0.08);
           box-sizing: border-box;
         }
 
-        /* ✅ Mermaid container: NO fit-content, NO hidden overflow, NO internal scrolling */
+        /* Mermaid diagrams */
         .mermaid {
           background: var(--cf-grey);
-          border-radius: 10px;
-          padding: 14px;
-          border-left: 6px solid var(--cf-lime);
-
+          border-radius: 8px;
+          padding: 20px;
+          border-left: 4px solid var(--cf-lime);
           display: block;
           width: 100%;
-          max-width: 100%;
-
-          margin: 18px auto;
+          margin: 20px auto;
           box-sizing: border-box;
-
-          overflow: visible;     /* ✅ key: stop diagram being chopped */
+          overflow: visible;
         }
 
-        /* ✅ Mermaid SVG responsive + allow labels outside bounds */
         .mermaid svg {
           width: 100% !important;
           height: auto !important;
           max-width: 100% !important;
-
-          overflow: visible !important; /* ✅ key: prevent label clipping */
+          overflow: visible !important;
           display: block;
           margin: 0 auto;
         }
 
+        /* Footer branding - subtle */
         .cf-footer {
           position: fixed;
-          bottom: 22px;
+          bottom: 20px;
           left: 40px;
           z-index: 1000;
-          font-weight: 900;
-          font-size: 18px;
+          font-weight: 700;
+          font-size: 16px;
           color: var(--cf-dark);
           text-transform: uppercase;
         }
-        .cf-footer span { color: var(--cf-pink) !important; }
+        .cf-footer span {
+          color: var(--cf-pink) !important;
+        }
     </style>
 </head>
 
@@ -137,27 +145,30 @@
 
 <div class="reveal">
     <div class="slides">
+        <!-- Title slide -->
         <section class="center" data-background-color="#ffffff">
-            <h1 style="font-size: 3em; margin-bottom: 0;">AWS CONTROL TOWER</h1>
-            <p style="font-weight: 900; letter-spacing: 5px; margin-top: 15px; font-size: 0.9em; text-transform: uppercase;">
+            <h1 style="font-size: 2.8em; margin-bottom: 0.2em; font-weight: 700;">AWS CONTROL TOWER</h1>
+            <p style="font-weight: 700; letter-spacing: 4px; margin-top: 20px; font-size: 0.9em; text-transform: uppercase;">
                 Account Factory for Terraform
             </p>
-            <div style="height:5px; width:100px; background:var(--cf-lime); margin: 45px auto;"></div>
-            <p style="color: #888 !important; font-size: 0.6em; text-transform: uppercase; letter-spacing: 3px; font-weight: 700;">
+            <div style="height: 4px; width: 100px; background: var(--cf-lime); margin: 40px auto;"></div>
+            <p style="color: #999 !important; font-size: 0.65em; text-transform: uppercase; letter-spacing: 2px; font-weight: 600;">
                 CloudTeam Presentation 2026
             </p>
         </section>
 
-        <section data-markdown="slides/01-aft-overview.md" data-separator="^\n---\n$" data-separator-vertical="^\n\*\*\*\n$"></section>
-        <section data-markdown="slides/02-architecture.md" data-separator="^\n---\n$" data-separator-vertical="^\n\*\*\*\n$"></section>
-        <section data-markdown="slides/03-workflow.md" data-separator="^\n---\n$" data-separator-vertical="^\n\*\*\*\n$"></section>
-        <section data-markdown="slides/04-customisations.md" data-separator="^\n---\n$" data-separator-vertical="^\n\*\*\*\n$"></section>
-        <section data-markdown="slides/05-demo.md" data-separator="^\n---\n$" data-separator-vertical="^\n\*\*\*\n$"></section>
-        <section data-markdown="slides/06-work-done.md" data-separator="^\n---\n$" data-separator-vertical="^\n\*\*\*\n$"></section>
+        <!-- Content slides -->
+        <section data-markdown="slides/01-aft-overview.md" data-separator="^\n---\n$"></section>
+        <section data-markdown="slides/02-architecture.md" data-separator="^\n---\n$"></section>
+        <section data-markdown="slides/03-workflow.md" data-separator="^\n---\n$"></section>
+        <section data-markdown="slides/04-customisations.md" data-separator="^\n---\n$"></section>
+        <section data-markdown="slides/05-demo.md" data-separator="^\n---\n$"></section>
+        <section data-markdown="slides/06-work-done.md" data-separator="^\n---\n$"></section>
 
+        <!-- Closing slide -->
         <section class="center" data-background-color="#0A001A">
-            <h1 style="color:white !important; font-size: 3.5em;">ANY QUESTIONS?</h1>
-            <div style="height:3px; width:120px; background:var(--cf-pink); margin: 30px auto;"></div>
+            <h1 style="color: white !important; font-size: 3em; font-weight: 700;">ANY QUESTIONS?</h1>
+            <div style="height: 3px; width: 120px; background: var(--cf-pink); margin: 30px auto;"></div>
         </section>
     </div>
 </div>
@@ -172,18 +183,30 @@
       startOnLoad: false,
       theme: 'base',
       securityLevel: 'loose',
-      flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' },
-      themeVariables: { primaryColor: '#C3FF34', fontSize: '14px', fontFamily: 'Inter' }
+      flowchart: {
+        useMaxWidth: true,
+        htmlLabels: true,
+        curve: 'basis'
+      },
+      themeVariables: {
+        primaryColor: '#C3FF34',
+        primaryTextColor: '#0A001A',
+        primaryBorderColor: '#0A001A',
+        lineColor: '#0A001A',
+        fontSize: '14px',
+        fontFamily: 'Inter'
+      }
     });
 
     const deck = new Reveal({
       hash: true,
       slideNumber: 'c/t',
       center: false,
-      transition: 'none',
+      transition: 'slide',
+      transitionSpeed: 'fast',
       width: 1200,
       height: 800,
-      margin: 0.05,
+      margin: 0.08,
       plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
     });
 
@@ -223,7 +246,9 @@
       });
     }
 
-    deck.on('slidechanged', () => { renderMermaid(); });
+    deck.on('slidechanged', () => {
+      setTimeout(renderMermaid, 100);
+    });
 </script>
 </body>
 </html>

@@ -1,11 +1,13 @@
 # AFT: Technical Mission Briefing
 
 ## The Objective
+
 **AWS Account Factory for Terraform (AFT)** is our dedicated orchestration engine for AWS Control Tower. We are moving from manual "ticket-ops" to a pure **GitOps** workflow: commit HCL, trigger the pipeline, and have a fully hardened, compliant account ready.
 
 ---
 
 ## Why This Matters
+
 * **Standardised Delivery:** No more "snowflake" accounts; every VPC and IAM role is identical by design
 * **Rapid Scaling:** Provision ten project accounts as easily as one
 * **Immutable Audit Trail:** Every change documented in Git and DynamoDB
@@ -14,6 +16,8 @@
 ---
 
 ## Control Tower: The Foundation
+
+**What is Control Tower?** AWS's managed service for setting up and governing multi-account environments.
 
 Before deploying AFT, enable AWS Control Tower (one-time setup):
 
@@ -39,9 +43,7 @@ Before deploying AFT, enable AWS Control Tower (one-time setup):
 
 ## The Four-Phase Journey
 
-![The Four-Phase Journey](assets/four-phase-journey.png)
-
-**One-time setup:** Phases 1-3 | **Ongoing:** Phase 4
+![Four-phase journey](assets/four-phase-journey.png)
 
 ---
 
@@ -49,10 +51,10 @@ Before deploying AFT, enable AWS Control Tower (one-time setup):
 
 AFT requires four Git repositories before deployment:
 
-1. **aft-account-request**: Entry point for new account HCL files
-2. **aft-global-customisations**: Resources applied to all accounts
-3. **aft-account-customisations**: Account-specific configurations
-4. **aft-account-provisioning-customisations**: Pre-baseline configurations
+1. **aft-account-request:** Entry point for new account HCL files
+2. **aft-global-customisations:** Resources applied to all accounts
+3. **aft-account-customisations:** Account-specific configurations
+4. **aft-account-provisioning-customisations:** Pre-baseline configurations
 
 Repositories can be empty initially but must exist before deploying AFT.
 
@@ -61,6 +63,7 @@ Repositories can be empty initially but must exist before deploying AFT.
 ## Engineer Checklist
 
 **Before deploying AFT:**
+
 * [ ] **Control Tower Landing Zone active**
 * [ ] **Three account IDs collected**
 * [ ] **Four Git repositories created**
@@ -69,3 +72,14 @@ Repositories can be empty initially but must exist before deploying AFT.
 * [ ] **Terraform environment ready**
 
 **Once ready, deploy AFT.**
+
+---
+
+## What's Next
+
+Now that you understand the foundation, we'll cover:
+
+* **Architecture:** How AFT operates in the Management account
+* **Workflow:** The automated journey from Git commit to ready account
+* **Customisations:** How to tailor accounts to project needs
+* **Demo:** Live walkthrough of account provisioning
