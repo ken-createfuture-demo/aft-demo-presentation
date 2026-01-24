@@ -30,8 +30,8 @@ AFT orchestrates actions across our three core Control Tower accounts:
 ```mermaid
 graph TD
     MA[Management Account] 
-    MA --- LA(Log Archive)
-    MA --- AA(Audit Account)
+    MA --- LA[Log Archive]
+    MA --- AA[Audit Account]
     
     style MA fill:#C3FF34,stroke:#0A001A,stroke-width:4px
     style LA fill:#F8F8FA,stroke:#0A001A

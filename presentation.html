@@ -25,7 +25,8 @@
             color: var(--cf-dark);
         }
 
-        .reveal h1, .reveal h2, .reveal h3, .reveal p, .reveal li, .reveal strong, .reveal span {
+        /* Strict Text Styling */
+        .reveal h1, .reveal h2, .reveal h3, .reveal p, .reveal li, .reveal strong {
             color: var(--cf-dark) !important;
         }
 
@@ -82,20 +83,28 @@
         .mermaid {
             background: var(--cf-grey);
             border-radius: 8px;
-            padding: 40px;
+            padding: 30px;
             border-left: 5px solid var(--cf-lime);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 400px;
+            max-height: 500px;
             margin: 20px 0;
-            overflow: visible !important;
+            overflow: hidden !important;
         }
 
         .mermaid svg {
-            max-width: 90% !important;
+            max-width: 100% !important;
+            max-height: 100% !important;
             height: auto !important;
             width: auto !important;
+        }
+
+        /* Prevent text squashing in nodes */
+        .mermaid .node text {
+            font-family: 'Inter', sans-serif !important;
+            font-size: 16px !important;
         }
 
         table { font-size: 0.7em; width: 100%; border-collapse: collapse; }
@@ -143,16 +152,21 @@
 <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/plugin/notes/notes.js"></script>
 
 <script>
+    // Critical: htmlLabels set to false prevents label distortion during Reveal.js scaling
     mermaid.initialize({
         startOnLoad: false,
         theme: 'base',
         securityLevel: 'loose',
-        flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' },
+        flowchart: {
+            useMaxWidth: true,
+            htmlLabels: false,
+            curve: 'basis'
+        },
         themeVariables: {
             primaryColor: '#C3FF34',
             primaryTextColor: '#0A001A',
             lineColor: '#0A001A',
-            fontSize: '20px',
+            fontSize: '18px',
             fontFamily: 'Inter'
         }
     });
@@ -162,8 +176,9 @@
         slideNumber: 'c/t',
         center: false,
         transition: 'none',
-        width: 1200, /* Larger width for technical diagrams */
+        width: 1200,
         height: 800,
+        margin: 0.1,
         plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
     });
 
