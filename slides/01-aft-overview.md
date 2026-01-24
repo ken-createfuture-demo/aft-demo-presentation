@@ -3,6 +3,8 @@
 ## The Objective
 **AWS Account Factory for Terraform (AFT)** is our dedicated orchestration engine for AWS Control Tower. We are moving from manual "ticket-ops" to a pure **GitOps** workflow: commit HCL, trigger the pipeline, and have a fully hardened, compliant account ready.
 
+[AWS AFT Documentation](https://docs.aws.amazon.com/controltower/latest/userguide/aft-overview.html)
+
 ---
 
 ## Why This Matters (The GitOps Shift)
@@ -26,9 +28,13 @@ Before deploying AFT, you must enable AWS Control Tower. This is a one-time setu
 **What you provide:** Just the email addresses for Log Archive and Audit accounts  
 **What Control Tower does:** Creates the accounts, applies baseline configuration, configures OU placement
 
+[AWS Control Tower Setup Guide](https://docs.aws.amazon.com/controltower/latest/userguide/setting-up.html)
+
 ---
 
 ## The Three-Account Architecture
+
+![AWS Control Tower Account Architecture](assets/control-tower-architecture.png)
 
 ```mermaid
 graph TD
@@ -44,6 +50,8 @@ graph TD
 **Management:** Hosts the AFT stack and orchestration workflows  
 **Log Archive:** Centralised repository for all API and resource logs  
 **Audit:** Central hub for GuardDuty and Security Hub findings
+
+[AWS Control Tower Account Structure](https://docs.aws.amazon.com/controltower/latest/userguide/how-control-tower-works.html#what-shared)
 
 ---
 
@@ -77,16 +85,18 @@ AFT requires four Git repositories to be created before deployment:
 
 **Note:** Repositories can be empty initially but must exist before deploying AFT.
 
+[AFT Repository Requirements](https://docs.aws.amazon.com/controltower/latest/userguide/aft-getting-started.html#aft-repo-requirements)
+
 ---
 
 ## Engineer Checklist
 
 **Before deploying AFT:**
-* [ ] Control Tower Landing Zone active
-* [ ] Three account IDs collected (Management, Log Archive, Audit)
-* [ ] Four Git repositories created
-* [ ] Git integration configured (PAT or SSH keys)
-* [ ] AWS IAM Identity Centre (SSO) active
-* [ ] Terraform environment ready
+* [ ] **Control Tower Landing Zone active**
+* [ ] **Three account IDs collected** (Management, Log Archive, Audit)
+* [ ] **Four Git repositories created**
+* [ ] **Git integration configured** (PAT or SSH keys)
+* [ ] **AWS IAM Identity Centre (SSO) active**
+* [ ] **Terraform environment ready**
 
 **Once these are ready, you can deploy AFT.**
