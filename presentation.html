@@ -38,48 +38,46 @@
             <p style="color:#ccc">Complete Implementation Guide</p>
         </section>
 
-        <!-- ✅ FIX 1: ORDER (Prereqs first, then Intro) -->
-        <!-- ✅ FIX 2: separators now tolerant: ^---\s*$ -->
-
+        <!-- MARKDOWN SECTIONS (FIXED SEPARATORS) -->
         <section data-markdown="slides/00-prerequisites.md"
-                 data-separator="^---\\s*$"
-                 data-separator-vertical="^\\*\\*\\*\\s*$"
+                 data-separator="^---\s*$"
+                 data-separator-vertical="^\*\*\*\s*$"
                  data-separator-notes="^Note:"
                  data-charset="utf-8"></section>
 
         <section data-markdown="slides/01-introduction.md"
-                 data-separator="^---\\s*$"
-                 data-separator-vertical="^\\*\\*\\*\\s*$"
+                 data-separator="^---\s*$"
+                 data-separator-vertical="^\*\*\*\s*$"
                  data-separator-notes="^Note:"
                  data-charset="utf-8"></section>
 
         <section data-markdown="slides/02-architecture.md"
-                 data-separator="^---\\s*$"
-                 data-separator-vertical="^\\*\\*\\*\\s*$"
+                 data-separator="^---\s*$"
+                 data-separator-vertical="^\*\*\*\s*$"
                  data-separator-notes="^Note:"
                  data-charset="utf-8"></section>
 
         <section data-markdown="slides/03-workflow.md"
-                 data-separator="^---\\s*$"
-                 data-separator-vertical="^\\*\\*\\*\\s*$"
+                 data-separator="^---\s*$"
+                 data-separator-vertical="^\*\*\*\s*$"
                  data-separator-notes="^Note:"
                  data-charset="utf-8"></section>
 
         <section data-markdown="slides/04-customisations.md"
-                 data-separator="^---\\s*$"
-                 data-separator-vertical="^\\*\\*\\*\\s*$"
+                 data-separator="^---\s*$"
+                 data-separator-vertical="^\*\*\*\s*$"
                  data-separator-notes="^Note:"
                  data-charset="utf-8"></section>
 
         <section data-markdown="slides/05-demo.md"
-                 data-separator="^---\\s*$"
-                 data-separator-vertical="^\\*\\*\\*\\s*$"
+                 data-separator="^---\s*$"
+                 data-separator-vertical="^\*\*\*\s*$"
                  data-separator-notes="^Note:"
                  data-charset="utf-8"></section>
 
         <section data-markdown="slides/06-work-done.md"
-                 data-separator="^---\\s*$"
-                 data-separator-vertical="^\\*\\*\\*\\s*$"
+                 data-separator="^---\s*$"
+                 data-separator-vertical="^\*\*\*\s*$"
                  data-separator-notes="^Note:"
                  data-charset="utf-8"></section>
 
@@ -124,10 +122,7 @@
       controls: true,
       progress: true,
       center: false,
-
-      // makes arrow navigation feel “PowerPoint-like”
       navigationMode: 'linear',
-
       plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
     }).then(() => {
       renderMermaid();
