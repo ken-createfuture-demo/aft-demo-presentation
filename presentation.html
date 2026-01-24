@@ -33,25 +33,11 @@
         .reveal h2 { font-size: 1.1em; font-weight: 900; text-transform: uppercase; position: relative; padding-left: 20px; margin-top: 0.4em; }
         .reveal h2::before { content: ''; position: absolute; left: 0; top: 2px; bottom: 2px; width: 6px; background-color: var(--cf-lime); }
 
-        /* --- THE CENTERING FIX STARTS HERE --- */
-
-        /* 1. Center EVERYTHING in the section stack vertically and horizontally */
+        /* SECTION LAYOUT: Force standard left-alignment for text */
         .reveal section {
+          text-align: left;
           padding: 0 60px 80px 60px !important;
           box-sizing: border-box;
-          display: flex !important;
-          flex-direction: column;
-          align-items: center; /* This forces images to the center */
-        }
-
-        /* 2. Force text elements back to the left and make them full width */
-        .reveal section h1,
-        .reveal section h2,
-        .reveal section p,
-        .reveal section ul,
-        .reveal section ol {
-            text-align: left;
-            width: 100%;
         }
 
         .reveal p, .reveal li {
@@ -60,10 +46,14 @@
           margin-bottom: 0.4em;
         }
 
-        /* 3. Simplified Image Styling (Centering handled by parent now) */
+        /* --- THE ULTIMATE IMAGE CENTERING FIX --- */
+        /* display: block + margin: auto ignores parent text-alignment */
         .reveal img {
-          display: block;
-          margin: 20px 0 !important; /* Just vertical spacing needed now */
+          display: block !important;
+          margin-left: auto !important;
+          margin-right: auto !important;
+          margin-top: 25px !important;
+          margin-bottom: 25px !important;
           max-height: 42vh !important;
           width: auto !important;
           border-radius: 12px;
@@ -72,7 +62,29 @@
           border-left: 6px solid var(--cf-lime);
           box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
-        /* --- THE CENTERING FIX ENDS HERE --- */
+
+        /* Center Mermaid diagrams using the same logic */
+        .mermaid {
+          background: var(--cf-grey);
+          border-radius: 10px;
+          padding: 16px;
+          border-left: 6px solid var(--cf-lime);
+          display: block !important;
+          margin-left: auto !important;
+          margin-right: auto !important;
+          margin-top: 20px;
+          margin-bottom: 20px;
+          max-height: 45vh;
+          width: fit-content;
+          overflow: hidden;
+        }
+
+        .mermaid svg {
+            max-width: 100% !important;
+            max-height: 100% !important;
+            display: block;
+            margin: 0 auto;
+        }
 
         .cf-footer {
           position: fixed;
@@ -85,22 +97,6 @@
           text-transform: uppercase;
         }
         .cf-footer span { color: var(--cf-pink) !important; }
-
-        .mermaid {
-          background: var(--cf-grey);
-          border-radius: 10px;
-          padding: 16px;
-          border-left: 6px solid var(--cf-lime);
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          margin: 14px 0;
-          max-height: 45vh;
-          overflow: hidden;
-          /* align-self: center; Removed as redundant */
-        }
-
-        .mermaid svg { max-width: 100% !important; max-height: 100% !important; display: block; }
     </style>
 </head>
 
