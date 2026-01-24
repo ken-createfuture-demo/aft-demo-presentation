@@ -1,100 +1,91 @@
-# How It Works
+### 02-architecture.md
 
-## Three Main Parts
+```markdown
+# AFT Architecture & Deployment
 
-```mermaid
-graph TB
-    A[1. Account Request<br/>Write Terraform, commit to Git] --> B[2. Provisioning<br/>AWS creates account automatically]
-    B --> C[3. Customisation<br/>Your configs get applied]
-    
-    style A fill:#e1f5ff
-    style B fill:#fff4e1
-    style C fill:#e8f5e9
-```
+## Deploying the AFT Management Stack
+Before we can process requests, the AFT engine must be deployed into the **Management Account**. This is a one-time bootstrap process using the official AWS AFT Terraform module to establish our automation hub.
 
-**Flow:** Request → Provision → Customise
+* **Home Region:** Deployed in the same region as the Control Tower Landing Zone.
+* **VCS Integration:** Establishes the secure connection to our four mandatory Git repositories.
+* **Execution:** Requires Administrator privileges to provision the orchestration pipelines and IAM roles.
 
 ---
 
-## The Components
+## The Request Lifecycle
+Individual account requests follow a three-stage automated journey.
+
+```mermaid
+graph TD
+    A[1. Account Request] --> B[2. Provisioning]
+    B --> C[3. Customisation]
+    
+    A --- D(Write Terraform & commit to Git)
+    B --- E(AWS creates account automatically)
+    C --- F(Project-specific configs applied)
+
+    style A fill:#C3FF34,stroke:#0A001A,stroke-width:3px
+    style B fill:#F8F8FA,stroke:#0A001A
+    style C fill:#FE7AF6,stroke:#0A001A
+
+```
+
+---
+
+## The Components: Under the Hood
+
+AFT operates as a distributed system to ensure every account is validated and hardened.
 
 ```mermaid
 graph LR
     A[Git Commit] --> B[EventBridge]
-    B --> C[Lambda<br/>Validator]
-    C --> D[DynamoDB<br/>Storage]
-    C --> E[Step Functions<br/>Orchestrator]
-    E --> F[Service Catalog<br/>Account Creation]
-    F --> G[CodePipeline<br/>Customisations]
+    B --> C[Lambda Validator]
+    C --> D[DynamoDB Storage]
+    C --> E[Step Functions Orchestrator]
+    E --> F[Service Catalog]
+    F --> G[CodePipeline Customisations]
     
-    style A fill:#e1f5ff
-    style E fill:#fff4e1
-    style G fill:#e8f5e9
+    style A fill:#F8F8FA,stroke:#0A001A
+    style E fill:#FE7AF6,stroke:#0A001A
+    style G fill:#C3FF34,stroke:#0A001A
+
 ```
 
-**Request Handler:**
-- DynamoDB stores requests
-- Lambda validates everything
-- EventBridge triggers the workflow
+### 1. Request Handler
 
-**Provisioning:**
-- Step Functions runs the show
-- Service Catalog creates account
-- Takes about 10 minutes
+* **EventBridge:** Detects the commit and triggers the initial workflow.
+* **Lambda Validator:** Performs logic checks on the HCL request.
+* **DynamoDB Storage:** Persists the validated request metadata.
 
-**Customisation:**
-- CodePipeline per account
-- Terraform applies your configs
-- Takes 20-40 minutes
+### 2. Provisioning
+
+* **Step Functions:** Orchestrates the multi-account creation logic.
+* **Service Catalog:** Executes the actual account creation (approx. 10 mins).
+
+### 3. Customisation
+
+* **CodePipeline:** A dedicated pipeline is spawned per account.
+* **Terraform Apply:** Your specific HCL configs are applied (20-40 mins).
 
 ---
 
-## What Actually Happens
+## What Actually Happens (The Timeline)
 
-```
-You: git commit + push
-     ↓
-EventBridge: "New request detected"
-     ↓
-Lambda: "Validating request"
-     ↓
-DynamoDB: "Details stored"
-     ↓
-Step Functions: "Starting workflow"
-     ↓
-AWS: Creates your account
-     ↓
-Pipelines: Apply your customisations
-     ↓
-Done: Account ready
-```
+From `git push` to a live project environment:
 
-**Total time: 30-60 minutes**
+* **T+0 mins:** You commit and push HCL to the `aft-account-request` repo.
+* **T+2 mins:** **EventBridge** detects change; **Lambda** validates request.
+* **T+5 mins:** **Step Functions** trigger the creation workflow.
+* **T+15 mins:** AWS creates the account and applies Control Tower guardrails.
+* **T+45 mins:** Individual pipelines apply project-specific **customisations**.
+* **Done:** Account is hardened, compliant, and ready for use.
 
 ---
 
-## The Git Repos You Need
+## Security & State Management
 
-Four repos total:
+Security and isolation are maintained across the entire estate.
 
-1. **aft-account-request** - Where you request accounts
-2. **aft-global-customisations** - Applied to ALL accounts
-3. **aft-account-customisations** - Specific account stuff
-4. **aft-account-provisioning-customisations** - Pre-setup configs
-
-GitHub, GitLab, or CodeCommit all work.
-
----
-
-## Security & State
-
-**Terraform state:**
-- Lives in S3 (encrypted)
-- DynamoDB locks it
-- Separate per account
-
-**Security:**
-- Everything encrypted
-- IAM roles for access
-- CloudTrail logs everything
-- Control Tower guardrails active
+* **State Isolation:** Each account has a dedicated S3 bucket and DynamoDB lock table for its Terraform state.
+* **Encryption:** All state files and sensitive metadata are encrypted via AWS KMS.
+* **Governance:** Control Tower guardrails and baseline policies are inherited automatically.
