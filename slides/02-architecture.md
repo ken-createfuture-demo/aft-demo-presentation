@@ -14,20 +14,7 @@
 
 ## Where AFT Operates
 
-```mermaid
-graph TB
-    MA[Management Account<br/>AFT Infrastructure] 
-    MA -->|CloudTrail logs| LA[Log Archive]
-    MA -->|Security findings| AA[Audit Account]
-    MA -.Cross-account IAM.-> NA1[New Account 1]
-    MA -.Cross-account IAM.-> NA2[New Account 2]
-    
-    style MA fill:#C3FF34,stroke:#0A001A,stroke-width:3px
-    style LA fill:#F8F8FA,stroke:#0A001A
-    style AA fill:#F8F8FA,stroke:#0A001A
-    style NA1 fill:#FE7AF6,stroke:#0A001A
-    style NA2 fill:#FE7AF6,stroke:#0A001A
-```
+![AFT Account Types](assets/account-types.png)
 
 AFT runs centrally in the Management account and uses cross-account IAM roles to provision and configure target accounts. No access keys, no long-lived credentials.
 
@@ -35,21 +22,7 @@ AFT runs centrally in the Management account and uses cross-account IAM roles to
 
 ## The Automated Workflow
 
-```mermaid
-graph LR
-    A[Git Commit] --> B[EventBridge]
-    B --> C[Lambda Validator]
-    C --> D[DynamoDB]
-    C --> E[Step Functions]
-    E --> F[Service Catalog]
-    F --> G[CodePipeline]
-    G --> H[Account Ready]
-    
-    style A fill:#F8F8FA,stroke:#0A001A
-    style E fill:#FE7AF6,stroke:#0A001A,stroke-width:3px
-    style G fill:#C3FF34,stroke:#0A001A,stroke-width:2px
-    style H fill:#C3FF34,stroke:#0A001A,stroke-width:3px
-```
+![The Automated Workflow](assets/automated-workflow.png)
 
 ---
 
