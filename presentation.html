@@ -7,8 +7,11 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/theme/white.css">
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/plugin/highlight/github.css">
+
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 
     <style>
@@ -27,7 +30,7 @@
 
         /* Strict Black Text Enforcement */
         .reveal h1, .reveal h2, .reveal h3, .reveal p, .reveal li, .reveal strong, .reveal span {
-            color: var(--cf-dark);
+            color: var(--cf-dark) !important;
         }
 
         .reveal h1 {
@@ -64,14 +67,14 @@
 
         .reveal p, .reveal li { font-size: 0.85em; line-height: 1.5; margin-bottom: 0.6em; }
 
-        /* Larger CreateFuture Footer Logo */
+        /* CreateFuture Footer Logo */
         .cf-footer {
             position: absolute;
             bottom: 30px;
             left: 50px;
             z-index: 1000;
             font-weight: 900;
-            font-size: 20px; /* Increased size */
+            font-size: 20px;
             letter-spacing: 1px;
             color: var(--cf-dark);
             text-transform: uppercase;
@@ -86,6 +89,11 @@
         /* Mermaid & Code */
         .mermaid { background: var(--cf-grey); border-radius: 6px; padding: 20px; border-left: 5px solid var(--cf-lime); }
         .reveal pre { box-shadow: none; border: 1px solid #eee; border-radius: 6px; width: 100%; }
+
+        /* Fix for Table Visibility */
+        table { font-size: 0.7em; width: 100%; border-collapse: collapse; }
+        th { background: var(--cf-grey); padding: 10px; border: 1px solid #eee; }
+        td { padding: 10px; border: 1px solid #eee; }
     </style>
 </head>
 
@@ -107,14 +115,10 @@
             </p>
         </section>
 
-        <section data-markdown="slides/00-prerequisites.md"
+        <section data-markdown="slides/01-aft-overview.md"
                  data-separator="^\s*---\s*$"
                  data-separator-vertical="^\s*\*\*\*\s*$"
                  data-charset="utf-8"></section>
-
-        <section data-markdown="slides/01-introduction.md"
-                 data-separator="^\s*---\s*$"
-                 data-separator-vertical="^\s*\*\*\*\s*$"></section>
 
         <section data-markdown="slides/02-architecture.md"
                  data-separator="^\s*---\s*$"
@@ -150,6 +154,7 @@
 <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/plugin/notes/notes.js"></script>
 
 <script>
+    // Mermaid configuration matching CreateFuture branding
     mermaid.initialize({
         startOnLoad: false,
         theme: 'base',
@@ -175,9 +180,11 @@
     deck.initialize().then(() => renderMermaid());
 
     function renderMermaid() {
+        // Find all mermaid divs that haven't been processed yet
         const diagrams = document.querySelectorAll('.mermaid:not([data-processed="true"])');
         diagrams.forEach((diagram) => {
             const id = `mermaid-${Math.floor(Math.random() * 1000)}`;
+            // Use .textContent to get clean mermaid code from the markdown-rendered div
             mermaid.render(id, diagram.textContent).then(({ svg }) => {
                 diagram.innerHTML = svg;
                 diagram.setAttribute('data-processed', 'true');
@@ -185,6 +192,7 @@
         });
     }
 
+    // Re-render mermaid diagrams when a slide changes to ensure they are visible
     deck.on('slidechanged', () => renderMermaid());
 </script>
 
