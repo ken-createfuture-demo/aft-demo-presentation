@@ -21,12 +21,12 @@
         .reveal { font-family: 'Inter', sans-serif; background-color: #ffffff; color: var(--cf-dark); }
         .reveal h1, .reveal h2, .reveal p, .reveal li, .reveal strong { color: var(--cf-dark) !important; }
 
-        /* PUNCHIER HEADERS */
+        /* PREMIUM HEADERS */
         .reveal h1 { font-size: 2em; font-weight: 900; text-transform: uppercase; letter-spacing: -0.03em; margin-bottom: 0.3em; }
         .reveal h2 { font-size: 1.3em; font-weight: 900; text-transform: uppercase; letter-spacing: 0.05em; position: relative; padding-left: 25px; margin-top: 1em; }
         .reveal h2::before { content: ''; position: absolute; left: 0; top: 4px; bottom: 4px; width: 8px; background-color: var(--cf-lime); }
 
-        /* LARGER, MORE READABLE TEXT */
+        /* IMPACTFUL BODY TEXT */
         .reveal section { text-align: left; padding: 0 80px 100px 80px !important; }
         .reveal p, .reveal li { font-size: 0.9em; line-height: 1.5; font-weight: 400; margin-bottom: 0.6em; }
         .reveal strong { font-weight: 900; }
@@ -34,7 +34,7 @@
         .cf-footer { position: absolute; bottom: 30px; left: 50px; z-index: 1000; font-weight: 900; font-size: 20px; color: var(--cf-dark); text-transform: uppercase; }
         .cf-footer span { color: var(--cf-pink) !important; }
 
-        /* DIAGRAMS THAT "FEEL THE SPACE" BUT STAY SAFE */
+        /* THE "FILL THE SPACE" FIX */
         .mermaid {
             background: var(--cf-grey);
             border-radius: 12px;
@@ -45,7 +45,7 @@
             justify-content: center;
             align-items: center;
             min-height: 300px;
-            max-height: 450px; /* Increased to allow more impact */
+            max-height: 450px;
             width: 100%;
             overflow: visible !important;
         }
@@ -58,7 +58,7 @@
         }
 
         table { font-size: 0.7em; width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th { background: var(--cf-grey); padding: 12px; border: 2px solid #eee; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; }
+        th { background: var(--cf-grey); padding: 12px; border: 2px solid #eee; font-weight: 900; text-transform: uppercase; }
         td { padding: 12px; border: 2px solid #eee; }
     </style>
 </head>
@@ -103,7 +103,7 @@
             primaryColor: '#C3FF34',
             primaryTextColor: '#0A001A',
             lineColor: '#0A001A',
-            fontSize: '32px', /* BIG, BOLD LABELS for the diagrams */
+            fontSize: '32px', /* HUGE Labels to compensate for scaling */
             fontFamily: 'Inter',
             fontWeight: '900'
         }
