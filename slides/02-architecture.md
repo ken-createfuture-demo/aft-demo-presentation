@@ -2,11 +2,11 @@
 
 ## Deploying the AFT Stack
 
-**In the Management Account, AFT provisions:**
+In the Management Account, AFT provisions:
 
-* **Request Framework:** EventBridge, Lambda validators, DynamoDB
-* **Provisioning Framework:** Step Functions, Service Catalog, IAM roles
-* **Customisation Framework:** CodePipeline, CodeBuild, S3 state
+**Request Framework** - EventBridge, Lambda validators, DynamoDB  
+**Provisioning Framework** - Step Functions, Service Catalog, IAM roles  
+**Customisation Framework** - CodePipeline, CodeBuild, S3 state
 
 ---
 
@@ -26,20 +26,10 @@ AFT runs in the Management account and uses cross-account IAM roles to provision
 
 ## How It Works
 
-**1. Request:** Engineer commits HCL → EventBridge → Lambda validates
+**Request** - Engineer commits HCL → EventBridge → Lambda validates
 
-**2. Provision:** Step Functions → Service Catalog creates account → Control Tower baseline
+**Provision** - Step Functions → Service Catalog creates account → Control Tower baseline
 
-**3. Customise:** CodePipeline → Terraform applies configs → Account ready
+**Customise** - CodePipeline → Terraform applies configs → Account ready
 
-**Note:** Multiple accounts provision concurrently
-
-**Parallel Processing:** Multiple accounts provision concurrently
-
----
-
-## Security
-
-**State Isolation:** Isolated S3 paths per account + DynamoDB state locking
-**Access Model:** Cross-account IAM roles, temporary STS credentials  
-**Compliance:** Control Tower guardrails, CloudTrail logs, Security Hub findings
+Multiple accounts can provision concurrently.
