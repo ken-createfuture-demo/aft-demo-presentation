@@ -1,45 +1,31 @@
 # The Demo
 
-## Our Setup
+## Live Walkthrough
 
-We'll walk through the actual account provisioning and customisation workflow using our GitHub repositories and AWS environment.
+We'll walk through a complete account provisioning example using our actual GitHub repositories and AWS environment.
 
----
-
-## GitHub Repositories
-
-![Screenshot: Four repositories](assets/github-repos.png)
-
-Our four AFT repositories in GitHub.
+Everything you'll see has been provisioned using the AFT workflow we've just covered.
 
 ---
 
-## Account Request File
+## What We'll Cover
 
-![Screenshot: HCL file](assets/account-request-hcl.png)
+**GitHub Repositories** - Our four AFT repos and their structure
 
-Example HCL file for requesting a new account.
+**Account Request** - The HCL file that triggered provisioning
 
----
+**Pipeline Execution** - CodePipeline workflow and stages
 
-## Pipeline Execution
+**Provisioned Account** - The new account in AWS Organizations
 
-![Screenshot: CodePipeline](assets/codepipeline-execution.png)
+**Deployed Resources** - Customisations and configurations applied
 
-CodePipeline automatically triggered after Git commit.
-
----
-
-## Account Provisioned
-
-![Screenshot: AWS Organizations](assets/aws-organizations.png)
-
-New account visible in AWS Organizations.
+Let's switch to the browser.
 
 ---
 
-## Customisations Applied
+## Back to Slides
 
-![Screenshot: Deployed resources](assets/deployed-resources.png)
+That's the complete workflow in action - from Git commit to fully configured account.
 
-Resources deployed via global and account-specific customisations.
+Questions on what you've seen?
