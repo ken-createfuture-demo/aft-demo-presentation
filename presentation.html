@@ -3,6 +3,9 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
     <title>CreateFuture | CloudTeam 2026</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.css">
@@ -134,8 +137,8 @@
           color: var(--cf-dark);
           text-transform: uppercase;
         }
-        .cf-footer span {
-          color: var(--cf-pink) !important;
+        .cf-footer span { 
+          color: var(--cf-pink) !important; 
         }
     </style>
 </head>
@@ -158,12 +161,12 @@
         </section>
 
         <!-- Content slides -->
-        <section data-markdown="slides/01-aft-overview.md" data-separator="^\n---\n$"></section>
-        <section data-markdown="slides/02-architecture.md" data-separator="^\n---\n$"></section>
-        <section data-markdown="slides/03-workflow.md" data-separator="^\n---\n$"></section>
-        <section data-markdown="slides/04-customisations.md" data-separator="^\n---\n$"></section>
-        <section data-markdown="slides/05-demo.md" data-separator="^\n---\n$"></section>
-        <section data-markdown="slides/06-work-done.md" data-separator="^\n---\n$"></section>
+        <section data-markdown="slides/01-aft-overview.md?v=2" data-separator="^\n---\n$"></section>
+        <section data-markdown="slides/02-architecture.md?v=2" data-separator="^\n---\n$"></section>
+        <section data-markdown="slides/03-workflow.md?v=2" data-separator="^\n---\n$"></section>
+        <section data-markdown="slides/04-customisations.md?v=2" data-separator="^\n---\n$"></section>
+        <section data-markdown="slides/05-demo.md?v=2" data-separator="^\n---\n$"></section>
+        <section data-markdown="slides/06-work-done.md?v=2" data-separator="^\n---\n$"></section>
 
         <!-- Closing slide -->
         <section class="center" data-background-color="#0A001A">
@@ -183,18 +186,18 @@
       startOnLoad: false,
       theme: 'base',
       securityLevel: 'loose',
-      flowchart: {
-        useMaxWidth: true,
-        htmlLabels: true,
-        curve: 'basis'
+      flowchart: { 
+        useMaxWidth: true, 
+        htmlLabels: true, 
+        curve: 'basis' 
       },
-      themeVariables: {
+      themeVariables: { 
         primaryColor: '#C3FF34',
         primaryTextColor: '#0A001A',
         primaryBorderColor: '#0A001A',
         lineColor: '#0A001A',
-        fontSize: '14px',
-        fontFamily: 'Inter'
+        fontSize: '14px', 
+        fontFamily: 'Inter' 
       }
     });
 
@@ -246,8 +249,8 @@
       });
     }
 
-    deck.on('slidechanged', () => {
-      setTimeout(renderMermaid, 100);
+    deck.on('slidechanged', () => { 
+      setTimeout(renderMermaid, 100); 
     });
 </script>
 </body>
