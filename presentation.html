@@ -31,7 +31,6 @@
           color: var(--cf-dark) !important;
         }
 
-        /* Clean, professional headers */
         .reveal h1 {
           font-size: 1.7em;
           font-weight: 700;
@@ -59,20 +58,17 @@
           background-color: var(--cf-lime);
         }
 
-        /* Standard slide layout */
         .reveal section {
           text-align: left;
           padding: 30px 70px 70px 70px !important;
           box-sizing: border-box;
         }
 
-        /* Center slides (title + closing) */
         .reveal section.center {
           text-align: center !important;
           padding: 0 !important;
         }
 
-        /* Body text - clean and readable */
         .reveal p, .reveal li {
           font-size: 0.85em;
           line-height: 1.6;
@@ -88,7 +84,6 @@
           font-weight: 700;
         }
 
-        /* Images - professional styling */
         .reveal img {
           display: block !important;
           margin: 20px auto !important;
@@ -104,14 +99,12 @@
           box-sizing: border-box;
         }
 
-        /* Workflow diagram - bigger */
         .reveal img[src*="automated-workflow"] {
           max-width: 100% !important;
           max-height: 60vh !important;
           padding: 15px;
         }
 
-        /* Mermaid diagrams */
         .mermaid {
           background: var(--cf-grey);
           border-radius: 8px;
@@ -133,7 +126,6 @@
           margin: 0 auto;
         }
 
-        /* Footer branding - subtle */
         .cf-footer {
           position: fixed;
           bottom: 20px;
@@ -157,13 +149,11 @@
 </div>
 
 <script>
-  // Display last updated time to confirm no caching
   document.getElementById('last-updated').textContent = 'Updated: ' + new Date().toLocaleTimeString();
 </script>
 
 <div class="reveal">
     <div class="slides">
-        <!-- Title slide -->
         <section class="center" data-background-color="#ffffff">
             <h1 style="font-size: 2.8em; margin-bottom: 0.2em; font-weight: 700;">AWS CONTROL TOWER</h1>
             <p style="font-weight: 700; letter-spacing: 4px; margin-top: 20px; font-size: 0.9em; text-transform: uppercase;">
@@ -175,15 +165,13 @@
             </p>
         </section>
 
-        <!-- Content slides with timestamp cache-busting -->
         <section data-markdown="slides/01-introduction.md" data-separator="^\n---\n$"></section>
         <section data-markdown="slides/02-the-journey.md" data-separator="^\n---\n$"></section>
         <section data-markdown="slides/03-architecture.md" data-separator="^\n---\n$"></section>
-        <section data-markdown="slides/04-customisations.md" data-separator="^\n---\n$"></section>
-        <section data-markdown="slides/05-demo.md" data-separator="^\n---\n$"></section>
-        <section data-markdown="slides/06-work-done.md" data-separator="^\n---\n$"></section>
+        <section data-markdown="slides/04-demo.md" data-separator="^\n---\n$"></section>
+        <section data-markdown="slides/05-what-we-delivered.md" data-separator="^\n---\n$"></section>
+        <section data-markdown="slides/06-summary.md" data-separator="^\n---\n$"></section>
 
-        <!-- Closing slide -->
         <section class="center" data-background-color="#0A001A">
             <h1 style="color: white !important; font-size: 3em; font-weight: 700;">ANY QUESTIONS?</h1>
             <div style="height: 3px; width: 120px; background: var(--cf-pink); margin: 30px auto;"></div>
@@ -228,7 +216,6 @@
       plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
     });
 
-    // Aggressive cache-busting: Add timestamp to all markdown file requests
     (function() {
       const timestamp = new Date().getTime();
       document.querySelectorAll('[data-markdown]').forEach(section => {
@@ -244,7 +231,6 @@
     });
 
     function renderMermaid() {
-      // Convert ```mermaid code blocks into <div class="mermaid">...</div>
       const codeBlocks = document.querySelectorAll('pre code.language-mermaid, pre code.mermaid');
       codeBlocks.forEach(code => {
         if (code.closest('.mermaid')) return;
@@ -254,7 +240,6 @@
         code.parentElement.replaceWith(wrapper);
       });
 
-      // Render all unprocessed mermaid blocks
       const diagrams = document.querySelectorAll('.mermaid:not([data-processed="true"])');
       diagrams.forEach(diagram => {
         const id = `m-${Math.random().toString(16).slice(2)}`;
@@ -262,7 +247,6 @@
           diagram.innerHTML = svg;
           diagram.setAttribute('data-processed', 'true');
 
-          // Ensure SVG is responsive + not clipped
           const svgEl = diagram.querySelector('svg');
           if (svgEl) {
             svgEl.removeAttribute('height');
@@ -279,7 +263,6 @@
       setTimeout(renderMermaid, 100); 
     });
 
-    // Press 'R' to force reload presentation (bypasses cache)
     document.addEventListener('keydown', (e) => {
       if (e.key === 'r' || e.key === 'R') {
         location.reload(true);
