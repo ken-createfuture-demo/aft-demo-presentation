@@ -1,6 +1,6 @@
 # Table of Contents
 
-**1. Introduction** - What is AFT and why it matters
+**1. Introduction** - What AFT is and why it matters
 
 **2. The Journey** - Zero to deployed AFT
 
@@ -18,7 +18,7 @@
 
 AWS Account Factory for Terraform (AFT) automates AWS account provisioning through Control Tower. We're moving from manual ticket-based requests to GitOps: commit HCL, pipeline runs, account ready.
 
-**Why this matters:**
+**Key Benefits:**
 
 **Standardised delivery** - Consistent account configurations  
 **Rapid scaling** - Provision multiple accounts simultaneously  
