@@ -1,22 +1,16 @@
 # Table of Contents
 
-**1. Introduction**  
-What is AFT and why we're using it
+**1. Introduction** - What is AFT and why it matters
 
-**2. The Journey**  
-From zero to deployed AFT
+**2. The Journey** - Zero to deployed AFT
 
-**3. Architecture**  
-How AFT works under the hood
+**3. Architecture** - How it works
 
-**4. The Demo**  
-Our actual implementation walkthrough
+**4. The Demo** - Our actual implementation
 
-**5. Customisations**  
-Tailoring accounts to project needs
+**5. Customisations** - Tailoring accounts
 
-**6. What We Delivered**  
-Concrete outcomes and business value
+**6. What We Delivered** - Business outcomes
 
 **7. Summary & Questions**
 
