@@ -144,7 +144,15 @@
 </head>
 
 <body>
-<div class="cf-footer">CREATE<span>FUTURE.</span></div>
+<div class="cf-footer">
+  CREATE<span>FUTURE.</span>
+  <span style="margin-left: 20px; font-size: 12px; opacity: 0.6;" id="last-updated"></span>
+</div>
+
+<script>
+  // Display last updated time to confirm no caching
+  document.getElementById('last-updated').textContent = 'Updated: ' + new Date().toLocaleTimeString();
+</script>
 
 <div class="reveal">
     <div class="slides">
@@ -160,13 +168,13 @@
             </p>
         </section>
 
-        <!-- Content slides -->
-        <section data-markdown="slides/01-aft-overview.md?v=2" data-separator="^\n---\n$"></section>
-        <section data-markdown="slides/02-architecture.md?v=2" data-separator="^\n---\n$"></section>
-        <section data-markdown="slides/03-workflow.md?v=2" data-separator="^\n---\n$"></section>
-        <section data-markdown="slides/04-customisations.md?v=2" data-separator="^\n---\n$"></section>
-        <section data-markdown="slides/05-demo.md?v=2" data-separator="^\n---\n$"></section>
-        <section data-markdown="slides/06-work-done.md?v=2" data-separator="^\n---\n$"></section>
+        <!-- Content slides with timestamp cache-busting -->
+        <section data-markdown="slides/01-aft-overview.md" data-separator="^\n---\n$"></section>
+        <section data-markdown="slides/02-architecture.md" data-separator="^\n---\n$"></section>
+        <section data-markdown="slides/03-workflow.md" data-separator="^\n---\n$"></section>
+        <section data-markdown="slides/04-customisations.md" data-separator="^\n---\n$"></section>
+        <section data-markdown="slides/05-demo.md" data-separator="^\n---\n$"></section>
+        <section data-markdown="slides/06-work-done.md" data-separator="^\n---\n$"></section>
 
         <!-- Closing slide -->
         <section class="center" data-background-color="#0A001A">
@@ -213,6 +221,17 @@
       plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
     });
 
+    // Aggressive cache-busting: Add timestamp to all markdown file requests
+    (function() {
+      const timestamp = new Date().getTime();
+      document.querySelectorAll('[data-markdown]').forEach(section => {
+        const originalUrl = section.getAttribute('data-markdown');
+        if (originalUrl && !originalUrl.includes('?')) {
+          section.setAttribute('data-markdown', `${originalUrl}?t=${timestamp}`);
+        }
+      });
+    })();
+
     deck.initialize().then(() => {
       setTimeout(renderMermaid, 300);
     });
@@ -251,6 +270,13 @@
 
     deck.on('slidechanged', () => { 
       setTimeout(renderMermaid, 100); 
+    });
+
+    // Press 'R' to force reload presentation (bypasses cache)
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'r' || e.key === 'R') {
+        location.reload(true);
+      }
     });
 </script>
 </body>
