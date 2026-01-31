@@ -1,84 +1,35 @@
-# The Provisioning Workflow
+# Architecture
 
-## What You Actually Write
+## Deploying the AFT Stack
 
-One Terraform file per account:
+In the Management Account, AFT provisions:
 
-```hcl
-# aft-account-request/dev-account.tf
-
-module "dev_account" {
-  source = "./modules/aft-account-request"
-  
-  control_tower_parameters = {
-    AccountName               = "dev-project-alpha"
-    AccountEmail              = "dev-alpha@example.com"
-    ManagedOrganizationalUnit = "Development"
-    SSOUserEmail              = "admin@example.com"
-    SSOUserFirstName          = "Dev"
-    SSOUserLastName           = "Admin"
-  }
-  
-  account_tags = {
-    Environment = "development"
-    Team        = "platform"
-  }
-}
-```
-
-Commit it. AFT handles the rest.
+**Request Framework** - EventBridge, Lambda validators, DynamoDB  
+**Provisioning Framework** - Step Functions, Service Catalog, IAM roles  
+**Customisation Framework** - CodePipeline, CodeBuild, S3 state
 
 ---
 
-## What Happens Automatically
+## Where AFT Operates
 
-![The complete workflow](assets/automated-workflow.png)
+![AFT operates in Management account](assets/account-types.png)
 
----
-
-## The Complete Flow
-
-**Git commit** - Engineer pushes HCL account request  
-**EventBridge detects** - Picks up the commit event  
-**Lambda validates** - Checks email, OU, account name  
-**Service Catalog provisions** - Creates the AWS account  
-**Control Tower baseline** - Applies guardrails and security policies  
-**CodePipeline customises** - Runs Terraform configurations  
-**Account ready** - SSO access configured, ready for use
+AFT runs in the Management account and uses cross-account IAM roles to provision target accounts.
 
 ---
 
-## Validation Stage
+## The Automated Workflow
 
-**Email format and uniqueness** - No duplicate emails allowed  
-**OU exists and is accessible** - Confirms the organisational unit is valid  
-**Account name not already taken** - Ensures unique account names
+![Automated workflow](assets/automated-workflow.png)
 
 ---
 
-## Provisioning Stage
+## How It Works
 
-**Service Catalog creates the AWS account** - New account provisioned in AWS Organizations  
-**Control Tower applies baseline guardrails** - Preventive and detective controls enabled  
-**Account placed in specified OU** - Moved to correct organisational unit
+**Request** - Engineer commits HCL → EventBridge → Lambda validates
 
----
+**Provision** - Step Functions → Service Catalog creates account → Control Tower baseline
 
-## Customisation Stage
+**Customise** - CodePipeline → Terraform applies configs → Account ready
 
-**CodePipeline spawned for this account** - Dedicated pipeline created  
-**Global customisations run first** - Security baseline applied to all accounts  
-**Account-specific configs applied** - Project-specific resources deployed  
-**SSO access configured** - Identity Centre access enabled
-
----
-
-## When Things Go Wrong
-
-**Validation fails:** Request rejected immediately, error in CloudWatch logs
-
-**Service Catalog fails:** Automatic retry with exponential backoff
-
-**Customisation fails:** Pipeline stops at failed stage, check CodeBuild logs
-
-**You'll get an SNS notification for failures** - Configure the topic during AFT deployment
+Multiple accounts can provision concurrently.
