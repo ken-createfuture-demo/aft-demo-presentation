@@ -6,30 +6,24 @@
 
 **3. Architecture** - How it works
 
-**4. The Demo** - Our actual implementation
+**4. The Demo** - Account creation and customisation demo
 
-**5. Customisations** - Tailoring accounts
+**5. What We Delivered** - Business outcomes
 
-**6. What We Delivered** - Business outcomes
-
-**7. Summary & Questions**
+**6. Summary & Questions**
 
 ---
 
 ## The Objective
 
-**AWS Account Factory for Terraform (AFT)** automates AWS account provisioning through Control Tower.
+**AWS Account Factory for Terraform (AFT)** automates AWS account provisioning through Control Tower. We're moving from manual ticket-based requests to **GitOps**: commit HCL, pipeline runs, account ready.
 
-We're moving from manual ticket-based account requests to **GitOps**: commit HCL, pipeline runs, account ready. Simple as that.
+**Why this matters:**
 
----
-
-## Why This Matters
-
-**Standardised delivery** - No more one-off account configurations  
-**Rapid scaling** - Provision ten accounts as easily as one  
+**Standardised delivery** - Consistent account configurations  
+**Rapid scaling** - Provision multiple accounts simultaneously  
 **Audit trail** - Every change tracked in Git  
-**Engineer autonomy** - Teams request accounts via Pull Request
+**Engineer autonomy** - Teams request accounts themselves
 
 ---
 
@@ -37,11 +31,12 @@ We're moving from manual ticket-based account requests to **GitOps**: commit HCL
 
 AWS Control Tower is a managed service for multi-account governance.
 
-**Before deploying AFT, enable Control Tower (one-time setup):**
+**Before deploying AFT, enable Control Tower:**
 
-Your existing AWS account becomes the **Management Account**. Control Tower then automatically creates two additional accounts:
-- **Log Archive** - Centralised logging
-- **Audit** - Security and compliance monitoring
+Your existing AWS account becomes the **Management Account**. Control Tower automatically creates two additional accounts:
+
+**Log Archive** - Centralised logging  
+**Audit** - Security and compliance monitoring
 
 You provide the email addresses, Control Tower handles the rest.
 
@@ -93,14 +88,3 @@ Before deploying AFT, make sure you have:
 - Terraform environment ready
 
 Once these are sorted, you're ready to deploy.
-
----
-
-## What's Next
-
-Now that you understand the foundation, we'll cover:
-
-**Architecture** - How AFT operates in the Management account  
-**Workflow** - The automated journey from commit to ready account  
-**Customisations** - How to tailor accounts to project requirements  
-**Demo** - Walkthrough of our actual implementation
