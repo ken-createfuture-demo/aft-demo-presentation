@@ -1,51 +1,54 @@
-# Table of Contents
+# Agenda
 
-**1. Introduction** - What AFT is and why it matters
+&nbsp;
 
-**2. The Journey** - Zero to deployed AFT
+**1** &nbsp; Introduction & Control Tower Foundation
 
-**3. Architecture** - How it works
+**2** &nbsp; The Journey — Zero to Deployed AFT
 
-**4. The Demo** - Account creation and customisation demo
+**3** &nbsp; Architecture — How AFT Operates Under the Hood
 
-**5. What We Delivered** - Business outcomes
+**4** &nbsp; Demo — Account Provisioning & Customisation
 
-**6. Summary & Questions**
+**5** &nbsp; What We Delivered — Outcomes & Cost
 
----
-
-## The Objective
-
-AWS Account Factory for Terraform (AFT) automates AWS account provisioning through Control Tower. We're moving from manual ticket-based requests to GitOps: commit HCL, pipeline runs, account ready.
-
-**Key Benefits:**
-
-**Standardised delivery** - Consistent account configurations  
-**Rapid scaling** - Provision multiple accounts simultaneously  
-**Audit trail** - Every change tracked in Git  
-**Engineer autonomy** - Teams request accounts themselves
+**6** &nbsp; Summary & Questions
 
 ---
 
-## Control Tower: The Foundation
+## What is AFT?
 
-AWS Control Tower is a managed service for multi-account governance.
+**Account Factory for Terraform** — an orchestration layer on top of AWS Control Tower that replaces manual account provisioning with a GitOps workflow.
 
-**Before deploying AFT, enable Control Tower:**
+Engineer commits HCL → pipeline validates & provisions → hardened account lands in the correct OU with security baseline applied.
 
-Your existing AWS account becomes the **Management Account**. Control Tower automatically creates two additional accounts:
+**Why we adopted it:**
 
-**Log Archive** - Centralised logging  
-**Audit** - Security and compliance monitoring
-
-You provide the email addresses, Control Tower handles the rest.
+- **Consistency** — every account is identical by design, no snowflakes
+- **Speed** — provision ten accounts as easily as one, in parallel
+- **Auditability** — full trail in Git history and DynamoDB
+- **Self-service** — engineers raise a PR, no tickets required
 
 ---
 
-## The Three-Account Architecture
+## Control Tower Prerequisite
+
+Control Tower must be active before deploying AFT. One-time setup:
+
+1. Your existing account becomes the **Management Account**
+2. Control Tower provisions two accounts automatically:
+   - **Log Archive** — centralised CloudTrail and config logs
+   - **Audit** — GuardDuty, Security Hub, cross-account read-only access
+
+**You supply:** two unique email addresses
+**Control Tower creates:** both accounts, baseline guardrails, OU structure
+
+---
+
+## Three-Account Architecture
 
 ![Three-account architecture](assets/three-account-architecture.png)
 
-**Management Account** - Where AFT infrastructure runs  
-**Log Archive** - CloudTrail and API logs  
-**Audit Account** - GuardDuty and Security Hub
+**Management** — AFT stack, Step Functions, CodePipeline
+**Log Archive** — CloudTrail, Config logs, centralised S3
+**Audit** — GuardDuty, Security Hub, cross-account audit role
