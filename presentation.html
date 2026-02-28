@@ -9,7 +9,7 @@
     <title>CreateFuture | CloudTeam 2026</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/theme/white.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/theme/black.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 
@@ -23,12 +23,12 @@
 
         .reveal {
           font-family: 'Inter', sans-serif;
-          background-color: #ffffff;
-          color: var(--cf-dark);
+          background-color: var(--cf-dark);
+          color: #ffffff;
         }
 
         .reveal h1, .reveal h2, .reveal p, .reveal li, .reveal strong {
-          color: var(--cf-dark) !important;
+          color: #ffffff !important;
         }
 
         .reveal h1 {
@@ -92,21 +92,52 @@
           width: auto !important;
           height: auto !important;
           border-radius: 8px;
-          background: var(--cf-grey);
+          background: rgba(255,255,255,0.06);
           padding: 20px;
           border-left: 4px solid var(--cf-lime);
-          box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+          box-shadow: 0 2px 12px rgba(0,0,0,0.3);
           box-sizing: border-box;
         }
 
-        .reveal img[src*="automated-workflow"] {
+
+        .reveal section:has(img[src$=".svg"]) {
+          padding: 0 !important;
+          margin: 0 !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          width: 100% !important;
+          height: 100% !important;
+          overflow: hidden !important;
+        }
+
+        .reveal section:has(img[src$=".svg"]) p {
+          margin: 0 !important;
+          padding: 0 !important;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          height: 100%;
+        }
+
+        .reveal img[src$=".svg"] {
+          width: 100% !important;
+          height: 100% !important;
           max-width: 100% !important;
-          max-height: 60vh !important;
-          padding: 15px;
+          max-height: 100% !important;
+          object-fit: contain !important;
+          padding: 0 !important;
+          margin: 0 !important;
+          border: none !important;
+          border-left: none !important;
+          background: none !important;
+          box-shadow: none !important;
+          border-radius: 0 !important;
         }
 
         .mermaid {
-          background: var(--cf-grey);
+          background: rgba(255,255,255,0.06);
           border-radius: 8px;
           padding: 20px;
           border-left: 4px solid var(--cf-lime);
@@ -126,6 +157,11 @@
           margin: 0 auto;
         }
 
+        .reveal .slide-number {
+          color: rgba(255,255,255,0.4) !important;
+          background: none !important;
+        }
+
         .cf-footer {
           position: fixed;
           bottom: 20px;
@@ -133,7 +169,7 @@
           z-index: 1000;
           font-weight: 700;
           font-size: 16px;
-          color: var(--cf-dark);
+          color: #ffffff;
           text-transform: uppercase;
         }
         .cf-footer span { 
@@ -154,13 +190,13 @@
 
 <div class="reveal">
     <div class="slides">
-        <section class="center" data-background-color="#ffffff">
-            <h1 style="font-size: 2.8em; margin-bottom: 0.2em; font-weight: 700;">AWS CONTROL TOWER</h1>
-            <p style="font-weight: 700; letter-spacing: 4px; margin-top: 20px; font-size: 0.9em; text-transform: uppercase;">
+        <section class="center" data-background-color="#0A001A">
+            <h1 style="font-size: 2.8em; margin-bottom: 0.2em; font-weight: 700; color: white !important;">AWS CONTROL TOWER</h1>
+            <p style="font-weight: 700; letter-spacing: 4px; margin-top: 20px; font-size: 0.9em; text-transform: uppercase; color: white !important;">
                 Account Factory for Terraform
             </p>
             <div style="height: 4px; width: 100px; background: var(--cf-lime); margin: 40px auto;"></div>
-            <p style="color: #999 !important; font-size: 0.65em; text-transform: uppercase; letter-spacing: 2px; font-weight: 600;">
+            <p style="font-size: 0.65em; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; color: rgba(255,255,255,0.5) !important;">
                 CloudTeam Presentation 2026
             </p>
         </section>

@@ -1,34 +1,43 @@
 # What We Delivered
 
-## Infrastructure Deployed
+## What We Delivered at Evoke
 
-**AFT Framework** - Fully operational in Management account  
-**Git Integration** - Four repositories connected to AFT  
-**Automation** - Complete account provisioning workflow  
-**Security Baseline** - Control Tower guardrails across all accounts
-
----
-
-## Accounts Provisioned
-
-**Management Account** - AFT infrastructure and orchestration  
-**Log Archive Account** - Centralised logging  
-**Audit Account** - Security and compliance monitoring  
-**Development Accounts** - Project-specific environments
+- **Control Tower Landing Zone** — fully configured
+- **AFT Framework** — deployed in Management account
+- **Four Git repos** — connected and operational
+- **Pipeline Approval Gates** — manual approvals on customisations
+- **Quota Increment Service** — auto-requests across regions
+- **Account Provisioning** — end-to-end automated workflow
 
 ---
 
-## Customisations Implemented
+## Pipeline Approval Gates
 
-**Global Baseline** - Applied to all accounts automatically  
-**Account-Specific Configs** - Tailored per project requirements  
-**Pipeline Automation** - Terraform deployments via CodePipeline
+Added manual approval stages to AFT pipelines:
+
+- **Global Customisations** — approval before applying to all accounts
+- **Account Customisations** — approval before per-account changes
+- **Safety net** — prevents unreviewed Terraform from reaching production
+- **Audit trail** — approver identity logged per deployment
+
+---
+
+## Quota Increment Service
+
+Built a Lambda to auto-request AWS service quota increases:
+
+- **Multi-region** — targets all required regions in one invocation
+- **Idempotent** — skips quotas already at target value
+- **Monitoring** — polls request status, sends SNS on approval
+- **Example** — Elastic IPs 5 → 20, Security Groups 60 → 200
+
+Runs as a post-provisioning customisation via CodeBuild.
 
 ---
 
 ## Operational Benefits
 
-**Reduced provisioning time** - From days to under an hour  
-**Consistent configurations** - No manual setup variations  
-**Full audit trail** - Every change tracked in Git  
-**Self-service model** - Engineers request accounts themselves
+- **Provisioning time** — days → under an hour
+- **Consistent configs** — no manual setup, no snowflakes
+- **Full audit trail** — every change tracked in Git
+- **Self-service** — engineers request accounts via PR

@@ -1,54 +1,44 @@
 # Agenda
 
-&nbsp;
+**1.** &ensp; Introduction & Control Tower Foundation
 
-**1** &nbsp; Introduction & Control Tower Foundation
+**2.** &ensp; The Journey — Zero to Deployed AFT
 
-**2** &nbsp; The Journey — Zero to Deployed AFT
+**3.** &ensp; Architecture — How AFT Works
 
-**3** &nbsp; Architecture — How AFT Operates Under the Hood
+**4.** &ensp; Demo — Account Provisioning
 
-**4** &nbsp; Demo — Account Provisioning & Customisation
+**5.** &ensp; What We Delivered — Outcomes & Cost
 
-**5** &nbsp; What We Delivered — Outcomes & Cost
-
-**6** &nbsp; Summary & Questions
+**6.** &ensp; Summary & Questions
 
 ---
 
 ## What is AFT?
 
-**Account Factory for Terraform** — an orchestration layer on top of AWS Control Tower that replaces manual account provisioning with a GitOps workflow.
+**Account Factory for Terraform**<br>GitOps-driven account provisioning on Control Tower.
 
-Engineer commits HCL → pipeline validates & provisions → hardened account lands in the correct OU with security baseline applied.
+Commit HCL → pipeline runs → account ready.
 
-**Why we adopted it:**
-
-- **Consistency** — every account is identical by design, no snowflakes
-- **Speed** — provision ten accounts as easily as one, in parallel
-- **Auditability** — full trail in Git history and DynamoDB
-- **Self-service** — engineers raise a PR, no tickets required
+- **Consistency** — no snowflake accounts
+- **Speed** — parallel provisioning
+- **Auditability** — tracked in Git + DynamoDB
+- **Self-service** — PR-based, no tickets
 
 ---
 
 ## Control Tower Prerequisite
 
-Control Tower must be active before deploying AFT. One-time setup:
+Control Tower must be active before deploying AFT.
 
-1. Your existing account becomes the **Management Account**
-2. Control Tower provisions two accounts automatically:
-   - **Log Archive** — centralised CloudTrail and config logs
-   - **Audit** — GuardDuty, Security Hub, cross-account read-only access
+1. Your existing account becomes **Management**
+2. Control Tower auto-creates two accounts:
+   - **Log Archive** — CloudTrail and config logs
+   - **Audit** — GuardDuty, Security Hub
 
-**You supply:** two unique email addresses
-**Control Tower creates:** both accounts, baseline guardrails, OU structure
+**You supply:** two emails (Log Archive + Audit)<br>
+**Control Tower creates:** accounts, guardrails, OU structure
 
 ---
 
-## Three-Account Architecture
-
-![Three-account architecture](assets/three-account-architecture.png)
-
-**Management** — AFT stack, Step Functions, CodePipeline
-**Log Archive** — CloudTrail, Config logs, centralised S3
-**Audit** — GuardDuty, Security Hub, cross-account audit role
+![Three-account architecture](assets/three-account-architecture.svg)

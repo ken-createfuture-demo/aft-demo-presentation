@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" font-family="Inter, Arial, sans-serif">
+  <!-- Background -->
+  <rect width="1200" height="800" fill="#0A001A"/>
+
+  <!-- Title -->
+  <text x="600" y="55" text-anchor="middle" fill="white" font-size="20" font-weight="700" letter-spacing="1.5">THE FOUR-PHASE JOURNEY</text>
+  <line x1="470" y1="70" x2="730" y2="70" stroke="#C3FF34" stroke-width="2" stroke-opacity="0.5"/>
+
+  <!-- Arrowhead markers -->
+  <defs>
+    <marker id="arrowP" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <path d="M0,0 L10,3.5 L0,7" fill="#FE7AF6"/>
+    </marker>
+  </defs>
+
+  <!-- ===== ONE-TIME SETUP BRACKET ===== -->
+  <rect x="50" y="90" width="790" height="36" rx="5" fill="rgba(195,255,52,0.06)"/>
+  <text x="445" y="114" text-anchor="middle" fill="#C3FF34" font-size="12" font-weight="600" letter-spacing="3">ONE-TIME SETUP</text>
+
+  <!-- ===== ONGOING BRACKET ===== -->
+  <rect x="870" y="90" width="280" height="36" rx="5" fill="rgba(254,122,246,0.08)"/>
+  <text x="1010" y="114" text-anchor="middle" fill="#FE7AF6" font-size="12" font-weight="600" letter-spacing="3">ONGOING</text>
+
+  <!-- ===== PHASE 1 ===== -->
+  <rect x="50" y="145" width="250" height="370" rx="12" fill="rgba(195,255,52,0.04)" stroke="#C3FF34" stroke-width="0.8" stroke-opacity="0.4"/>
+
+  <rect x="75" y="170" width="50" height="50" rx="25" fill="rgba(195,255,52,0.15)" stroke="#C3FF34" stroke-width="1.2"/>
+  <text x="100" y="202" text-anchor="middle" fill="#C3FF34" font-size="20" font-weight="700">1</text>
+  <text x="140" y="202" fill="white" font-size="16" font-weight="700">PREREQUISITES</text>
+
+  <rect x="75" y="240" width="200" height="44" rx="7" fill="rgba(195,255,52,0.12)" stroke="#C3FF34" stroke-width="0.8"/>
+  <text x="175" y="268" text-anchor="middle" fill="white" font-size="14" font-weight="500">Enable Control Tower</text>
+
+  <rect x="75" y="300" width="200" height="44" rx="7" fill="rgba(195,255,52,0.12)" stroke="#C3FF34" stroke-width="0.8"/>
+  <text x="175" y="328" text-anchor="middle" fill="white" font-size="14" font-weight="500">Create Landing Zone</text>
+
+  <rect x="75" y="360" width="200" height="44" rx="7" fill="rgba(195,255,52,0.12)" stroke="#C3FF34" stroke-width="0.8"/>
+  <text x="175" y="388" text-anchor="middle" fill="white" font-size="14" font-weight="500">Prepare 3 Account IDs</text>
+
+  <rect x="75" y="420" width="200" height="44" rx="7" fill="rgba(195,255,52,0.12)" stroke="#C3FF34" stroke-width="0.8"/>
+  <text x="175" y="448" text-anchor="middle" fill="white" font-size="14" font-weight="500">Create 4 Git Repos</text>
+
+  <text x="175" y="495" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-size="12" font-style="italic">Foundation layer</text>
+
+  <!-- Arrow: Phase 1 → Phase 2 -->
+  <line x1="300" y1="330" x2="325" y2="330" stroke="#FE7AF6" stroke-width="2" marker-end="url(#arrowP)"/>
+
+  <!-- ===== PHASE 2 ===== -->
+  <rect x="330" y="145" width="250" height="370" rx="12" fill="rgba(195,255,52,0.04)" stroke="#C3FF34" stroke-width="0.8" stroke-opacity="0.4"/>
+
+  <rect x="355" y="170" width="50" height="50" rx="25" fill="rgba(195,255,52,0.15)" stroke="#C3FF34" stroke-width="1.2"/>
+  <text x="380" y="202" text-anchor="middle" fill="#C3FF34" font-size="20" font-weight="700">2</text>
+  <text x="420" y="202" fill="white" font-size="16" font-weight="700">DEPLOY AFT</text>
+
+  <rect x="355" y="240" width="200" height="44" rx="7" fill="rgba(195,255,52,0.12)" stroke="#C3FF34" stroke-width="0.8"/>
+  <text x="455" y="268" text-anchor="middle" fill="white" font-size="14" font-weight="500">Terraform Module</text>
+
+  <rect x="355" y="300" width="200" height="44" rx="7" fill="rgba(195,255,52,0.12)" stroke="#C3FF34" stroke-width="0.8"/>
+  <text x="455" y="328" text-anchor="middle" fill="white" font-size="14" font-weight="500">AFT Management Stack</text>
+
+  <rect x="355" y="360" width="200" height="44" rx="7" fill="rgba(195,255,52,0.12)" stroke="#C3FF34" stroke-width="0.8"/>
+  <text x="455" y="388" text-anchor="middle" fill="white" font-size="14" font-weight="500">Git Integration</text>
+
+  <rect x="355" y="420" width="200" height="44" rx="7" fill="rgba(195,255,52,0.12)" stroke="#C3FF34" stroke-width="0.8"/>
+  <text x="455" y="448" text-anchor="middle" fill="white" font-size="14" font-weight="500">IAM Identity Centre</text>
+
+  <text x="455" y="495" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-size="12" font-style="italic">~30 min deploy</text>
+
+  <!-- Arrow: Phase 2 → Phase 3 -->
+  <line x1="580" y1="330" x2="605" y2="330" stroke="#FE7AF6" stroke-width="2" marker-end="url(#arrowP)"/>
+
+  <!-- ===== PHASE 3 ===== -->
+  <rect x="610" y="145" width="250" height="370" rx="12" fill="rgba(195,255,52,0.04)" stroke="#C3FF34" stroke-width="0.8" stroke-opacity="0.4"/>
+
+  <rect x="635" y="170" width="50" height="50" rx="25" fill="rgba(195,255,52,0.15)" stroke="#C3FF34" stroke-width="1.2"/>
+  <text x="660" y="202" text-anchor="middle" fill="#C3FF34" font-size="20" font-weight="700">3</text>
+  <text x="700" y="202" fill="white" font-size="16" font-weight="700">CONFIGURE</text>
+
+  <rect x="635" y="240" width="200" height="44" rx="7" fill="rgba(195,255,52,0.12)" stroke="#C3FF34" stroke-width="0.8"/>
+  <text x="735" y="268" text-anchor="middle" fill="white" font-size="14" font-weight="500">Global Customisations</text>
+
+  <rect x="635" y="300" width="200" height="44" rx="7" fill="rgba(195,255,52,0.12)" stroke="#C3FF34" stroke-width="0.8"/>
+  <text x="735" y="328" text-anchor="middle" fill="white" font-size="14" font-weight="500">Account Customisations</text>
+
+  <rect x="635" y="360" width="200" height="44" rx="7" fill="rgba(195,255,52,0.12)" stroke="#C3FF34" stroke-width="0.8"/>
+  <text x="735" y="388" text-anchor="middle" fill="white" font-size="14" font-weight="500">Provisioning Hooks</text>
+
+  <rect x="635" y="420" width="200" height="44" rx="7" fill="rgba(195,255,52,0.12)" stroke="#C3FF34" stroke-width="0.8"/>
+  <text x="735" y="448" text-anchor="middle" fill="white" font-size="14" font-weight="500">Terraform Backend</text>
+
+  <text x="735" y="495" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-size="12" font-style="italic">Define standards</text>
+
+  <!-- Arrow: Phase 3 → Phase 4 -->
+  <line x1="860" y1="330" x2="885" y2="330" stroke="#FE7AF6" stroke-width="2" marker-end="url(#arrowP)"/>
+
+  <!-- ===== PHASE 4 ===== -->
+  <rect x="890" y="145" width="260" height="370" rx="12" fill="rgba(254,122,246,0.04)" stroke="#FE7AF6" stroke-width="1.2" stroke-opacity="0.6"/>
+
+  <rect x="915" y="170" width="50" height="50" rx="25" fill="rgba(254,122,246,0.12)" stroke="#FE7AF6" stroke-width="1.2"/>
+  <text x="940" y="202" text-anchor="middle" fill="#FE7AF6" font-size="20" font-weight="700">4</text>
+  <text x="980" y="202" fill="white" font-size="16" font-weight="700">PROVISION</text>
+
+  <rect x="915" y="240" width="210" height="44" rx="7" fill="rgba(254,122,246,0.08)" stroke="#FE7AF6" stroke-width="0.8"/>
+  <text x="1020" y="268" text-anchor="middle" fill="white" font-size="14" font-weight="500">Commit HCL to Git</text>
+
+  <rect x="915" y="300" width="210" height="44" rx="7" fill="rgba(254,122,246,0.08)" stroke="#FE7AF6" stroke-width="0.8"/>
+  <text x="1020" y="328" text-anchor="middle" fill="white" font-size="14" font-weight="500">Pipeline Runs Auto</text>
+
+  <rect x="915" y="360" width="210" height="44" rx="7" fill="rgba(254,122,246,0.08)" stroke="#FE7AF6" stroke-width="0.8"/>
+  <text x="1020" y="388" text-anchor="middle" fill="white" font-size="14" font-weight="500">Account Ready ✓</text>
+
+  <rect x="915" y="420" width="210" height="44" rx="7" fill="rgba(254,122,246,0.08)" stroke="#FE7AF6" stroke-width="0.8"/>
+  <text x="1020" y="448" text-anchor="middle" fill="white" font-size="14" font-weight="500">Customisations Applied</text>
+
+  <text x="1020" y="495" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-size="12" font-style="italic">Repeat for every account</text>
+
+  <!-- ===== DIVIDER LINE ===== -->
+  <line x1="60" y1="640" x2="1140" y2="640" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+
+  <!-- ===== SUMMARY NOTES ===== -->
+  <text x="100" y="685" fill="#C3FF34" font-size="14" font-weight="700">PHASES 1–3</text>
+  <text x="240" y="685" fill="rgba(255,255,255,0.7)" font-size="14">One-time setup — enable Control Tower, deploy AFT, configure repos</text>
+
+  <text x="100" y="718" fill="#FE7AF6" font-size="14" font-weight="700">PHASE 4</text>
+  <text x="240" y="718" fill="rgba(255,255,255,0.7)" font-size="14">Ongoing — commit HCL, pipeline provisions, account ready in minutes</text>
+
+</svg>

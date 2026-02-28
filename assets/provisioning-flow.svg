@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" font-family="Inter, Arial, sans-serif">
+  <!-- Background -->
+  <rect width="1200" height="800" fill="#0A001A"/>
+
+  <!-- Title -->
+  <text x="600" y="55" text-anchor="middle" fill="white" font-size="20" font-weight="700" letter-spacing="1.5">PROVISIONING FLOW</text>
+  <line x1="490" y1="70" x2="710" y2="70" stroke="#C3FF34" stroke-width="2" stroke-opacity="0.5"/>
+
+  <!-- Arrowhead markers -->
+  <defs>
+    <marker id="arrowPink" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <path d="M0,0 L10,3.5 L0,7" fill="#FE7AF6"/>
+    </marker>
+    <marker id="arrowLime" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <path d="M0,0 L10,3.5 L0,7" fill="#C3FF34"/>
+    </marker>
+  </defs>
+
+  <!-- ===== GIT COMMIT (entry) ===== -->
+  <rect x="30" y="280" width="120" height="55" rx="8" fill="none" stroke="#FE7AF6" stroke-width="2"/>
+  <text x="90" y="313" text-anchor="middle" fill="#FE7AF6" font-size="15" font-weight="600">Git Commit</text>
+
+  <!-- Arrow: Git → Request -->
+  <line x1="150" y1="307" x2="195" y2="307" stroke="#FE7AF6" stroke-width="2" marker-end="url(#arrowPink)"/>
+
+  <!-- ===== GROUP 1: REQUEST ===== -->
+  <rect x="200" y="100" width="260" height="420" rx="12" fill="rgba(195,255,52,0.04)" stroke="#C3FF34" stroke-width="1" stroke-opacity="0.4"/>
+  <text x="330" y="140" text-anchor="middle" fill="#C3FF34" font-size="15" font-weight="700" letter-spacing="3">REQUEST</text>
+
+  <rect x="240" y="165" width="180" height="48" rx="8" fill="rgba(195,255,52,0.12)" stroke="#C3FF34" stroke-width="1"/>
+  <text x="330" y="195" text-anchor="middle" fill="white" font-size="15" font-weight="500">EventBridge</text>
+
+  <line x1="330" y1="213" x2="330" y2="248" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#arrowLime)"/>
+
+  <rect x="240" y="252" width="180" height="48" rx="8" fill="rgba(195,255,52,0.12)" stroke="#C3FF34" stroke-width="1"/>
+  <text x="330" y="282" text-anchor="middle" fill="white" font-size="15" font-weight="500">Lambda</text>
+
+  <line x1="330" y1="300" x2="330" y2="335" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#arrowLime)"/>
+
+  <rect x="240" y="340" width="180" height="48" rx="8" fill="rgba(195,255,52,0.12)" stroke="#C3FF34" stroke-width="1"/>
+  <text x="330" y="370" text-anchor="middle" fill="white" font-size="15" font-weight="500">DynamoDB</text>
+
+  <text x="330" y="440" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-size="13" font-style="italic">Validates request</text>
+
+  <!-- Arrow: Request → Provision -->
+  <line x1="460" y1="307" x2="505" y2="307" stroke="#FE7AF6" stroke-width="2" marker-end="url(#arrowPink)"/>
+
+  <!-- ===== GROUP 2: PROVISION ===== -->
+  <rect x="510" y="100" width="260" height="420" rx="12" fill="rgba(195,255,52,0.04)" stroke="#C3FF34" stroke-width="1" stroke-opacity="0.4"/>
+  <text x="640" y="140" text-anchor="middle" fill="#C3FF34" font-size="15" font-weight="700" letter-spacing="3">PROVISION</text>
+
+  <rect x="550" y="165" width="180" height="48" rx="8" fill="rgba(195,255,52,0.12)" stroke="#C3FF34" stroke-width="1"/>
+  <text x="640" y="195" text-anchor="middle" fill="white" font-size="15" font-weight="500">Step Functions</text>
+
+  <line x1="640" y1="213" x2="640" y2="248" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#arrowLime)"/>
+
+  <rect x="550" y="252" width="180" height="48" rx="8" fill="rgba(195,255,52,0.12)" stroke="#C3FF34" stroke-width="1"/>
+  <text x="640" y="282" text-anchor="middle" fill="white" font-size="15" font-weight="500">Service Catalog</text>
+
+  <line x1="640" y1="300" x2="640" y2="335" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#arrowLime)"/>
+
+  <rect x="550" y="340" width="180" height="48" rx="8" fill="rgba(195,255,52,0.12)" stroke="#C3FF34" stroke-width="1"/>
+  <text x="640" y="370" text-anchor="middle" fill="white" font-size="15" font-weight="500">Control Tower</text>
+
+  <text x="640" y="440" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-size="13" font-style="italic">Creates account</text>
+
+  <!-- Arrow: Provision → Customise -->
+  <line x1="770" y1="307" x2="815" y2="307" stroke="#FE7AF6" stroke-width="2" marker-end="url(#arrowPink)"/>
+
+  <!-- ===== GROUP 3: CUSTOMISE ===== -->
+  <rect x="820" y="100" width="260" height="420" rx="12" fill="rgba(195,255,52,0.04)" stroke="#C3FF34" stroke-width="1" stroke-opacity="0.4"/>
+  <text x="950" y="140" text-anchor="middle" fill="#C3FF34" font-size="15" font-weight="700" letter-spacing="3">CUSTOMISE</text>
+
+  <rect x="860" y="165" width="180" height="48" rx="8" fill="rgba(195,255,52,0.12)" stroke="#C3FF34" stroke-width="1"/>
+  <text x="950" y="195" text-anchor="middle" fill="white" font-size="15" font-weight="500">CodePipeline</text>
+
+  <line x1="950" y1="213" x2="950" y2="248" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#arrowLime)"/>
+
+  <rect x="860" y="252" width="180" height="48" rx="8" fill="rgba(195,255,52,0.12)" stroke="#C3FF34" stroke-width="1"/>
+  <text x="950" y="282" text-anchor="middle" fill="white" font-size="15" font-weight="500">CodeBuild</text>
+
+  <line x1="950" y1="300" x2="950" y2="335" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#arrowLime)"/>
+
+  <rect x="860" y="340" width="180" height="48" rx="8" fill="rgba(195,255,52,0.12)" stroke="#C3FF34" stroke-width="1"/>
+  <text x="950" y="370" text-anchor="middle" fill="white" font-size="15" font-weight="500">Terraform Apply</text>
+
+  <text x="950" y="440" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-size="13" font-style="italic">Applies config</text>
+
+  <!-- Arrow: Customise → Account Ready -->
+  <line x1="1080" y1="307" x2="1095" y2="307" stroke="#FE7AF6" stroke-width="2" marker-end="url(#arrowPink)"/>
+
+  <!-- ===== ACCOUNT READY (exit) ===== -->
+  <rect x="1100" y="272" width="80" height="70" rx="8" fill="#C3FF34" stroke="none"/>
+  <text x="1140" y="302" text-anchor="middle" fill="#0A001A" font-size="13" font-weight="700">Account</text>
+  <text x="1140" y="322" text-anchor="middle" fill="#0A001A" font-size="13" font-weight="700">Ready ✓</text>
+
+  <!-- ===== DIVIDER LINE ===== -->
+  <line x1="60" y1="560" x2="1140" y2="560" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+
+  <!-- ===== NUMBERED STEPS ===== -->
+  <text x="80" y="610" fill="#C3FF34" font-size="14" font-weight="700">1.</text>
+  <text x="105" y="610" fill="rgba(255,255,255,0.7)" font-size="14">Engineer pushes HCL to Git repo</text>
+
+  <text x="80" y="645" fill="#C3FF34" font-size="14" font-weight="700">2.</text>
+  <text x="105" y="645" fill="rgba(255,255,255,0.7)" font-size="14">EventBridge detects commit, triggers Lambda validation</text>
+
+  <text x="80" y="680" fill="#C3FF34" font-size="14" font-weight="700">3.</text>
+  <text x="105" y="680" fill="rgba(255,255,255,0.7)" font-size="14">Lambda validates request, DynamoDB stores state + audit trail</text>
+
+  <text x="640" y="610" fill="#C3FF34" font-size="14" font-weight="700">4.</text>
+  <text x="665" y="610" fill="rgba(255,255,255,0.7)" font-size="14">Step Functions orchestrates Service Catalog provisioning</text>
+
+  <text x="640" y="645" fill="#C3FF34" font-size="14" font-weight="700">5.</text>
+  <text x="665" y="645" fill="rgba(255,255,255,0.7)" font-size="14">Control Tower applies baseline guardrails</text>
+
+  <text x="640" y="680" fill="#C3FF34" font-size="14" font-weight="700">6.</text>
+  <text x="665" y="680" fill="rgba(255,255,255,0.7)" font-size="14">CodePipeline runs Terraform customisations</text>
+</svg>
