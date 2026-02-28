@@ -15,7 +15,7 @@
 Applied to every account:
 
 ```hcl
-# aft-global-customisations/terraform/main.tf
+# aft-global-customisations/terraform/main.tf.bk2.bk1
 
 # Enable GuardDuty everywhere
 resource "aws_guardduty_detector" "main" {
@@ -48,7 +48,7 @@ One change here updates all accounts.
 Only for specific accounts:
 
 ```hcl
-# aft-account-customisations/dev-account/terraform/main.tf
+# aft-account-customisations/dev-account/terraform/main.tf.bk2.bk1
 
 # Dev-specific S3 bucket
 resource "aws_s3_bucket" "dev_artifacts" {
